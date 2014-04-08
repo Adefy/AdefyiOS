@@ -26,6 +26,7 @@
 		09655CDD18F47CE9002D4C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB418F47CE9002D4C92 /* UIKit.framework */; };
 		09655CE518F47CE9002D4C92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09655CE318F47CE9002D4C92 /* InfoPlist.strings */; };
 		09655CE718F47CE9002D4C92 /* Adefy_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */; };
+		09655CF218F48CA5002D4C92 /* AdefyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 09655CF118F48CA5002D4C92 /* AdefyActor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		09655CE218F47CE9002D4C92 /* Adefy iOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Adefy iOSTests-Info.plist"; sourceTree = "<group>"; };
 		09655CE418F47CE9002D4C92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Adefy_iOSTests.m; sourceTree = "<group>"; };
+		09655CF018F48CA5002D4C92 /* AdefyActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyActor.h; sourceTree = "<group>"; };
+		09655CF118F48CA5002D4C92 /* AdefyActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyActor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				09655CD118F47CE9002D4C92 /* AdefyViewController.m */,
 				09655CD318F47CE9002D4C92 /* Images.xcassets */,
 				09655CBB18F47CE9002D4C92 /* Supporting Files */,
+				09655CF018F48CA5002D4C92 /* AdefyActor.h */,
+				09655CF118F48CA5002D4C92 /* AdefyActor.m */,
 			);
 			path = "Adefy iOS";
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09655CC518F47CE9002D4C92 /* AdefyAppDelegate.m in Sources */,
+				09655CF218F48CA5002D4C92 /* AdefyActor.m in Sources */,
 				09655CD218F47CE9002D4C92 /* AdefyViewController.m in Sources */,
 				09655CC118F47CE9002D4C92 /* main.m in Sources */,
 			);
