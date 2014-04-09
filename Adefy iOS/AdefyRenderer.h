@@ -7,14 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
+#import "chipmunk.h"
+
+@class AdefyActor;
 
 @interface AdefyRenderer : NSObject {
-    
-    @private
-    int targetFPS;
-    int targetFrameTime;
+
+  @private
+  int mTargetFPS;
+  int mTargetFrameTime;
+
+  NSMutableArray* mActors;
 }
 
+- (cpVect)getCameraPosition;
+
 -(void) setFPS:(int)fps;
+-(void) addActor:(AdefyActor *)actor;
+-(AdefyActor *) getActor:(int)index;
+
+-(void) drawFrame:(GLKMatrix4)projection;
 
 @end
