@@ -8,7 +8,11 @@
 
 #import "AdefyActor.h"
 
-@implementation AdefyActor
+@implementation AdefyActor {
+    
+    BOOL visible;
+    int id;
+}
 
 -(void) setVisible:(BOOL)isVisible {
     visible = isVisible;
@@ -18,7 +22,7 @@
     return visible;
 }
 
--(NSNumber *)getId {
+-(int)getId {
     return id;
 }
 

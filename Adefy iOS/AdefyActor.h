@@ -8,16 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AdefyActor : NSObject {
-
-    @private
-    BOOL visible;
-    NSNumber *id;
-}
+@interface AdefyActor : NSObject
 
 -(void) setVisible:(BOOL)isVisible;
 
 -(BOOL) getVisible;
--(NSNumber *) getId;
+-(int) getId;
 
 @end
