@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092E4F6C18F53513008CE39F /* AdefyRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 092E4F6B18F53513008CE39F /* AdefyRenderer.m */; };
 		09655CB118F47CE9002D4C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB018F47CE9002D4C92 /* Foundation.framework */; };
 		09655CB318F47CE9002D4C92 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB218F47CE9002D4C92 /* CoreGraphics.framework */; };
 		09655CB518F47CE9002D4C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB418F47CE9002D4C92 /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		092E4F6A18F53513008CE39F /* AdefyRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyRenderer.h; sourceTree = "<group>"; };
+		092E4F6B18F53513008CE39F /* AdefyRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyRenderer.m; sourceTree = "<group>"; };
 		09655CAD18F47CE9002D4C92 /* Adefy iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Adefy iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09655CB018F47CE9002D4C92 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09655CB218F47CE9002D4C92 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -141,6 +144,8 @@
 				09655CBB18F47CE9002D4C92 /* Supporting Files */,
 				09655CF018F48CA5002D4C92 /* AdefyActor.h */,
 				09655CF118F48CA5002D4C92 /* AdefyActor.m */,
+				092E4F6A18F53513008CE39F /* AdefyRenderer.h */,
+				092E4F6B18F53513008CE39F /* AdefyRenderer.m */,
 			);
 			path = "Adefy iOS";
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 			files = (
 				09655CC518F47CE9002D4C92 /* AdefyAppDelegate.m in Sources */,
 				09655CF218F48CA5002D4C92 /* AdefyActor.m in Sources */,
+				092E4F6C18F53513008CE39F /* AdefyRenderer.m in Sources */,
 				09655CD218F47CE9002D4C92 /* AdefyViewController.m in Sources */,
 				09655CC118F47CE9002D4C92 /* main.m in Sources */,
 			);
@@ -497,6 +503,7 @@
 				09655CEC18F47CE9002D4C92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09655CED18F47CE9002D4C92 /* Build configuration list for PBXNativeTarget "Adefy iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +512,7 @@
 				09655CEF18F47CE9002D4C92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
