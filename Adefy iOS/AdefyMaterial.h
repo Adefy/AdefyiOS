@@ -21,14 +21,15 @@
 
 +(void)setJustUsed:(BOOL)used;
 +(void)postFinalDraw;
++ (void)destroyShader;
 
 -(NSString *) getName;
 -(GLuint) getShader;
 
 -(void)draw:(GLKMatrix4)projection
-    withModelView:(float *)modelView
-    withVerts:(float *)vertBuffer
-    withMode:(int)mode
-    withVertCount:(int)vertCount;
+    modelView:(float *)modelView
+        verts:(GLuint *)vertBuffer
+    vertCount:(int)vertCount
+         mode:(GLenum)mode;
 
 @end

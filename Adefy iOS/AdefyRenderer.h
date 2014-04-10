@@ -21,6 +21,10 @@
   NSMutableArray* mActors;
 }
 
++(void)createVertexBuffer:(GLuint *)buffer
+             withVertices:(GLfloat *)vertices
+               withUseage:(GLenum)useage;
+
 - (cpVect)getCameraPosition;
 
 -(void) setFPS:(int)fps;

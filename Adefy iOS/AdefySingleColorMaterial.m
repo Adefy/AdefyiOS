@@ -23,28 +23,30 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 0.0f};
   AdefyColor3* mColor;
 }
 
-+(void)initialize {
++ (void)initialize {
   STATIC_NAME = @"single_color";
   STATIC_JUST_USED = NO;
 
   [self setVertSource:@"ShaderSingleColor"];
   [self setFragSource:@"ShaderSingleColor"];
+  [self buildShader];
 }
 
-+(void)buildShader {
++ (void)buildShader {
+  [self destroyShader];
 
   NSString *vertSource = [self getVertSource];
   NSString *fragSource = [self getFragSource];
 
   GLuint shader;
   [AdefyShader buildProgram:&shader withVert:vertSource withFrag:fragSource];
+
+  STATIC_POSITION_HANDLE = glGetAttribLocation(shader, "Position");
+  STATIC_COLOR_HANDLE = glGetUniformLocation(shader, "Color");
+  STATIC_MODEL_HANDLE = glGetUniformLocation(shader, "ModelView");
+  STATIC_PROJECTION_HANDLE = glGetUniformLocation(shader, "Projection");
+
   [self setShader:shader];
-
-  STATIC_POSITION_HANDLE = glGetAttribLocation([self getShader], "Position");
-  STATIC_COLOR_HANDLE = glGetUniformLocation([self getShader], "Color");
-  STATIC_MODEL_HANDLE = glGetUniformLocation([self getShader], "ModelView");
-  STATIC_PROJECTION_HANDLE = glGetUniformLocation([self getShader], "Projection");
-
 }
 
 + (BOOL)wasJustUsed {
@@ -55,12 +57,12 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 0.0f};
   STATIC_JUST_USED = used;
 }
 
--(AdefySingleColorMaterial *)init {
+- (AdefySingleColorMaterial *)init {
   self = [self init:[[AdefyColor3 alloc] init:255 withG:255 withB:255]];
   return self;
 }
 
--(AdefySingleColorMaterial *)init:(AdefyColor3 *)withColor {
+- (AdefySingleColorMaterial *)init:(AdefyColor3 *)withColor {
   self = [super init];
 
   mColor = withColor;
@@ -68,19 +70,24 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 0.0f};
   return self;
 }
 
--(void)setColor:(AdefyColor3 *)color {
+- (void)setColor:(AdefyColor3 *)color {
   mColor = color;
 }
 
--(AdefyColor3 *)getColor {
+- (AdefyColor3 *)getColor {
   return mColor;
 }
 
--(void)draw:(GLKMatrix4)projection
-    withModelView:(float *)modelView
-    withVerts:(float *)vertBuffer
-    withMode:(int)mode
-    withVertCount:(int)vertCount {
+- (void)draw:(GLKMatrix4)projection
+    modelView:(float *)modelView
+        verts:(GLuint *)vertBuffer
+    vertCount:(int)vertCount
+         mode:(GLenum)mode {
+
+  // Check if we need to re-build our shader
+  if([AdefySingleColorMaterial getShader] == 0) {
+    [AdefySingleColorMaterial buildShader];
+  }
 
   // Copy color into float[] array, to prevent allocation
   [mColor copyToFloatArray:STATIC_COLOR];
@@ -89,8 +96,9 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 0.0f};
   glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, false, modelView);
   glUniform4fv(STATIC_COLOR_HANDLE, 1, STATIC_COLOR);
 
-  glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
+  glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);
   glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, false, 0, vertBuffer);
+  glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
 
   if(![AdefySingleColorMaterial wasJustUsed]) {
 
@@ -104,7 +112,7 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 0.0f};
 }
 
 // Called by other textures if they draw after us
-+(void)postFinalDraw {
++ (void)postFinalDraw {
   glDisableVertexAttribArray(STATIC_POSITION_HANDLE);
 }
 

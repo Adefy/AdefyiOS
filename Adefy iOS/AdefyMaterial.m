@@ -3,10 +3,10 @@
 // Copyright (c) 2014 Adefy. All rights reserved.
 //
 
+#import <GLKit/GLKit.h>
 #import "AdefyMaterial.h"
 
-
-GLuint STATIC_SHADER;
+GLuint STATIC_SHADER = 0;
 NSString *STATIC_VERT_SHADER_SRC;
 NSString *STATIC_FRAG_SHADER_SRC;
 
@@ -14,51 +14,36 @@ NSString *STATIC_FRAG_SHADER_SRC;
 
 @private
   NSString *mName;
-
 }
 
-+(void)initialize {
++ (void)initialize {
   STATIC_VERT_SHADER_SRC = [[NSString alloc] init];
   STATIC_FRAG_SHADER_SRC = [[NSString alloc] init];
 }
 
-+(void)setVertSource:(NSString *)src {
-  STATIC_VERT_SHADER_SRC = src;
-}
++ (void)setVertSource:(NSString *)src { STATIC_VERT_SHADER_SRC = src; }
++ (void)setFragSource:(NSString *)src { STATIC_FRAG_SHADER_SRC = src; }
++ (void)setShader:(GLuint)shader { STATIC_SHADER = shader; }
++ (NSString *)getVertSource { return STATIC_VERT_SHADER_SRC; }
++ (NSString *)getFragSource { return STATIC_FRAG_SHADER_SRC; }
 
-+(void)setFragSource:(NSString *)src {
-  STATIC_FRAG_SHADER_SRC = src;
-}
++ (GLuint)getShader { return STATIC_SHADER; }
+- (GLuint)getShader { return [AdefyMaterial getShader]; }
 
-+(void)setShader:(GLuint)shader {
-  STATIC_SHADER = shader;
-}
++ (void)destroyShader { glDeleteProgram([self getShader]); }
 
-+(NSString *)getVertSource {
-  return STATIC_VERT_SHADER_SRC;
-}
++ (BOOL)wasJustUsed { return NO; }
++ (void)buildShader {}
++ (void)setJustUsed:(BOOL)used {}
++ (void)postFinalDraw {}
 
-+(NSString *)getFragSource {
-  return STATIC_FRAG_SHADER_SRC;
-}
+- (void)draw:(GLKMatrix4)projection
+   modelView:(float *)modelView
+       verts:(GLuint *)vertBuffer
+   vertCount:(int)vertCount
+        mode:(GLenum)mode {}
 
-+(GLuint)getShader {
-  return STATIC_SHADER;
-}
-
--(void) init:(NSString *)name {
-  mName = name;
-}
-
-- (NSString *)getName {
-  return nil;
-}
-
-
-// Consider this virtual. Implement eeeeet with the material class
-- (GLuint)getShader {
-  return [AdefyMaterial getShader];
-}
-
+- (NSString *)getName { return @"unnamed"; }
+- (void) init:(NSString *)name { mName = name; }
 
 @end

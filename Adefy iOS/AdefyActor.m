@@ -9,14 +9,13 @@
 #import <GLKit/GLKit.h>
 #import "AdefyActor.h"
 #import "AdefyRenderer.h"
-#import "chipmunk.h"
 #import "AdefyMaterial.h"
 #import "AdefySingleColorMaterial.h"
 
 // Private methods
 @interface AdefyActor ()
 
--(void) addToRenderer;
+-(void) addToRenderer:(AdefyRenderer *)renderer;
 -(void) setupRenderMatrix;
 
 @end
@@ -28,7 +27,11 @@
   int mId;
   BOOL mVisible;
 
-  NSMutableArray *mVertices;
+  GLuint mPosVertexBuffer;
+  // GLuint mTexVertexBuffer;
+
+  GLfloat *mRawPosVertices;
+  // GLfloat *mRawTexVertices;
 
   float mRotation;    // Stored in radians
   cpVect mPosition;
@@ -39,17 +42,21 @@
   AdefyMaterial *mMaterial;
 }
 
--(AdefyActor *) init:(int)id withRenderer:(AdefyRenderer *)renderer {
+-(AdefyActor *)init:(int)id
+       withRenderer:(AdefyRenderer *)renderer
+       withVertices:(GLfloat *)vertices {
+
   self = [super init];
 
   mId = id;
   mRenderer = renderer;
-  mVertices = [[NSMutableArray alloc] init];
   mRotation = 0.0f;
   mPosition = cpv(0.0f, 0.0f);
   mMaterial = [[AdefySingleColorMaterial alloc] init];
+  mPosVertexBuffer = 0;
 
-  [self addToRenderer];
+  [self setVertices:vertices];
+  [self addToRenderer:mRenderer];
 
   return self;
 }
@@ -65,12 +72,24 @@
 -(BOOL) getVisible { return mVisible; }
 -(int)  getId      { return mId; }
 
+-(void) setVertices:(GLfloat *)vertices {
+
+  // Save raw vertices, just in case we need them (probably not)
+  mRawPosVertices = vertices;
+
+  glDeleteBuffers(1, &mPosVertexBuffer);
+
+  [AdefyRenderer createVertexBuffer:&mPosVertexBuffer
+                       withVertices:vertices
+                         withUseage:GL_STATIC_DRAW];
+}
+
 //
 // Fancy stuff
 //
 
--(void) addToRenderer {
-  [mRenderer addActor:self];
+-(void) addToRenderer:(AdefyRenderer *)renderer {
+  [renderer addActor:self];
 }
 
 -(void) draw:(GLKMatrix4)projection {
@@ -79,13 +98,12 @@
   [self setupRenderMatrix];
 
   // This all has to be moved into a single color material
-  // [mMaterial
-  //     draw:projection
-  //     withModelView:mModelViewMatrix.m
-  //     withVerts:mVertices.
-  //     withMode:GL_TRIANGLE_STRIP
-  //     withVertCount:[mVertices count]
-  // ];
+  [mMaterial
+           draw:projection
+      modelView:mModelViewMatrix.m
+          verts:&mPosVertexBuffer
+      vertCount:sizeof(mRawPosVertices)
+           mode:GL_TRIANGLE_STRIP];
 }
 
 -(void) setupRenderMatrix {

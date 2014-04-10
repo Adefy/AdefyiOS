@@ -62,6 +62,19 @@ static float PPM;
   mTargetFrameTime = 1000 / fps;
 }
 
+//
+//
+//
+
++(void)createVertexBuffer:(GLuint *)buffer
+             withVertices:(GLfloat *)vertices
+               withUseage:(GLenum)useage {
+
+  glGenBuffers(1, buffer);
+  glBindBuffer(GL_ARRAY_BUFFER, buffer);
+  glBufferData(buffer, sizeof(vertices), vertices, useage);
+}
+
 -(void) drawFrame:(GLKMatrix4)projection {
 
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
