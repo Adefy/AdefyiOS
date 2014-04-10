@@ -19,11 +19,11 @@
 
 - (float *)toFloatArray {
 
-  float array[] = {
-      mRFloat,
-      mGFloat,
-      mBFloat
-  };
+  float *array = (float *)malloc(3 * sizeof(float));
+
+  array[0] = mRFloat;
+  array[1] = mGFloat;
+  array[2] = mBFloat;
 
   return array;
 }

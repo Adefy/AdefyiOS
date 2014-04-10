@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d2b6591e-27de-4411-b56b-61f2e3a7b7ba" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyActor.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyActor.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyActor.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyActor.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefySingleColorMaterial.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefySingleColorMaterial.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="d2b6591e-27de-4411-b56b-61f2e3a7b7ba" name="Default" comment="" />
     <ignored path="Adefy iOS.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,7 +28,7 @@
           <file leaf-file-name="AdefyViewController.m" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyViewController.m">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="55" column="19" selection-start="1173" selection-end="1173" vertical-scroll-proportion="0.68080807" vertical-offset="339" max-vertical-offset="1899">
+                <state line="51" column="42" selection-start="1082" selection-end="1082" vertical-scroll-proportion="0.57575756" vertical-offset="339" max-vertical-offset="1899">
                   <folding />
                 </state>
               </provider>
@@ -405,7 +394,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyViewController.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="19" selection-start="1173" selection-end="1173" vertical-scroll-proportion="0.68080807" vertical-offset="339" max-vertical-offset="1899">
+        <state line="51" column="42" selection-start="1082" selection-end="1082" vertical-scroll-proportion="0.57575756" vertical-offset="339" max-vertical-offset="1899">
           <folding />
         </state>
       </provider>

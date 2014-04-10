@@ -7,8 +7,14 @@
 
 @interface AdefyShader : NSObject
 
-+(BOOL)compileShader:(GLuint *)shader type:(GLenum)type name:(NSString *)name;
++(BOOL)compileShader:(GLuint *)shader
+                type:(GLenum)type
+                name:(NSString *)name;
+
 +(BOOL)linkProgram:(GLuint)prog;
-+(BOOL)buildProgram:(GLuint *)prog withVert:(NSString *)vert withFrag:(NSString *)frag;
+
++(BOOL)buildProgram:(GLuint *)prog
+           withVert:(NSString *)vert
+           withFrag:(NSString *)frag;
 
 @end

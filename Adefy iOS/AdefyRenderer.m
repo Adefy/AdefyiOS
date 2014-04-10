@@ -71,8 +71,8 @@ static float PPM;
                withUseage:(GLenum)useage {
 
   glGenBuffers(1, buffer);
-  glBindBuffer(GL_ARRAY_BUFFER, buffer);
-  glBufferData(buffer, sizeof(vertices), vertices, useage);
+  glBindBuffer(GL_ARRAY_BUFFER, *buffer);
+  glBufferData(*buffer, sizeof(vertices), vertices, useage);
 }
 
 -(void) drawFrame:(GLKMatrix4)projection {

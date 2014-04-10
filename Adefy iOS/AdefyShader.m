@@ -17,7 +17,9 @@ NSString *shaderExt = @"vsh";
 
 }
 
-+(BOOL)buildProgram:(GLuint *)prog withVert:(NSString *)vert withFrag:(NSString *)frag {
++(BOOL)buildProgram:(GLuint *)prog
+           withVert:(NSString *)vert
+           withFrag:(NSString *)frag {
 
   GLuint vertShader;
   GLuint fragShader;
@@ -74,7 +76,9 @@ NSString *shaderExt = @"vsh";
   return YES;
 }
 
-+(BOOL)compileShader:(GLuint *)shader type:(GLenum)type name:(NSString *)name {
++(BOOL)compileShader:(GLuint *)shader
+                type:(GLenum)type
+                name:(NSString *)name {
 
   GLint status;
   const GLchar *source;

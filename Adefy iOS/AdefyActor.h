@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class AdefyMaterial;
+@class AdefyRenderer;
 
 @interface AdefyActor : NSObject
 
