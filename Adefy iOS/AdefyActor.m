@@ -27,11 +27,10 @@
   int mId;
   BOOL mVisible;
 
+  int mPosVertexCount;
   GLuint mPosVertexBuffer;
-  // GLuint mTexVertexBuffer;
-
+  GLuint mPosVertexArray;
   GLfloat *mRawPosVertices;
-  // GLfloat *mRawTexVertices;
 
   float mRotation;    // Stored in radians
   cpVect mPosition;
@@ -43,19 +42,22 @@
 }
 
 -(AdefyActor *)init:(int)id
-       withRenderer:(AdefyRenderer *)renderer
-       withVertices:(GLfloat *)vertices {
+           renderer:(AdefyRenderer *)renderer
+           vertices:(GLfloat *)vertices
+              count:(int)count {
 
   self = [super init];
 
   mId = id;
   mRenderer = renderer;
   mRotation = 0.0f;
-  mPosition = cpv(0.0f, 0.0f);
+  mPosition = cpv(100.0f, 100.0f);
   mMaterial = [[AdefySingleColorMaterial alloc] init];
   mPosVertexBuffer = 0;
+  mPosVertexArray = 0;
+  mVisible = YES;
 
-  [self setVertices:vertices];
+  [self setVertices:vertices count:count];
   [self addToRenderer:mRenderer];
 
   return self;
@@ -72,16 +74,19 @@
 -(BOOL) getVisible { return mVisible; }
 -(int)  getId      { return mId; }
 
--(void) setVertices:(GLfloat *)vertices {
+-(void) setVertices:(GLfloat *)vertices
+              count:(int)count {
 
   // Save raw vertices, just in case we need them (probably not)
   mRawPosVertices = vertices;
+  mPosVertexCount = count;
 
   glDeleteBuffers(1, &mPosVertexBuffer);
 
   [AdefyRenderer createVertexBuffer:&mPosVertexBuffer
-                       withVertices:vertices
-                         withUseage:GL_STATIC_DRAW];
+                           vertices:vertices
+                              count:count
+                             useage:GL_STATIC_DRAW];
 }
 
 //
@@ -100,10 +105,10 @@
   // This all has to be moved into a single color material
   [mMaterial
            draw:projection
-      modelView:mModelViewMatrix.m
+      modelView:mModelViewMatrix
           verts:&mPosVertexBuffer
-      vertCount:sizeof(mRawPosVertices)
-           mode:GL_TRIANGLE_STRIP];
+      vertCount:&mPosVertexCount
+           mode:GL_TRIANGLE_FAN];
 }
 
 -(void) setupRenderMatrix {
@@ -111,9 +116,8 @@
   float finalX = mPosition.x - [mRenderer getCameraPosition].x;
   float finalY = mPosition.y - [mRenderer getCameraPosition].y;
 
-  mModelViewMatrix = GLKMatrix4Identity;
-  GLKMatrix4Translate(mModelViewMatrix, finalX, finalY, 1.0f);
-  GLKMatrix4Rotate(mModelViewMatrix, mRotation, 0.0f, 0.0f, 1.0f);
+  mModelViewMatrix = GLKMatrix4Translate(GLKMatrix4Identity, finalX, finalY, 0.0f);
+  mModelViewMatrix = GLKMatrix4Rotate(mModelViewMatrix, mRotation, 0.0f, 0.0f, 1.0f);
 }
 
 -(NSString *)getMaterialName {

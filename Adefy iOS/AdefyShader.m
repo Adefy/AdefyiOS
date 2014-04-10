@@ -5,11 +5,10 @@
 
 #import "AdefyShader.h"
 
-NSString *shaderExt = @"vsh";
-
 @interface AdefyShader ()
 
-+(NSString *)getShaderPath:(NSString *)name;
++ (NSString *)getShaderPath:(NSString *)name
+                   withExt:(NSString *)ext;
 
 @end
 
@@ -17,7 +16,7 @@ NSString *shaderExt = @"vsh";
 
 }
 
-+(BOOL)buildProgram:(GLuint *)prog
++ (BOOL)buildProgram:(GLuint *)prog
            withVert:(NSString *)vert
            withFrag:(NSString *)frag {
 
@@ -26,12 +25,19 @@ NSString *shaderExt = @"vsh";
   *prog = glCreateProgram();
 
   // Compile
-  if(![AdefyShader compileShader:&vertShader type:GL_VERTEX_SHADER name:vert]) {
+  if(![AdefyShader compileShader:&vertShader
+                            type:GL_VERTEX_SHADER
+                            name:vert
+                             ext:@"vsh"]) {
     NSLog(@"Failed to compile vertex shader");
     return NO;
   }
 
-  if(![AdefyShader compileShader:&fragShader type:GL_FRAGMENT_SHADER name:frag]) {
+  if(![AdefyShader compileShader:&fragShader
+                            type:GL_FRAGMENT_SHADER
+                            name:frag
+                             ext:@"fsh"]) {
+
     NSLog(@"Failed to compile fragment shader");
     return NO;
   }
@@ -76,14 +82,15 @@ NSString *shaderExt = @"vsh";
   return YES;
 }
 
-+(BOOL)compileShader:(GLuint *)shader
++ (BOOL)compileShader:(GLuint *)shader
                 type:(GLenum)type
-                name:(NSString *)name {
+                name:(NSString *)name
+                 ext:(NSString *)ext {
 
   GLint status;
   const GLchar *source;
 
-  NSString *file = [AdefyShader getShaderPath:name];
+  NSString *file = [AdefyShader getShaderPath:name withExt:ext];
 
   source = (GLchar *)[[NSString stringWithContentsOfFile:file
                                                 encoding:NSUTF8StringEncoding
@@ -107,7 +114,7 @@ NSString *shaderExt = @"vsh";
     GLchar *log = (GLchar *)malloc(logLength);
 
     glGetShaderInfoLog(*shader, logLength, &logLength, log);
-    NSLog(@"Shader compile log:\n%s", log);
+    NSLog(@"%@ compile log:\n%s", name, log);
 
     free(log);
   }
@@ -122,7 +129,7 @@ NSString *shaderExt = @"vsh";
   return status != 0;
 }
 
-+(BOOL)linkProgram:(GLuint)prog {
++ (BOOL)linkProgram:(GLuint)prog {
 
   GLint status;
   glLinkProgram(prog);
@@ -145,8 +152,9 @@ NSString *shaderExt = @"vsh";
   return status != 0;
 }
 
-+(NSString *)getShaderPath:(NSString *)name {
-  return [[NSBundle mainBundle] pathForResource:name ofType:shaderExt];
++ (NSString *)getShaderPath:(NSString *)name
+                   withExt:(NSString *)ext {
+  return [[NSBundle mainBundle] pathForResource:name ofType:ext];
 }
 
 @end

@@ -10,74 +10,94 @@
 #import "AdefyActor.h"
 #import "AdefyMaterial.h"
 
+@interface  AdefyRenderer ()
+
+-(GLKMatrix4) generateProjection:(CGRect)rect;
+
+@end
+
 @implementation AdefyRenderer {
   cpVect mCameraPosition;
   NSMutableString *mActiveMaterial;
+
+  int mTargetFPS;
+  int mTargetFrameTime;
+
+  NSMutableArray* mActors;
 }
 
 static float PPM;
 
-//
-// Init
-//
-
-+(void) initialize {
++ (void) initialize {
   PPM = 128.0f;
 }
 
--(AdefyRenderer *) init {
+- (AdefyRenderer *)init:(GLsizei)width
+                 height:(GLsizei)height {
+
   self = [super init];
 
   mActors = [[NSMutableArray alloc] init];
   mCameraPosition = cpv(0.0f, 0.0f);
-
   [mActiveMaterial setString:@""];
 
   [self setFPS:60];
 
+  glViewport(0, 0, width, height);
+  glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LEQUAL);
+
   return self;
 }
 
-//
-// Getters and setters
-//
++ (float) getPPM { return PPM; }
++ (float) getMPP { return 1.0f / PPM; }
 
-+(float) getPPM { return PPM; }
-+(float) getMPP { return 1.0f / PPM; }
-
--(void) addActor:(AdefyActor *)actor {
+- (void) addActor:(AdefyActor *)actor {
   [mActors addObject:actor];
 }
 
--(AdefyActor *) getActor:(int)index {
+- (AdefyActor *) getActor:(int)index {
   return [mActors objectAtIndex:index];
 }
 
--(cpVect) getCameraPosition {
+- (cpVect) getCameraPosition {
   return mCameraPosition;
 }
 
--(void) setFPS:(int)fps {
+- (void) setFPS:(int)fps {
   mTargetFPS = fps;
   mTargetFrameTime = 1000 / fps;
 }
 
-//
-//
-//
++ (void)createVertexBuffer:(GLuint *)buffer
+                 vertices:(GLfloat *)vertices
+                    count:(int)count
+                   useage:(GLenum)useage {
 
-+(void)createVertexBuffer:(GLuint *)buffer
-             withVertices:(GLfloat *)vertices
-               withUseage:(GLenum)useage {
+  GLuint __buffer;
 
-  glGenBuffers(1, buffer);
-  glBindBuffer(GL_ARRAY_BUFFER, *buffer);
-  glBufferData(*buffer, sizeof(vertices), vertices, useage);
+  glGenVertexArraysOES(1, buffer);
+  glBindVertexArrayOES(*buffer);
+
+  glGenBuffers(1, &__buffer);
+  glBindBuffer(GL_ARRAY_BUFFER, __buffer);
+
+  // Vertices doesn't mean components, so multiply by 3
+  glBufferData(GL_ARRAY_BUFFER, count * 3 * sizeof(GL_FLOAT), vertices, useage);
+
+  glBindVertexArrayOES(0);
 }
 
--(void) drawFrame:(GLKMatrix4)projection {
+- (GLKMatrix4) generateProjection:(CGRect)rect {
+  return GLKMatrix4MakeOrtho(0, rect.size.width, 0, rect.size.height, -10, 10);
+}
 
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+- (void) drawFrame:(CGRect)rect {
+
+  GLKMatrix4 projection = [self generateProjection:rect];
+
+  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   for(AdefyActor *actor in mActors) {

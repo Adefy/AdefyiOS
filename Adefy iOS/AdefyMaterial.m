@@ -38,9 +38,9 @@ NSString *STATIC_FRAG_SHADER_SRC;
 + (void)postFinalDraw {}
 
 - (void)draw:(GLKMatrix4)projection
-   modelView:(float *)modelView
+   modelView:(GLKMatrix4)modelView
        verts:(GLuint *)vertBuffer
-   vertCount:(int)vertCount
+   vertCount:(int *)vertCount
         mode:(GLenum)mode {}
 
 - (NSString *)getName { return @"unnamed"; }

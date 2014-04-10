@@ -12,25 +12,22 @@
 
 @class AdefyActor;
 
-@interface AdefyRenderer : NSObject {
+@interface AdefyRenderer : NSObject
 
-  @private
-  int mTargetFPS;
-  int mTargetFrameTime;
++ (void)createVertexBuffer:(GLuint *)buffer
+                 vertices:(GLfloat *)vertices
+                    count:(int)count
+                   useage:(GLenum)useage;
 
-  NSMutableArray* mActors;
-}
-
-+(void)createVertexBuffer:(GLuint *)buffer
-             withVertices:(GLfloat *)vertices
-               withUseage:(GLenum)useage;
+- (AdefyRenderer *)init:(GLsizei)width
+                 height:(GLsizei)height;
 
 - (cpVect)getCameraPosition;
 
--(void) setFPS:(int)fps;
--(void) addActor:(AdefyActor *)actor;
--(AdefyActor *) getActor:(int)index;
+- (void) setFPS:(int)fps;
+- (void) addActor:(AdefyActor *)actor;
+- (AdefyActor *) getActor:(int)index;
 
--(void) drawFrame:(GLKMatrix4)projection;
+- (void) drawFrame:(CGRect)rect;
 
 @end

@@ -14,11 +14,13 @@
 @interface AdefyActor : NSObject
 
 -(AdefyActor *)init:(int)id
-       withRenderer:(AdefyRenderer *)renderer
-       withVertices:(GLfloat *)vertices;
+           renderer:(AdefyRenderer *)renderer
+           vertices:(GLfloat *)vertices
+              count:(int)count;
 
 -(void) setVisible:(BOOL)isVisible;
--(void) setVertices:(GLfloat *)vertices;
+-(void) setVertices:(GLfloat *)vertices
+              count:(int)count;
 
 -(NSString *)getMaterialName;
 -(AdefyMaterial *)getMaterial;

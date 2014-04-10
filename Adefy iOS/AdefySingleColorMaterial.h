@@ -11,7 +11,7 @@
 
 @interface AdefySingleColorMaterial : AdefyMaterial
 
--(void)setColor:(AdefyColor3 *)color;
--(AdefyColor3 *)getColor;
+- (void)setColor:(AdefyColor3 *)color;
+- (AdefyColor3 *)getColor;
 
 @end

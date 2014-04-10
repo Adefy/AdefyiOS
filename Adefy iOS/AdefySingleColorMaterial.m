@@ -7,6 +7,8 @@
 #import "AdefyColor3.h"
 #import "AdefyShader.h"
 
+const int STATIC_VERT_STRIDE = 3 * sizeof(GL_FLOAT);
+
 int STATIC_POSITION_HANDLE;
 int STATIC_COLOR_HANDLE;
 int STATIC_MODEL_HANDLE;
@@ -15,7 +17,7 @@ int STATIC_PROJECTION_HANDLE;
 BOOL STATIC_JUST_USED;
 NSString *STATIC_NAME;
 
-float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 0.0f};
+float STATIC_COLOR[] = {0.0f, 1.0f, 0.0f, 1.0f};
 
 @implementation AdefySingleColorMaterial {
 
@@ -79,9 +81,9 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 0.0f};
 }
 
 - (void)draw:(GLKMatrix4)projection
-    modelView:(float *)modelView
+    modelView:(GLKMatrix4)modelView
         verts:(GLuint *)vertBuffer
-    vertCount:(int)vertCount
+    vertCount:(int *)vertCount
          mode:(GLenum)mode {
 
   // Check if we need to re-build our shader
@@ -92,22 +94,19 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 0.0f};
   // Copy color into float[] array, to prevent allocation
   [mColor copyToFloatArray:STATIC_COLOR];
 
-  glUniformMatrix4fv(STATIC_PROJECTION_HANDLE, 1, false, projection.m);
-  glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, false, modelView);
+  glUniformMatrix4fv(STATIC_PROJECTION_HANDLE, 1, GL_FALSE, projection.m);
+  glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, GL_FALSE, modelView.m);
   glUniform4fv(STATIC_COLOR_HANDLE, 1, STATIC_COLOR);
 
-  glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);
-  glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, false, 0, vertBuffer);
   glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
+  glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, GL_FALSE, STATIC_VERT_STRIDE, 0);
 
+  // In the future, check if the textured material was just used...
   if(![AdefySingleColorMaterial wasJustUsed]) {
-
-    // In the future, check if the textured material was just used...
-
     [AdefySingleColorMaterial setJustUsed:true];
   }
 
-  glDrawArrays(mode, 0, vertCount);
+  glDrawArrays(mode, 0, *vertCount * 3);
   glDisableVertexAttribArray(STATIC_POSITION_HANDLE);
 }
 
