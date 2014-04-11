@@ -6,6 +6,8 @@
 
 @interface AdefySingleColorMaterial : AdefyMaterial
 
++ (NSString *)getName;
+
 - (void)setColor:(AdefyColor3 *)color;
 - (AdefyColor3 *)getColor;
 

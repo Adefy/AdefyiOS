@@ -107,6 +107,25 @@
   mRenderMode = mode;
 }
 
+- (void)setRotation:(float)angle {
+  mRotation = angle;
+}
+
+- (void)setRotation:(float)angle inDegrees:(BOOL)degrees {
+  if(degrees) {
+    mRotation = angle * 57.2957795f;
+  } else {
+    mRotation = angle;
+  }
+}
+
+
+- (void)setColor:(AdefyColor3 *)color {
+  if([mMaterial getName] == [AdefySingleColorMaterial getName]) {
+    [(AdefySingleColorMaterial *)mMaterial setColor:color];
+  }
+}
+
 //
 // Fancy stuff
 //

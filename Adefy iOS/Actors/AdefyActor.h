@@ -4,6 +4,7 @@
 
 @class AdefyMaterial;
 @class AdefyRenderer;
+@class AdefyColor3;
 
 @interface AdefyActor : NSObject
 
@@ -34,5 +35,8 @@
 - (void) setPosition:(cpVect)position;
 - (void) setPosition:(float)x y:(float)y;
 - (void) setRenderMode:(GLuint)mode;
+- (void) setRotation:(float)angle;
+- (void) setRotation:(float)angle inDegrees:(BOOL)degrees;
+- (void) setColor:(AdefyColor3 *)color;
 
 @end

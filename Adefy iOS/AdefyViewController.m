@@ -3,6 +3,7 @@
 #import "AdefySingleColorMaterial.h"
 #import "AdefyActor.h"
 #import "AdefyRectangleActor.h"
+#import "AdefyColor3.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -48,6 +49,11 @@
                                                         renderer:mRenderer
                                                            width:25
                                                           height:25];
+
+  AdefyColor3 *color = [[AdefyColor3 alloc] init:0 withG:153 withB:204];
+
+  [actor setRotation:45 inDegrees:YES];
+  [actor setColor:color];
 }
 
 - (void)dealloc {

@@ -12,7 +12,7 @@ GLuint STATIC_PROJECTION_HANDLE;
 BOOL STATIC_JUST_USED;
 NSString *STATIC_NAME;
 
-float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
+float *STATIC_COLOR;
 
 @implementation AdefySingleColorMaterial {
 
@@ -23,6 +23,12 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
 + (void)initialize {
   STATIC_NAME = @"single_color";
   STATIC_JUST_USED = NO;
+
+  STATIC_COLOR = malloc(sizeof(float) * 4);
+  STATIC_COLOR[0] = 1.0f;
+  STATIC_COLOR[1] = 1.0f;
+  STATIC_COLOR[2] = 1.0f;
+  STATIC_COLOR[3] = 1.0f;
 
   [self setVertSource:@"ShaderSingleColor"];
   [self setFragSource:@"ShaderSingleColor"];
@@ -53,6 +59,9 @@ float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
 + (void)setJustUsed:(BOOL)used {
   STATIC_JUST_USED = used;
 }
+
++ (NSString *)getName { return STATIC_NAME; }
+- (NSString *)getName { return [AdefySingleColorMaterial getName]; }
 
 - (AdefySingleColorMaterial *)init {
   self = [self init:[[AdefyColor3 alloc] init:255 withG:255 withB:255]];
