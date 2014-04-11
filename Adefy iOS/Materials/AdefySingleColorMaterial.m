@@ -98,6 +98,8 @@ float *STATIC_COLOR;
   // Copy color into float[] array, to prevent allocation
   [mColor copyToFloatArray:STATIC_COLOR];
 
+  glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);
+
   glUniformMatrix4fv(STATIC_PROJECTION_HANDLE, 1, GL_FALSE, projection.m);
   glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, GL_FALSE, modelView.m);
   glUniform4fv(STATIC_COLOR_HANDLE, 1, STATIC_COLOR);
@@ -112,6 +114,8 @@ float *STATIC_COLOR;
 
   glDrawArrays(mode, 0, vertCount * 3);
   glDisableVertexAttribArray(STATIC_POSITION_HANDLE);
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 // Called by other textures if they draw after us
