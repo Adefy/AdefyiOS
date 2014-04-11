@@ -2,230 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2b6591e-27de-4411-b56b-61f2e3a7b7ba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glfw/lib-msvc100/GLFW.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glew/bin/Release/Win32/glew32.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/images/hash_just_right.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/images/hash_too_big.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/images/hash_too_small.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/images/hms_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/libChipmunkPro-iPhone.a" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/build/Debug-iphonesimulator/libChipmunkPro.a" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/build/Release-iphoneos/libChipmunkPro.a" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/libGLEW/lib/libGLEW.a" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/build/Debug-iphonesimulator/libObjectiveChipmunk.a" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/libglfw/lib/libglfw.a" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/images/logo1_med.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Bench.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/BreakableJoint.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/Chipmunk6.xcodeproj/xcshareddata/xcdebugger/Breakpoints.xcbkptlist" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/Chipmunk6.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Buoyancy.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/CMakeLists.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/CMakeLists.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/CMakeLists.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glfw/COPYING.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/libglfw/COPYING.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Chains.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkBody.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkBody.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkConstraint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkConstraint.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ChipmunkDebugDraw.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ChipmunkDebugDraw.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ChipmunkDemo.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ChipmunkDemo.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ChipmunkDemoShaderSupport.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ChipmunkDemoShaderSupport.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ChipmunkDemoTextSupport.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ChipmunkDemoTextSupport.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkExtras.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkMultiGrab.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkMultiGrab.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkObject.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkObject.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkShape.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkShape.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkSpace.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkSpace.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/CollisionCallback.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ContactGraph.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/ContactPoints.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Convex.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Crane.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/Crushing.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/DynamicStatic.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/GJK.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/GLEWConfig.cmake" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/GLFWConfig.cmake" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/Hello Chipmunk.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/JointRecipies.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Joints.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glew/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/libGLEW/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/LogoSmash.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/Moments.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ObjectiveChipmunk.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/OneWay.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Planet.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Player.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Plink.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Pump.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/PyramidStack.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/PyramidTopple.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Query.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/README.textile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glew/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Shatter.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/Sleeping.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Slice.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Smooth.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Springies.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Sticky.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glew/TODO.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Tank.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/TheoJansen.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Tumble.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/Unicycle.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/VERSION.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/VeraMoBI.ttf_sdf.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/Demo/VeraMoBd.ttf_sdf.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/chipmunk.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc10/chipmunk/chipmunk.def" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc12/chipmunk/chipmunk.def" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/chipmunk.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc10/chipmunk/chipmunk.vcxproj.filters" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc12/chipmunk/chipmunk.vcxproj.filters" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc10/chipmunk/chipmunk.vcxproj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc12/chipmunk/chipmunk.vcxproj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/chipmunk_ffi.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/chipmunk_private.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/chipmunk_types.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/chipmunk_unsafe.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro.xcodeproj/project.xcworkspace/contents.xcworkspacedata" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpArbiter.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/cpArbiter.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpArray.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpBB.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/cpBB.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpBBTree.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpBody.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/cpBody.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpCollision.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpConstraint.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpConstraint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/cpConvexHull.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpDampedRotarySpring.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpDampedRotarySpring.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpDampedSpring.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpDampedSpring.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpGearJoint.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpGearJoint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpGrooveJoint.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpGrooveJoint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpHashSet.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpPinJoint.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpPinJoint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpPivotJoint.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpPivotJoint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpPolyShape.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/cpPolyShape.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpRatchetJoint.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpRatchetJoint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpRotaryLimitJoint.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpRotaryLimitJoint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpShape.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/cpShape.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpSimpleMotor.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpSimpleMotor.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/constraints/cpSlideJoint.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/cpSlideJoint.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpSpace.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/cpSpace.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpSpaceComponent.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples/cpSpaceEachBody.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpSpaceHash.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpSpaceQuery.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpSpaceStep.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpSpatialIndex.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/cpSpatialIndex.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpSweep1D.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/cpVect.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/cpVect.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc10/demo/demo.sln" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc12/demo/demo.sln" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc10/demo/demo.vcxproj.filters" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc12/demo/demo.vcxproj.filters" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc10/demo/demo.vcxproj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/vc12/demo/demo.vcxproj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/examples.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/extract_protos.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glew/include/GL/glew.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/libGLEW/include/GL/glew.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glfw/include/GL/glfw.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/libglfw/include/GL/glfw.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glew/include/GL/glxew.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/iphonestatic.command" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/macstatic.command" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/main-Info.plist" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/src/prime.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/xcode/Chipmunk6.xcodeproj/project.pbxproj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro.xcodeproj/project.pbxproj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glfw/readme.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/readme.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/doc/stylesheet.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/chipmunk/constraints/util.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/msvc/glew/include/GL/wglew.h" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/libChipmunkPro-iPhone.a" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkAutoGeometry.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkAutoGeometry.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkBody.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkBody.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkConstraint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkConstraint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkExtras.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkExtras.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkHastySpace.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkHastySpace.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkImageSampler.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkImageSampler.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkMultiGrab.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkMultiGrab.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkObject.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkObject.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkPointCloudSampler.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkPointCloudSampler.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkShape.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkShape.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkSpace.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Objective-Chipmunk/ChipmunkSpace.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkTileCache.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ChipmunkTileCache.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ObjectiveChipmunk.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/ObjectiveChipmunk.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/chipmunk.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/chipmunk.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/chipmunk_ffi.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/chipmunk_ffi.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/chipmunk_private.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/chipmunk_private.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/chipmunk_types.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/chipmunk_types.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/chipmunk_unsafe.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/chipmunk_unsafe.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpConstraint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpConstraint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpDampedRotarySpring.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpDampedRotarySpring.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpDampedSpring.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpDampedSpring.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpGearJoint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpGearJoint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpGrooveJoint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpGrooveJoint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpPinJoint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpPinJoint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpPivotJoint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpPivotJoint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpRatchetJoint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpRatchetJoint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpRotaryLimitJoint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpRotaryLimitJoint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpSimpleMotor.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpSimpleMotor.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/cpSlideJoint.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/cpSlideJoint.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/constraints/util.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/constraints/util.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/cpArbiter.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/cpArbiter.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/cpBB.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/cpBB.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/cpBody.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/cpBody.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/cpPolyShape.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/cpPolyShape.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/cpShape.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/cpShape.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/cpSpace.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/cpSpace.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/cpSpatialIndex.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/cpSpatialIndex.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/chipmunk/cpVect.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/Chipmunk/include/chipmunk/cpVect.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/cpHastySpace.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/cpHastySpace.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/cpMarch.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/cpMarch.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/cpPolyline.h" afterPath="$PROJECT_DIR$/ChipmunkPro-6.2.1/ChipmunkPro-iPhone/cpPolyline.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyPhysics.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyPhysics.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m" afterPath="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m" afterPath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Adefy iOS.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Adefy iOS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -247,13 +25,13 @@
     <favorites_list name="Adefy iOS" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5414508">
+    <splitter split-orientation="horizontal" split-proportion="0.56735754">
       <split-first>
         <leaf>
           <file leaf-file-name="AdefyActor.m" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="181" column="23" selection-start="3909" selection-end="3909" vertical-scroll-proportion="2.5410123" vertical-offset="897" max-vertical-offset="3914">
+                <state line="164" column="3" selection-start="3582" selection-end="3582" vertical-scroll-proportion="0.7417103" vertical-offset="1707" max-vertical-offset="3914">
                   <folding>
                     <element signature="e#0#23#0" expanded="true" />
                   </folding>
@@ -264,7 +42,7 @@
           <file leaf-file-name="AdefyViewController.m" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyViewController.m">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="42" column="0" selection-start="959" selection-end="959" vertical-scroll-proportion="0.0" vertical-offset="442" max-vertical-offset="1886">
+                <state line="102" column="21" selection-start="2737" selection-end="2737" vertical-scroll-proportion="0.0" vertical-offset="741" max-vertical-offset="1912">
                   <folding />
                 </state>
               </provider>
@@ -295,7 +73,7 @@
           <file leaf-file-name="AdefySingleColorMaterial.m" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="99" column="0" selection-start="2330" selection-end="2330" vertical-scroll-proportion="0.5235602" vertical-offset="1000" max-vertical-offset="2276">
+                <state line="109" column="23" selection-start="2749" selection-end="2749" vertical-scroll-proportion="0.56893545" vertical-offset="1169" max-vertical-offset="2328">
                   <folding />
                 </state>
               </provider>
@@ -332,11 +110,11 @@
         <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.h" />
         <option value="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" />
         <option value="$PROJECT_DIR$/ChipmunkPro-iPhone-Trial/ChipmunkSpace.h" />
-        <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m" />
         <option value="$PROJECT_DIR$/Adefy iOS/AdefyPhysics.m" />
-        <option value="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" />
         <option value="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m" />
         <option value="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" />
+        <option value="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" />
+        <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m" />
       </list>
     </option>
   </component>
@@ -645,20 +423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyViewController.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="959" selection-end="959" vertical-scroll-proportion="0.0" vertical-offset="442" max-vertical-offset="1886">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="0" selection-start="2330" selection-end="2330" vertical-scroll-proportion="0.5235602" vertical-offset="1000" max-vertical-offset="2276">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m">
       <provider selected="true" editor-type-id="text-editor">
         <state line="89" column="55" selection-start="1860" selection-end="1860" vertical-scroll-proportion="0.0" vertical-offset="793" max-vertical-offset="2120">
@@ -666,9 +430,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyViewController.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="21" selection-start="2737" selection-end="2737" vertical-scroll-proportion="0.0" vertical-offset="741" max-vertical-offset="1912">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="23" selection-start="2749" selection-end="2749" vertical-scroll-proportion="0.56893545" vertical-offset="1169" max-vertical-offset="2328">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="23" selection-start="3909" selection-end="3909" vertical-scroll-proportion="2.5410123" vertical-offset="897" max-vertical-offset="3914">
+        <state line="164" column="3" selection-start="3582" selection-end="3582" vertical-scroll-proportion="0.7417103" vertical-offset="1707" max-vertical-offset="3914">
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

@@ -105,7 +105,7 @@
   mVisible = isVisible;
 }
 
-- (void) setPosition:(cpVect)position {
+- (void)setPosition:(cpVect)position {
   mPosition = position;
 }
 
@@ -211,7 +211,7 @@
     mPhysicsShape = [ChipmunkPolyShape polyWithBody:[mPhysics getStaticBody]
                                               count:mPosVertexCount
                                               verts:physicsVerts
-                                             offset:mPosition];
+                                             offset:[AdefyRenderer screenToWorld:mPosition]];
 
   } else {
 
@@ -219,7 +219,7 @@
     float moment = cpMomentForPoly(mass, mPosVertexCount, physicsVerts, cpv(0, 0));
     mPhysicsBody = [ChipmunkBody bodyWithMass:mass andMoment:moment];
 
-    [mPhysicsBody setPos:mPosition];
+    [mPhysicsBody setPos:[AdefyRenderer screenToWorld:mPosition]];
     [mPhysicsBody setAngle:mRotation];
 
     mPhysicsShape = [ChipmunkPolyShape polyWithBody:mPhysicsBody
