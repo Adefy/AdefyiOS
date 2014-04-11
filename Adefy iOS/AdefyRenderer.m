@@ -2,7 +2,7 @@
 #import "AdefyActor.h"
 #import "AdefyMaterial.h"
 
-AdefyRenderer *GLOBAL_INSTANCE;
+static AdefyRenderer *GLOBAL_INSTANCE;
 
 @interface  AdefyRenderer ()
 

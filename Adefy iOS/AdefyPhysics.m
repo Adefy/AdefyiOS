@@ -1,12 +1,12 @@
 #import "AdefyPhysics.h"
-#import "ChipmunkSpace.h"
 #import "chipmunk.h"
 #import "ChipmunkObject.h"
 #import "ChipmunkShape.h"
+#import "ChipmunkSpace.h"
 #import "ChipmunkBody.h"
 #import "ChipmunkExtras.h"
 
-AdefyPhysics *GLOBAL_INSTANCE;
+static AdefyPhysics *GLOBAL_INSTANCE;
 
 @implementation AdefyPhysics {
 
