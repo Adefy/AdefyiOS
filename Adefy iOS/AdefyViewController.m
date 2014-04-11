@@ -53,14 +53,26 @@
 
 - (void)initTest {
 
-  AdefyRectangleActor *actor = [[AdefyRectangleActor alloc] init:1
-                                                           width:25
-                                                          height:25];
+  AdefyRectangleActor *ground = [[AdefyRectangleActor alloc] init:1
+                                                           width:200
+                                                          height:20];
 
-  AdefyColor3 *color = [[AdefyColor3 alloc] init:0 withG:153 withB:204];
+  AdefyColor3 *colorBlue = [[AdefyColor3 alloc] init:0 withG:153 withB:204];
 
-  [actor setRotation:45 inDegrees:YES];
-  [actor setColor:color];
+  [ground setColor:colorBlue];
+  [ground setPosition:cpv(150, 50)];
+  [ground createPhysicsBody:0 friction:0.5f elasticity:0.2f];
+
+  AdefyRectangleActor *box = [[AdefyRectangleActor alloc] init:2
+                                                            width:30
+                                                           height:30];
+
+  AdefyColor3 *colorRed = [[AdefyColor3 alloc] init:204 withG:139 withB:0];
+
+  [box setColor:colorRed];
+  [box setRotation:45.0f inDegrees:YES];
+  [box setPosition:cpv(150, 200)];
+  [box createPhysicsBody:10.0f friction:1.0f elasticity:0.1f];
 }
 
 - (void)dealloc {
@@ -89,7 +101,9 @@
 #pragma mark - GLKView and GLKViewController delegate methods
 
 - (void)update {
+
   [mRenderer update];
+  [mPhysics update:(float)[self timeSinceLastUpdate]];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {

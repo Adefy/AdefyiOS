@@ -202,6 +202,7 @@
 
   for(unsigned int i = 0; i < mPosVertexCount; i++) {
     physicsVerts[i] = cpv(mPosVertexArray[i * 2], mPosVertexArray[(i * 2) + 1]);
+    physicsVerts[i] = [AdefyRenderer screenToWorld:physicsVerts[i]];
   }
 
   if(mass == 0.0f) {
