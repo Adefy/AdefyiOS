@@ -1,11 +1,3 @@
-//
-//  AdefyActor.m
-//  Adefy iOS
-//
-//  Created by Cris Mihalache on 08/04/14.
-//  Copyright (c) 2014 Adefy. All rights reserved.
-//
-
 #import <GLKit/GLKit.h>
 #import "AdefyActor.h"
 #import "AdefyRenderer.h"

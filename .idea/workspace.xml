@@ -2,37 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2b6591e-27de-4411-b56b-61f2e3a7b7ba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/Images.xcassets/AppIcon.appiconset/Contents.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/Images.xcassets/LaunchImage.launchimage/Contents.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/en.lproj/InfoPlist.strings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/TestTests/en.lproj/InfoPlist.strings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/Base.lproj/Main_iPad.storyboard" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/Base.lproj/Main_iPhone.storyboard" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/Shaders/Shader.fsh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/Shaders/Shader.vsh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/Test-Info.plist" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/Test-Prefix.pch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/TestAppDelegate.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/TestAppDelegate.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/TestTests/TestTests-Info.plist" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/TestTests/TestTests.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/TestViewController.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/TestViewController.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/Test/main.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyActor.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyActor.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyActor.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyActor.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyAppDelegate.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyAppDelegate.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyShader.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyShader.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyShader.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyShader.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefySingleColorMaterial.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefySingleColorMaterial.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefySingleColorMaterial.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefySingleColorMaterial.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS.xcodeproj/xcuserdata/cris.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterPath="$PROJECT_DIR$/Adefy iOS.xcodeproj/xcuserdata/cris.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Shaders/ShaderSingleColor.vsh" afterPath="$PROJECT_DIR$/Adefy iOS/Shaders/ShaderSingleColor.vsh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Adefy iOS.iws" />
@@ -55,7 +24,17 @@
     <favorites_list name="Adefy iOS" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="AdefyActor.h" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyActor.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="32" column="0" selection-start="644" selection-end="644" vertical-scroll-proportion="0.55172414" vertical-offset="0" max-vertical-offset="1157">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -241,14 +220,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32948717" sideWeight="0.8440367" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24982357" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1559633" sideWeight="0.6708075" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18278052" sideWeight="0.6708075" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -257,6 +234,8 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32948717" sideWeight="0.8440367" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -276,13 +255,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyActor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="21" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1155">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyActor.m">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="14" selection-start="1652" selection-end="1652" vertical-scroll-proportion="0.0" vertical-offset="821" max-vertical-offset="2390">
@@ -292,16 +264,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyAppDelegate.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="35" selection-start="201" selection-end="201" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="934">
-          <folding />
-        </state>
+        <state line="10" column="35" selection-start="201" selection-end="201" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="934" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyAppDelegate.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="686" selection-end="686" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1051">
-          <folding />
-        </state>
+        <state line="24" column="0" selection-start="686" selection-end="686" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1051" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyColor3.h">
@@ -336,32 +304,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyViewController.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="192" selection-end="192" vertical-scroll-proportion="0.17287233" vertical-offset="0" max-vertical-offset="921">
-          <folding>
-            <element signature="e#144#167#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="10" column="0" selection-start="192" selection-end="192" vertical-scroll-proportion="0.17287233" vertical-offset="0" max-vertical-offset="921" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefySingleColorMaterial.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="2" selection-start="299" selection-end="299" vertical-scroll-proportion="0.20744681" vertical-offset="0" max-vertical-offset="921">
-          <folding />
-        </state>
+        <state line="14" column="2" selection-start="299" selection-end="299" vertical-scroll-proportion="0.20744681" vertical-offset="0" max-vertical-offset="921" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyShader.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="2" selection-start="3209" selection-end="3209" vertical-scroll-proportion="0.51861703" vertical-offset="1612" max-vertical-offset="2806">
-          <folding />
-        </state>
+        <state line="154" column="2" selection-start="3209" selection-end="3209" vertical-scroll-proportion="0.51861703" vertical-offset="1612" max-vertical-offset="2806" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyShader.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="2" selection-start="356" selection-end="356" vertical-scroll-proportion="0.27659574" vertical-offset="0" max-vertical-offset="999">
-          <folding />
-        </state>
+        <state line="16" column="2" selection-start="356" selection-end="356" vertical-scroll-proportion="0.27659574" vertical-offset="0" max-vertical-offset="999" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m">
@@ -388,6 +346,13 @@
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyMaterial.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="1" selection-start="670" selection-end="670" vertical-scroll-proportion="0.5531915" vertical-offset="0" max-vertical-offset="1181">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyActor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="0" selection-start="644" selection-end="644" vertical-scroll-proportion="0.55172414" vertical-offset="0" max-vertical-offset="1157">
           <folding />
         </state>
       </provider>
