@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
 #import "chipmunk.h"
 
 @class AdefyMaterial;
@@ -29,7 +30,7 @@
 ////
 - (void) setVisible:(BOOL)isVisible;
 - (void) setVertices:(GLfloat *)vertices
-              count:(int)count;
+              count:(unsigned int)count;
 - (void) setPosition:(cpVect)position;
 - (void) setPosition:(float)x y:(float)y;
 - (void) setRenderMode:(GLuint)mode;

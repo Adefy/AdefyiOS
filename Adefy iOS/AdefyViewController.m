@@ -2,6 +2,7 @@
 #import "AdefyRenderer.h"
 #import "AdefySingleColorMaterial.h"
 #import "AdefyActor.h"
+#import "AdefyRectangleActor.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -43,17 +44,10 @@
 
 - (void)initTest {
 
-  GLfloat verts[] = {
-      -50.0f, -50.0f, 0.0f,
-      -50.0f,  50.0f, 0.0f,
-       50.0f,  50.0f, 0.0f,
-       50.0f, -50.0f, 0.0f
-  };
-
-  AdefyActor *actor = [[AdefyActor alloc] init:1
-                                      renderer:mRenderer
-                                      vertices:verts
-                                         count:4];
+  AdefyRectangleActor *actor = [[AdefyRectangleActor alloc] init:1
+                                                        renderer:mRenderer
+                                                           width:25
+                                                          height:25];
 }
 
 - (void)dealloc {

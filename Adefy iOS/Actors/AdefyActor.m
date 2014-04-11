@@ -22,7 +22,6 @@
   int mPosVertexCount;
   GLuint mPosVertexBuffer;
   GLuint mPosVertexArray;
-  GLfloat *mRawPosVertices;
 
   GLuint mRenderMode;
 
@@ -69,18 +68,27 @@
 - (GLuint) getRenderMode { return mRenderMode; }
 
 - (void) setVertices:(GLfloat *)vertices
-              count:(int)count {
+              count:(unsigned int)count {
 
-  // Save raw vertices, just in case we need them (probably not)
-  mRawPosVertices = vertices;
   mPosVertexCount = count;
+
+  // Add a Z coord to the vertices
+  GLfloat *resizedVertices = malloc(sizeof(GLfloat) * count * 3);
+
+  for(unsigned int i = 0; i < count; i++) {
+    resizedVertices[(i * 3)] = vertices[(i * 2)];
+    resizedVertices[(i * 3) + 1] = vertices[(i * 2) + 1];
+    resizedVertices[(i * 3) + 2] = 0.0f;
+  }
 
   glDeleteBuffers(1, &mPosVertexBuffer);
 
   [AdefyRenderer createVertexBuffer:&mPosVertexBuffer
-                           vertices:vertices
+                           vertices:resizedVertices
                               count:count
                              useage:GL_STATIC_DRAW];
+
+  free(resizedVertices);
 }
 
 - (void) setVisible:(BOOL)isVisible {
