@@ -2,6 +2,8 @@
 #import "AdefyActor.h"
 #import "AdefyMaterial.h"
 
+AdefyRenderer *GLOBAL_INSTANCE;
+
 @interface  AdefyRenderer ()
 
 -(GLKMatrix4) generateProjection:(CGRect)rect;
@@ -9,9 +11,6 @@
 @end
 
 @implementation AdefyRenderer {
-  int mTargetFPS;
-  int mTargetFrameTime;
-
   cpVect mCameraPosition;
   NSMutableString *mActiveMaterial;
   NSMutableArray* mActors;
@@ -34,7 +33,6 @@ static float PPM;
 
   GLfloat clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
   [self setClearColor:clearColor];
-  [self setFPS:60];
 
   glViewport(0, 0, width, height);
   glEnable(GL_DEPTH_TEST);
@@ -64,9 +62,12 @@ static float PPM;
   glClearColor(color[0], color[1], color[2], color[3]);
 }
 
-- (void) setFPS:(int)fps {
-  mTargetFPS = fps;
-  mTargetFrameTime = 1000 / fps;
++ (void)setGlobalInstance:(AdefyRenderer *)renderer {
+  GLOBAL_INSTANCE = renderer;
+}
+
++ (AdefyRenderer *)getGlobalInstance {
+  return GLOBAL_INSTANCE;
 }
 
 + (void)createVertexBuffer:(GLuint *)buffer

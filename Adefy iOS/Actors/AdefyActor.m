@@ -14,8 +14,7 @@
 
 @implementation AdefyActor {
 
-  // Instance vars
-  @private
+@protected
   int mId;
   BOOL mVisible;
 
@@ -35,14 +34,13 @@
 }
 
 - (AdefyActor *)init:(int)id
-           renderer:(AdefyRenderer *)renderer
            vertices:(GLfloat *)vertices
               count:(int)count {
 
   self = [super init];
 
   mId = id;
-  mRenderer = renderer;
+  mRenderer = [AdefyRenderer getGlobalInstance];
   mRotation = 0.0f;
   mPosition = cpv(100.0f, 100.0f);
   mMaterial = [[AdefySingleColorMaterial alloc] init];
@@ -147,6 +145,23 @@
       vertCount:mPosVertexCount
            mode:mRenderMode];
 }
+
+- (void)destroyPhysicsBody {
+
+}
+
+- (void)createPhysicsBody {
+  [self createPhysicsBody:_mMass
+                 friction:_mFriction
+               elasticity:_mElasticity];
+}
+
+- (void)createPhysicsBody:(float)mass
+                 friction:(float)friction
+               elasticity:(float)elasticity {
+  
+}
+
 
 - (void) setupRenderMatrix {
 

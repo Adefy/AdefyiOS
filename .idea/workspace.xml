@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2b6591e-27de-4411-b56b-61f2e3a7b7ba" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyPhysics.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyPhysics.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.h" afterPath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m" afterPath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Objects/AdefyColor3.m" afterPath="$PROJECT_DIR$/Adefy iOS/Objects/AdefyColor3.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.h" afterPath="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m" afterPath="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.h" afterPath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.m" afterPath="$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" afterPath="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adefy iOS.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Adefy iOS.xcodeproj/project.pbxproj" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Adefy iOS.iws" />
@@ -30,33 +34,13 @@
     <favorites_list name="Adefy iOS" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.48445597">
+    <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="AdefyViewController.m" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyViewController.m">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="61" column="3" selection-start="1611" selection-end="1611" vertical-scroll-proportion="0.87091506" vertical-offset="260" max-vertical-offset="1743">
-                  <folding>
-                    <element signature="e#0#31#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AdefyRectangleActor.h" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.h">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="6" column="0" selection-start="133" selection-end="133" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1038">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AdefyActor.h" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="AdefyActor.h" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="28" column="4" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1285">
+                <state line="28" column="23" selection-start="662" selection-end="662" vertical-scroll-proportion="0.48404256" vertical-offset="0" max-vertical-offset="1389">
                   <folding>
                     <element signature="e#0#33#0" expanded="true" />
                   </folding>
@@ -68,21 +52,10 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="AdefyRectangleActor.m" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.m">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="65" column="0" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="1678">
-                  <folding>
-                    <element signature="e#99#130#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AdefyActor.m" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="AdefyActor.m" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="120" column="0" selection-start="2544" selection-end="2544" vertical-scroll-proportion="0.6944444" vertical-offset="1135" max-vertical-offset="2796">
+                <state line="161" column="2" selection-start="3414" selection-end="3414" vertical-scroll-proportion="0.5226064" vertical-offset="1700" max-vertical-offset="3144">
                   <folding>
                     <element signature="e#0#23#0" expanded="true" />
                   </folding>
@@ -110,22 +83,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Adefy iOS/AdefyShader.h" />
-        <option value="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.h" />
         <option value="$PROJECT_DIR$/Adefy iOS/AdefyMaterial.m" />
         <option value="$PROJECT_DIR$/Adefy iOS/AdefySingleColorMaterial.m" />
         <option value="$PROJECT_DIR$/Adefy iOS/AdefyActor.m" />
-        <option value="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" />
         <option value="$PROJECT_DIR$/Adefy iOS/AdefyActor.h" />
-        <option value="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" />
-        <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.h" />
-        <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.m" />
         <option value="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.h" />
         <option value="$PROJECT_DIR$/Adefy iOS/Objects/AdefyColor3.m" />
         <option value="$PROJECT_DIR$/Adefy iOS/Materials/AdefySingleColorMaterial.m" />
+        <option value="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h" />
+        <option value="$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m" />
+        <option value="$PROJECT_DIR$/Adefy iOS/AdefyPhysics.m" />
+        <option value="$PROJECT_DIR$/Adefy iOS/AdefyPhysics.h" />
+        <option value="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" />
+        <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.h" />
+        <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.m" />
         <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.h" />
         <option value="$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m" />
-        <option value="$PROJECT_DIR$/Adefy iOS/AdefyViewController.m" />
       </list>
     </option>
   </component>
@@ -306,7 +279,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.8172195" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17948718" sideWeight="0.8172195" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17948718" sideWeight="0.8172195" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -327,49 +300,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/Objects/AdefyShader.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="2" selection-start="356" selection-end="356" vertical-scroll-proportion="0.27659574" vertical-offset="0" max-vertical-offset="999" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="34" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.0" vertical-offset="654" max-vertical-offset="2068">
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="52" max-vertical-offset="1678">
-          <folding>
-            <element signature="e#99#130#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="99" selection-end="99" vertical-scroll-proportion="0.10620915" vertical-offset="0" max-vertical-offset="937">
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/Shaders/ShaderSingleColor.vsh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="75" selection-end="75" vertical-scroll-proportion="0.08496732" vertical-offset="0" max-vertical-offset="703">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/Shaders/ShaderSingleColor.fsh">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="677">
@@ -419,36 +353,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.h">
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyRenderer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="133" selection-end="133" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="781">
+        <state line="6" column="24" selection-start="124" selection-end="124" vertical-scroll-proportion="0.069148935" vertical-offset="0" max-vertical-offset="1077">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m">
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyRenderer.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="0" selection-start="2544" selection-end="2544" vertical-scroll-proportion="0.6944444" vertical-offset="1135" max-vertical-offset="2796">
+        <state line="4" column="25" selection-start="101" selection-end="101" vertical-scroll-proportion="0.034574468" vertical-offset="0" max-vertical-offset="2195">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="42" selection-start="206" selection-end="206" vertical-scroll-proportion="0.12101064" vertical-offset="0" max-vertical-offset="947">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyRectangleActor.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="46" selection-start="458" selection-end="458" vertical-scroll-proportion="0.41489363" vertical-offset="0" max-vertical-offset="1727">
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.h">
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyPhysics.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="4" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1285">
+        <state line="11" column="30" selection-start="281" selection-end="281" vertical-scroll-proportion="0.19015957" vertical-offset="0" max-vertical-offset="947">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyPhysics.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="6" selection-start="286" selection-end="286" vertical-scroll-proportion="0.27659574" vertical-offset="0" max-vertical-offset="1428">
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Adefy iOS/AdefyViewController.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="3" selection-start="1611" selection-end="1611" vertical-scroll-proportion="0.87091506" vertical-offset="260" max-vertical-offset="1743">
+        <state line="54" column="0" selection-start="1298" selection-end="1298" vertical-scroll-proportion="0.17287233" vertical-offset="572" max-vertical-offset="1974">
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="23" selection-start="662" selection-end="662" vertical-scroll-proportion="0.48404256" vertical-offset="0" max-vertical-offset="1389">
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Adefy iOS/Actors/AdefyActor.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="161" column="2" selection-start="3414" selection-end="3414" vertical-scroll-proportion="0.5226064" vertical-offset="1700" max-vertical-offset="3144">
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>

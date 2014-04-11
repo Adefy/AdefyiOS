@@ -9,11 +9,15 @@
 @interface AdefyActor : NSObject
 
 - (AdefyActor *)init:(int)id
-           renderer:(AdefyRenderer *)renderer
            vertices:(GLfloat *)vertices
               count:(int)count;
 
 - (void) draw:(GLKMatrix4)projection;
+- (void) destroyPhysicsBody;
+- (void) createPhysicsBody;
+- (void) createPhysicsBody:(float)mass
+                  friction:(float)friction
+                elasticity:(float)elasticity;
 
 ////
 //// Getters
@@ -38,5 +42,9 @@
 - (void) setRotation:(float)angle;
 - (void) setRotation:(float)angle inDegrees:(BOOL)degrees;
 - (void) setColor:(AdefyColor3 *)color;
+
+@property(nonatomic) float mMass;
+@property(nonatomic) float mFriction;
+@property(nonatomic) float mElasticity;
 
 @end

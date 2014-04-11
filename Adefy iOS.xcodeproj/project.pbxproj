@@ -30,6 +30,7 @@
 		2EB9D189C913E10A0B3D9B33 /* AdefySingleColorMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DB7258BF83202B9C832B /* AdefySingleColorMaterial.m */; };
 		2EB9D724B19EF6EBBB78EA63 /* AdefyShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D5AE7D1269607D4CA9AE /* AdefyShader.m */; };
 		2EB9D7B09D64AEB4A182172C /* AdefyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DD26FC09AEA5C7BB84DB /* AdefyActor.m */; };
+		2EB9D93581E8473411A1F68D /* AdefyPhysics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D4EC7EF13587E46152A3 /* AdefyPhysics.m */; };
 		2EB9DA4789DF71BD2A0142DE /* AdefyColor3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D3D91035EEACF4467FCC /* AdefyColor3.m */; };
 		2EB9DC52E05347D39AF8B0EE /* AdefyMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DF263ADCA010FDE055AA /* AdefyMaterial.m */; };
 		2EB9DC84500A13C3E2E9206C /* AdefyRectangleActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D720C130100B16B6F8C6 /* AdefyRectangleActor.m */; };
@@ -118,9 +119,11 @@
 		2EB9D1F50FBA86B3E0B588E6 /* AdefyRectangleActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyRectangleActor.h; sourceTree = "<group>"; };
 		2EB9D35E3A6314BC04837E5C /* AdefyActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyActor.h; sourceTree = "<group>"; };
 		2EB9D3D91035EEACF4467FCC /* AdefyColor3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyColor3.m; sourceTree = "<group>"; };
+		2EB9D4EC7EF13587E46152A3 /* AdefyPhysics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyPhysics.m; sourceTree = "<group>"; };
 		2EB9D52B7ECC448E95F818C5 /* AdefyMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyMaterial.h; sourceTree = "<group>"; };
 		2EB9D5AE7D1269607D4CA9AE /* AdefyShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyShader.m; sourceTree = "<group>"; };
 		2EB9D720C130100B16B6F8C6 /* AdefyRectangleActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyRectangleActor.m; sourceTree = "<group>"; };
+		2EB9D93ABD24EE5EB7972FB9 /* AdefyPhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyPhysics.h; sourceTree = "<group>"; };
 		2EB9DB7258BF83202B9C832B /* AdefySingleColorMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefySingleColorMaterial.m; sourceTree = "<group>"; };
 		2EB9DD26FC09AEA5C7BB84DB /* AdefyActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyActor.m; sourceTree = "<group>"; };
 		2EB9DF263ADCA010FDE055AA /* AdefyMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyMaterial.m; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				2EB9D104EE1E9C06EFF2B516 /* Actors */,
 				2EB9D9C25A2E5CA3B7428B35 /* Materials */,
 				2EB9DBC4E83C727E6D4E1231 /* Objects */,
+				2EB9D4EC7EF13587E46152A3 /* AdefyPhysics.m */,
+				2EB9D93ABD24EE5EB7972FB9 /* AdefyPhysics.h */,
 			);
 			path = "Adefy iOS";
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 				2EB9DA4789DF71BD2A0142DE /* AdefyColor3.m in Sources */,
 				2EB9D724B19EF6EBBB78EA63 /* AdefyShader.m in Sources */,
 				2EB9DC84500A13C3E2E9206C /* AdefyRectangleActor.m in Sources */,
+				2EB9D93581E8473411A1F68D /* AdefyPhysics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

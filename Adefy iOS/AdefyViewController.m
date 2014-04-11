@@ -4,6 +4,7 @@
 #import "AdefyActor.h"
 #import "AdefyRectangleActor.h"
 #import "AdefyColor3.h"
+#import "AdefyPhysics.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -11,6 +12,7 @@
 
   GLKMatrix4 mProjectionMatrix;
   AdefyRenderer *mRenderer;
+  AdefyPhysics *mPhysics;
 }
 
 - (void)initTest;
@@ -37,8 +39,14 @@
 
   [EAGLContext setCurrentContext:self.context];
 
+  [self setPreferredFramesPerSecond:60];
+
+  mPhysics = [[AdefyPhysics alloc] init];
   mRenderer = [[AdefyRenderer alloc] init:(GLsizei)self.view.bounds.size.width
                                    height:(GLsizei)self.view.bounds.size.height];
+
+  [AdefyRenderer setGlobalInstance:mRenderer];
+  [AdefyPhysics setGlobalInstance:mPhysics];
 
   [self initTest];
 }
@@ -46,7 +54,6 @@
 - (void)initTest {
 
   AdefyRectangleActor *actor = [[AdefyRectangleActor alloc] init:1
-                                                        renderer:mRenderer
                                                            width:25
                                                           height:25];
 

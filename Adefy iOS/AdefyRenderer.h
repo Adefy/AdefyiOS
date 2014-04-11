@@ -6,6 +6,9 @@
 
 @interface AdefyRenderer : NSObject
 
++ (void)setGlobalInstance:(AdefyRenderer *)renderer;
++ (AdefyRenderer *)getGlobalInstance;
+
 + (void)createVertexBuffer:(GLuint *)buffer
                  vertices:(GLfloat *)vertices
                     count:(int)count
@@ -17,7 +20,6 @@
 - (cpVect)getCameraPosition;
 
 - (void) setClearColor:(GLfloat [4])color;
-- (void) setFPS:(int)fps;
 - (void) addActor:(AdefyActor *)actor;
 - (AdefyActor *) getActor:(unsigned int)index;
 

@@ -1,8 +1,3 @@
-//
-// Created by Cris Mihalache on 11/04/14.
-// Copyright (c) 2014 Adefy. All rights reserved.
-//
-
 #import "AdefyRectangleActor.h"
 #import "AdefyRenderer.h"
 
@@ -21,7 +16,6 @@
 }
 
 - (AdefyRectangleActor *)init:(int)id
-                     renderer:(AdefyRenderer *)renderer
                         width:(float)width
                        height:(float)height {
 
@@ -31,7 +25,6 @@
   GLfloat *vertices = [self generateVertices];
 
   self = [super init:id
-            renderer:renderer
             vertices:vertices
                count:4];
 
