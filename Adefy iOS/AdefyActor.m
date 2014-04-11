@@ -7,8 +7,8 @@
 // Private methods
 @interface AdefyActor ()
 
--(void) addToRenderer:(AdefyRenderer *)renderer;
--(void) setupRenderMatrix;
+- (void) addToRenderer:(AdefyRenderer *)renderer;
+- (void) setupRenderMatrix;
 
 @end
 
@@ -24,6 +24,8 @@
   GLuint mPosVertexArray;
   GLfloat *mRawPosVertices;
 
+  GLuint mRenderMode;
+
   float mRotation;    // Stored in radians
   cpVect mPosition;
 
@@ -33,7 +35,7 @@
   AdefyMaterial *mMaterial;
 }
 
--(AdefyActor *)init:(int)id
+- (AdefyActor *)init:(int)id
            renderer:(AdefyRenderer *)renderer
            vertices:(GLfloat *)vertices
               count:(int)count {
@@ -48,6 +50,7 @@
   mPosVertexBuffer = 0;
   mPosVertexArray = 0;
   mVisible = YES;
+  mRenderMode = GL_TRIANGLE_FAN;
 
   [self setVertices:vertices count:count];
   [self addToRenderer:mRenderer];
@@ -59,14 +62,13 @@
 // Getters and setters
 //
 
--(void) setVisible:(BOOL)isVisible {
-  mVisible = isVisible;
-}
+- (BOOL)   getVisible    { return mVisible; }
+- (int)    getId         { return mId; }
+- (cpVect) getPosition   { return mPosition;}
+- (float)  getRotation   { return mRotation; }
+- (GLuint) getRenderMode { return mRenderMode; }
 
--(BOOL) getVisible { return mVisible; }
--(int)  getId      { return mId; }
-
--(void) setVertices:(GLfloat *)vertices
+- (void) setVertices:(GLfloat *)vertices
               count:(int)count {
 
   // Save raw vertices, just in case we need them (probably not)
@@ -81,15 +83,31 @@
                              useage:GL_STATIC_DRAW];
 }
 
+- (void) setVisible:(BOOL)isVisible {
+  mVisible = isVisible;
+}
+
+- (void) setPosition:(cpVect)position {
+  mPosition = position;
+}
+
+- (void)setPosition:(float)x y:(float)y {
+  mPosition = cpv(x, y);
+}
+
+- (void)setRenderMode:(GLuint)mode {
+  mRenderMode = mode;
+}
+
 //
 // Fancy stuff
 //
 
--(void) addToRenderer:(AdefyRenderer *)renderer {
+- (void) addToRenderer:(AdefyRenderer *)renderer {
   [renderer addActor:self];
 }
 
--(void) draw:(GLKMatrix4)projection {
+- (void) draw:(GLKMatrix4)projection {
   if(!mVisible) { return; }
 
   [self setupRenderMatrix];
@@ -99,11 +117,11 @@
            draw:projection
       modelView:mModelViewMatrix
           verts:&mPosVertexBuffer
-      vertCount:&mPosVertexCount
-           mode:GL_TRIANGLE_FAN];
+      vertCount:mPosVertexCount
+           mode:mRenderMode];
 }
 
--(void) setupRenderMatrix {
+- (void) setupRenderMatrix {
 
   float finalX = mPosition.x - [mRenderer getCameraPosition].x;
   float finalY = mPosition.y - [mRenderer getCameraPosition].y;
@@ -112,11 +130,11 @@
   mModelViewMatrix = GLKMatrix4Rotate(mModelViewMatrix, mRotation, 0.0f, 0.0f, 1.0f);
 }
 
--(NSString *)getMaterialName {
+- (NSString *)getMaterialName {
   return [mMaterial getName];
 }
 
--(AdefyMaterial *)getMaterial {
+- (AdefyMaterial *)getMaterial {
   return mMaterial;
 }
 

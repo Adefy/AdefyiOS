@@ -9,12 +9,11 @@
 @end
 
 @implementation AdefyRenderer {
-  cpVect mCameraPosition;
-  NSMutableString *mActiveMaterial;
-
   int mTargetFPS;
   int mTargetFrameTime;
 
+  cpVect mCameraPosition;
+  NSMutableString *mActiveMaterial;
   NSMutableArray* mActors;
 }
 
@@ -33,11 +32,15 @@ static float PPM;
   mCameraPosition = cpv(0.0f, 0.0f);
   [mActiveMaterial setString:@""];
 
+  GLfloat clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+  [self setClearColor:clearColor];
   [self setFPS:60];
 
   glViewport(0, 0, width, height);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
+
+  NSLog(@"Initialized renderer %ix%i", width, height);
 
   return self;
 }
@@ -49,12 +52,16 @@ static float PPM;
   [mActors addObject:actor];
 }
 
-- (AdefyActor *) getActor:(int)index {
+- (AdefyActor *) getActor:(unsigned int)index {
   return [mActors objectAtIndex:index];
 }
 
 - (cpVect) getCameraPosition {
   return mCameraPosition;
+}
+
+- (void) setClearColor:(GLfloat [4])color {
+  glClearColor(color[0], color[1], color[2], color[3]);
 }
 
 - (void) setFPS:(int)fps {
@@ -89,7 +96,6 @@ static float PPM;
 
   GLKMatrix4 projection = [self generateProjection:rect];
 
-  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   for(AdefyActor *actor in mActors) {

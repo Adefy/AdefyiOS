@@ -44,10 +44,10 @@
 - (void)initTest {
 
   GLfloat verts[] = {
-      -50.0f, -50.0f, 1.0f,
-      -50.0f,  50.0f, 1.0f,
-       50.0f,  50.0f, 1.0f,
-       50.0f, -50.0f, 1.0f
+      -50.0f, -50.0f, 0.0f,
+      -50.0f,  50.0f, 0.0f,
+       50.0f,  50.0f, 0.0f,
+       50.0f, -50.0f, 0.0f
   };
 
   AdefyActor *actor = [[AdefyActor alloc] init:1

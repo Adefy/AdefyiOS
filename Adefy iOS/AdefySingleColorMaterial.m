@@ -4,15 +4,15 @@
 
 const int STATIC_VERT_STRIDE = 3 * sizeof(GL_FLOAT);
 
-int STATIC_POSITION_HANDLE;
-int STATIC_COLOR_HANDLE;
-int STATIC_MODEL_HANDLE;
-int STATIC_PROJECTION_HANDLE;
+GLuint STATIC_POSITION_HANDLE;
+GLuint STATIC_COLOR_HANDLE;
+GLuint STATIC_MODEL_HANDLE;
+GLuint STATIC_PROJECTION_HANDLE;
 
 BOOL STATIC_JUST_USED;
 NSString *STATIC_NAME;
 
-float STATIC_COLOR[] = {0.0f, 1.0f, 0.0f, 1.0f};
+float STATIC_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
 
 @implementation AdefySingleColorMaterial {
 
@@ -38,10 +38,10 @@ float STATIC_COLOR[] = {0.0f, 1.0f, 0.0f, 1.0f};
   GLuint shader;
   [AdefyShader buildProgram:&shader withVert:vertSource withFrag:fragSource];
 
-  STATIC_POSITION_HANDLE = glGetAttribLocation(shader, "Position");
-  STATIC_COLOR_HANDLE = glGetUniformLocation(shader, "Color");
-  STATIC_MODEL_HANDLE = glGetUniformLocation(shader, "ModelView");
-  STATIC_PROJECTION_HANDLE = glGetUniformLocation(shader, "Projection");
+  STATIC_POSITION_HANDLE = (GLuint)glGetAttribLocation(shader, "Position");
+  STATIC_COLOR_HANDLE = (GLuint)glGetUniformLocation(shader, "Color");
+  STATIC_MODEL_HANDLE = (GLuint)glGetUniformLocation(shader, "ModelView");
+  STATIC_PROJECTION_HANDLE = (GLuint)glGetUniformLocation(shader, "Projection");
 
   [self setShader:shader];
 }
@@ -78,7 +78,7 @@ float STATIC_COLOR[] = {0.0f, 1.0f, 0.0f, 1.0f};
 - (void)draw:(GLKMatrix4)projection
     modelView:(GLKMatrix4)modelView
         verts:(GLuint *)vertBuffer
-    vertCount:(int *)vertCount
+    vertCount:(int)vertCount
          mode:(GLenum)mode {
 
   // Check if we need to re-build our shader
@@ -101,7 +101,7 @@ float STATIC_COLOR[] = {0.0f, 1.0f, 0.0f, 1.0f};
     [AdefySingleColorMaterial setJustUsed:true];
   }
 
-  glDrawArrays(mode, 0, *vertCount * 3);
+  glDrawArrays(mode, 0, vertCount * 3);
   glDisableVertexAttribArray(STATIC_POSITION_HANDLE);
 }
 
