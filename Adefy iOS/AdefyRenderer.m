@@ -46,6 +46,15 @@ static float PPM;
 + (float) getPPM { return PPM; }
 + (float) getMPP { return 1.0f / PPM; }
 
++ (cpVect)worldToScreen:(cpVect)v {
+  return cpv(v.x * PPM, v.y * PPM);
+}
+
++ (cpVect)screenToWorld:(cpVect)v {
+  return cpv(v.x / PPM, v.y / PPM);
+}
+
+
 - (void) addActor:(AdefyActor *)actor {
   [mActors addObject:actor];
 }
@@ -91,6 +100,12 @@ static float PPM;
 
 - (GLKMatrix4) generateProjection:(CGRect)rect {
   return GLKMatrix4MakeOrtho(0, rect.size.width, 0, rect.size.height, -10, 10);
+}
+
+- (void)update {
+  for(AdefyActor *actor in mActors) {
+    [actor update];
+  }
 }
 
 - (void) drawFrame:(CGRect)rect {

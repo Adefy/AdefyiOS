@@ -88,6 +88,10 @@
 
 #pragma mark - GLKView and GLKViewController delegate methods
 
+- (void)update {
+  [mRenderer update];
+}
+
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
   [mRenderer drawFrame:rect];
 }

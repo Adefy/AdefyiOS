@@ -3,6 +3,10 @@
 #import "AdefyRenderer.h"
 #import "AdefyMaterial.h"
 #import "AdefySingleColorMaterial.h"
+#import "ChipmunkObject.h"
+#import "ChipmunkBody.h"
+#import "ChipmunkShape.h"
+#import "AdefyPhysics.h"
 
 // Private methods
 @interface AdefyActor ()
@@ -20,34 +24,41 @@
 
   int mPosVertexCount;
   GLuint mPosVertexBuffer;
-  GLuint mPosVertexArray;
+  GLfloat *mPosVertexArray;
 
   GLuint mRenderMode;
 
   float mRotation;    // Stored in radians
   cpVect mPosition;
 
+  ChipmunkBody *mPhysicsBody;
+  ChipmunkShape *mPhysicsShape;
+
   GLKMatrix4 mModelViewMatrix;
 
   AdefyRenderer *mRenderer;
+  AdefyPhysics *mPhysics;
   AdefyMaterial *mMaterial;
 }
 
 - (AdefyActor *)init:(int)id
            vertices:(GLfloat *)vertices
-              count:(int)count {
+              count:(unsigned int)count {
 
   self = [super init];
 
   mId = id;
   mRenderer = [AdefyRenderer getGlobalInstance];
+  mPhysics = [AdefyPhysics getGlobalInstance];
   mRotation = 0.0f;
-  mPosition = cpv(100.0f, 100.0f);
+  mPosition = cpv(0.0f, 0.0f);
   mMaterial = [[AdefySingleColorMaterial alloc] init];
   mPosVertexBuffer = 0;
-  mPosVertexArray = 0;
+  mPosVertexArray = nil;
   mVisible = YES;
   mRenderMode = GL_TRIANGLE_FAN;
+  mPhysicsBody = nil;
+  mPhysicsShape = nil;
 
   [self setVertices:vertices count:count];
   [self addToRenderer:mRenderer];
@@ -69,6 +80,7 @@
               count:(unsigned int)count {
 
   mPosVertexCount = count;
+  mPosVertexArray = vertices;
 
   // Add a Z coord to the vertices
   GLfloat *resizedVertices = malloc(sizeof(GLfloat) * count * 3);
@@ -146,8 +158,29 @@
            mode:mRenderMode];
 }
 
-- (void)destroyPhysicsBody {
+- (void) update {
+  if(mPhysicsBody != nil) {
+    mPosition = [AdefyRenderer worldToScreen:mPhysicsBody.pos];
+    mRotation = mPhysicsBody.angle;
+  }
+}
 
+- (BOOL) hasPhysicsBody {
+  return mPhysicsBody != nil;
+}
+
+- (void)destroyPhysicsBody {
+  if(![self hasPhysicsBody]) { return; }
+
+  if(mPhysicsShape != nil) {
+    [mPhysics removeShape:mPhysicsShape];
+    mPhysicsShape = nil;
+  }
+
+  if(mPhysicsBody != nil) {
+    [mPhysics removeBody:mPhysicsBody];
+    mPhysicsBody = nil;
+  }
 }
 
 - (void)createPhysicsBody {
@@ -159,9 +192,51 @@
 - (void)createPhysicsBody:(float)mass
                  friction:(float)friction
                elasticity:(float)elasticity {
-  
-}
 
+  if([self hasPhysicsBody])  {
+    [self destroyPhysicsBody];
+  }
+
+  // Create physics vertices
+  cpVect *physicsVerts = malloc(sizeof(cpVect) * mPosVertexCount);
+
+  for(unsigned int i = 0; i < mPosVertexCount; i++) {
+    physicsVerts[i] = cpv(mPosVertexArray[i * 2], mPosVertexArray[(i * 2) + 1]);
+  }
+
+  if(mass == 0.0f) {
+
+    // Static body
+    mPhysicsBody = nil;
+    mPhysicsShape = [ChipmunkPolyShape polyWithBody:[mPhysics getStaticBody]
+                                              count:mPosVertexCount
+                                              verts:physicsVerts
+                                             offset:mPosition];
+
+  } else {
+
+    // Dynamic body
+    float moment = cpMomentForPoly(mass, mPosVertexCount, physicsVerts, cpv(0, 0));
+    mPhysicsBody = [ChipmunkBody bodyWithMass:mass andMoment:moment];
+
+    [mPhysicsBody setPos:mPosition];
+    [mPhysicsBody setAngle:mRotation];
+
+    mPhysicsShape = [ChipmunkPolyShape polyWithBody:mPhysicsBody
+                                              count:mPosVertexCount
+                                              verts:physicsVerts
+                                             offset:cpv(0, 0)];
+  }
+
+  [mPhysicsShape setFriction:friction];
+  [mPhysicsShape setElasticity:elasticity];
+
+  [mPhysics registerShape:mPhysicsShape];
+
+  if(mPhysicsBody != nil) {
+    [mPhysics registerBody:mPhysicsBody];
+  }
+}
 
 - (void) setupRenderMatrix {
 

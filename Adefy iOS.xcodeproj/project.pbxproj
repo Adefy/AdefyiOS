@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		092E4F6C18F53513008CE39F /* AdefyRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 092E4F6B18F53513008CE39F /* AdefyRenderer.m */; };
+		095632C718F862230012CE23 /* libChipmunkPro-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 095632C618F862230012CE23 /* libChipmunkPro-iPhone.a */; };
 		09655CB118F47CE9002D4C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB018F47CE9002D4C92 /* Foundation.framework */; };
 		09655CB318F47CE9002D4C92 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB218F47CE9002D4C92 /* CoreGraphics.framework */; };
 		09655CB518F47CE9002D4C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB418F47CE9002D4C92 /* UIKit.framework */; };
@@ -90,6 +91,7 @@
 		092E508118F5D1A3008CE39F /* cpSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpace.h; sourceTree = "<group>"; };
 		092E508218F5D1A3008CE39F /* cpSpatialIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpatialIndex.h; sourceTree = "<group>"; };
 		092E508318F5D1A3008CE39F /* cpVect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpVect.h; sourceTree = "<group>"; };
+		095632C618F862230012CE23 /* libChipmunkPro-iPhone.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libChipmunkPro-iPhone.a"; path = "ChipmunkPro-iPhone-Trial/libChipmunkPro-iPhone.a"; sourceTree = "<group>"; };
 		09655CAD18F47CE9002D4C92 /* Adefy iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Adefy iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09655CB018F47CE9002D4C92 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09655CB218F47CE9002D4C92 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -135,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				095632C718F862230012CE23 /* libChipmunkPro-iPhone.a in Frameworks */,
 				09655CB918F47CE9002D4C92 /* OpenGLES.framework in Frameworks */,
 				09655CB318F47CE9002D4C92 /* CoreGraphics.framework in Frameworks */,
 				09655CB518F47CE9002D4C92 /* UIKit.framework in Frameworks */,
@@ -244,6 +247,7 @@
 		09655CAF18F47CE9002D4C92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				095632C618F862230012CE23 /* libChipmunkPro-iPhone.a */,
 				09655CB018F47CE9002D4C92 /* Foundation.framework */,
 				09655CB218F47CE9002D4C92 /* CoreGraphics.framework */,
 				09655CB418F47CE9002D4C92 /* UIKit.framework */,

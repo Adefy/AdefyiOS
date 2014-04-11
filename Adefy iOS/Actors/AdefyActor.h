@@ -10,9 +10,11 @@
 
 - (AdefyActor *)init:(int)id
            vertices:(GLfloat *)vertices
-              count:(int)count;
+              count:(unsigned int)count;
 
 - (void) draw:(GLKMatrix4)projection;
+- (void) update;
+- (BOOL) hasPhysicsBody;
 - (void) destroyPhysicsBody;
 - (void) createPhysicsBody;
 - (void) createPhysicsBody:(float)mass

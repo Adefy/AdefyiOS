@@ -28,8 +28,6 @@
             vertices:vertices
                count:4];
 
-  free(vertices);
-
   return self;
 }
 

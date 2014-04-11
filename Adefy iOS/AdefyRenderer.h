@@ -6,6 +6,11 @@
 
 @interface AdefyRenderer : NSObject
 
++ (float) getPPM;
++ (float) getMPP;
++ (cpVect) worldToScreen:(cpVect)v;
++ (cpVect) screenToWorld:(cpVect)v;
+
 + (void)setGlobalInstance:(AdefyRenderer *)renderer;
 + (AdefyRenderer *)getGlobalInstance;
 
@@ -23,6 +28,7 @@
 - (void) addActor:(AdefyActor *)actor;
 - (AdefyActor *) getActor:(unsigned int)index;
 
+- (void) update;
 - (void) drawFrame:(CGRect)rect;
 
 @end

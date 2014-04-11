@@ -31,6 +31,10 @@ AdefyPhysics *GLOBAL_INSTANCE;
   return GLOBAL_INSTANCE;
 }
 
+- (ChipmunkBody *)getStaticBody {
+  return space.staticBody;
+}
+
 - (void)registerShape:(ChipmunkShape *)shape {
   [space addShape:shape];
 }

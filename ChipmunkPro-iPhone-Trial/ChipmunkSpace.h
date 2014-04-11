@@ -1,6 +1,12 @@
 // Copyright 2013 Howling Moon Software. All rights reserved.
 // See http://chipmunk2d.net/legal.php for more information.
 
+#import "chipmunk.h"
+
+@protocol ChipmunkObject;
+@class ChipmunkNearestPointQueryInfo;
+@class ChipmunkSegmentQueryInfo;
+
 /**
 	Chipmunk spaces are simulation containers. You add a bunch of physics objects to a space (rigid bodies, collision shapes, and joints) and step the entire space forward through time as a whole.
 	If you have Chipmunk Pro, you'll want to use the ChipmunkHastySpace subclass instead as it has iPhone specific optimizations.
@@ -13,10 +19,10 @@ struct cpSpace;
 @protected
 	struct cpSpace *_space;
 	ChipmunkBody *_staticBody;
-	
+
 	NSMutableSet *_children;
 	NSMutableArray *_handlers;
-	
+
 	id _data;
 }
 
@@ -100,7 +106,7 @@ __attribute__((__deprecated__));
 /**
   Set the default collision handler.
   The default handler is used for all collisions when a specific collision handler cannot be found.
-  
+
   The expected method selectors are as follows:
 	@code
 - (bool)begin:(cpArbiter *)arbiter space:(ChipmunkSpace*)space
@@ -118,10 +124,10 @@ __attribute__((__deprecated__));
 /**
   Set a collision handler to handle specific collision types.
   The methods are called only when shapes with the specified collisionTypes collide.
-  
+
   @c typeA and @c typeB should be the same object references set to ChipmunkShape.collisionType. They can be any uniquely identifying object.
 	Class and global NSString objects work well as collision types as they are easy to get a reference to and do not require you to allocate any objects.
-  
+
   The expected method selectors are as follows:
 	@code
 - (bool)begin:(cpArbiter *)arbiter space:(ChipmunkSpace*)space
@@ -179,17 +185,17 @@ __attribute__((__deprecated__));
   The main reason you want to define post-step callbacks is to get around the restriction that you cannot call the add/remove methods from a collision handler callback.
 	Post-step callbacks run right before the next (or current) call to ChipmunkSpace.step: returns when it is safe to add and remove objects.
 	You can only schedule one post-step callback per key value, this prevents you from accidentally removing an object twice. Registering a second callback for the same key is a no-op.
-  
+
   The method signature of the method should be:
   @code
 - (void)postStepCallback:(id)key</code></pre>
 	@endcode
-	
+
   This makes it easy to call a removal method on your game controller to remove a game object that died or was destroyed as the result of a collision:
   @code
 [space addPostStepCallback:gameController selector:@selector(remove:) key:gameObject];
 	@endcode
-	
+
 	@attention Not to be confused with post-solve collision handler callbacks.
 	@warning @c target and @c object cannot be retained by the ChipmunkSpace. If you need to release either after registering the callback, use autorelease to ensure that they won't be deallocated until after [ChipmunkSpace step:] returns.
 	@see ChipmunkSpace.addPostStepRemoval:
@@ -221,16 +227,16 @@ typedef void (^ChipmunkPostStepBlock)(void);
 - (NSArray *)pointQueryAll:(cpVect)point layers:(cpLayers)layers group:(cpGroup)group __attribute__((__deprecated__));
 
 /// Returns the first shape that overlaps the given point. The point is treated as having the given group and layers.
-/// @deprecated 
+/// @deprecated
 - (ChipmunkShape *)pointQueryFirst:(cpVect)point layers:(cpLayers)layers group:(cpGroup)group __attribute__((__deprecated__));
 
 /// Return a NSArray of ChipmunkSegmentQueryInfo objects for all the shapes that overlap the segment. The objects are unsorted.
 - (NSArray *)segmentQueryAllFrom:(cpVect)start to:(cpVect)end layers:(cpLayers)layers group:(cpGroup)group;
 
-/// Returns the first shape that overlaps the given segment. The segment is treated as having the given group and layers. 
+/// Returns the first shape that overlaps the given segment. The segment is treated as having the given group and layers.
 - (ChipmunkSegmentQueryInfo *)segmentQueryFirstFrom:(cpVect)start to:(cpVect)end layers:(cpLayers)layers group:(cpGroup)group;
 
-/// Returns a NSArray of all shapes whose bounding boxes overlap the given bounding box. The box is treated as having the given group and layers. 
+/// Returns a NSArray of all shapes whose bounding boxes overlap the given bounding box. The box is treated as having the given group and layers.
 - (NSArray *)bbQueryAll:(cpBB)bb layers:(cpLayers)layers group:(cpGroup)group;
 
 /// Returns a NSArray of ChipmunkShapeQueryInfo objects for all the shapes that overlap @c shape.
@@ -272,11 +278,11 @@ typedef void (^ChipmunkPostStepBlock)(void);
 	A macro that defines and initializes shape variables for you in a collision callback.
 	They are initialized in the order that they were defined in the collision handler associated with the arbiter.
 	If you defined the handler as:
-	
+
 	@code
 		[space addCollisionHandler:target typeA:foo typeB:bar ...]
 	@endcode
-	
+
 	You you will find that @code a->collision_type == 1 @endcode and @code b->collision_type == 2 @endcode.
 */
 #define CHIPMUNK_ARBITER_GET_SHAPES(__arb__, __a__, __b__) ChipmunkShape *__a__, *__b__; { \
