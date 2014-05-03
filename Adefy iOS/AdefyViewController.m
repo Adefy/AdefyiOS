@@ -64,11 +64,13 @@
   jsVM = [[JSVirtualMachine alloc] init];
   jsContext = [[JSContext alloc] initWithVirtualMachine:jsVM];
 
-  jsInterface = [[AdefyJSInterface alloc] init:jsContext];
+  jsInterface = [[AdefyJSInterface alloc] init:jsContext
+                                  withRenderer:mRenderer];
 }
 
 - (void)initTest {
 
+  /*
   AdefyRectangleActor *ground = [[AdefyRectangleActor alloc] init:1
                                                            width:200
                                                           height:20];
@@ -89,6 +91,7 @@
   [box setRotation:45.0f inDegrees:YES];
   [box setPosition:cpv(150, 200)];
   [box createPhysicsBody:10.0f friction:1.0f elasticity:0.1f];
+  */
 }
 
 - (void)dealloc {

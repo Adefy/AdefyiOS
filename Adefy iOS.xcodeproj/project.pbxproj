@@ -30,6 +30,7 @@
 		09655CDD18F47CE9002D4C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB418F47CE9002D4C92 /* UIKit.framework */; };
 		09655CE518F47CE9002D4C92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09655CE318F47CE9002D4C92 /* InfoPlist.strings */; };
 		09655CE718F47CE9002D4C92 /* Adefy_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */; };
+		09BDCD14191572FC00675212 /* ajs-prod.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 09BDCD12191572E700675212 /* ajs-prod.min.js */; };
 		2EB9D15D7B882DF9CE0381A9 /* AdefyJSAnimationInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D7B5606033B6C9DC5240 /* AdefyJSAnimationInterface.m */; };
 		2EB9D189C913E10A0B3D9B33 /* AdefySingleColorMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DB7258BF83202B9C832B /* AdefySingleColorMaterial.m */; };
 		2EB9D724B19EF6EBBB78EA63 /* AdefyShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D5AE7D1269607D4CA9AE /* AdefyShader.m */; };
@@ -127,6 +128,7 @@
 		09655CE218F47CE9002D4C92 /* Adefy iOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Adefy iOSTests-Info.plist"; sourceTree = "<group>"; };
 		09655CE418F47CE9002D4C92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Adefy_iOSTests.m; sourceTree = "<group>"; };
+		09BDCD12191572E700675212 /* ajs-prod.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "ajs-prod.min.js"; sourceTree = "<group>"; };
 		2EB9D078C217A58F17C0BFED /* AdefyJSEngineInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSEngineInterface.h; sourceTree = "<group>"; };
 		2EB9D0C265BB7A0A171EB7D5 /* AdefyJSAnimationInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSAnimationInterface.h; sourceTree = "<group>"; };
 		2EB9D118EFDDD17C14879BA7 /* AdefySingleColorMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefySingleColorMaterial.h; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 		09655CBA18F47CE9002D4C92 /* Adefy iOS */ = {
 			isa = PBXGroup;
 			children = (
+				09BDCD11191572C900675212 /* Resources */,
 				09655CC318F47CE9002D4C92 /* AdefyAppDelegate.h */,
 				09655CC418F47CE9002D4C92 /* AdefyAppDelegate.m */,
 				09655CC618F47CE9002D4C92 /* Main_iPhone.storyboard */,
@@ -336,6 +339,14 @@
 				09655CE318F47CE9002D4C92 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		09BDCD11191572C900675212 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				09BDCD12191572E700675212 /* ajs-prod.min.js */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		2EB9D104EE1E9C06EFF2B516 /* Actors */ = {
@@ -463,6 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09BDCD14191572FC00675212 /* ajs-prod.min.js in Resources */,
 				09655CCD18F47CE9002D4C92 /* ShaderSingleColor.fsh in Resources */,
 				09655CCB18F47CE9002D4C92 /* Main_iPad.storyboard in Resources */,
 				09655CC818F47CE9002D4C92 /* Main_iPhone.storyboard in Resources */,

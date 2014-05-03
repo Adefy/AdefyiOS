@@ -7,6 +7,7 @@
 #import "ChipmunkBody.h"
 #import "ChipmunkShape.h"
 #import "AdefyPhysics.h"
+#import "AdefyColor3.h"
 
 // Private methods
 @interface AdefyActor ()
@@ -76,6 +77,23 @@
 - (float)  getRotation   { return mRotation; }
 - (GLuint) getRenderMode { return mRenderMode; }
 
+- (AdefyColor3 *)getColor {
+  if([mMaterial getName] == [AdefySingleColorMaterial getName]) {
+    return [(AdefySingleColorMaterial *)mMaterial getColor];
+  } else {
+    return nil;
+  }
+}
+
+- (GLfloat *)getVertices {
+  return mPosVertexArray;
+}
+
+- (GLuint)getVertexCount {
+  return mPosVertexCount;
+}
+
+
 - (void) setVertices:(GLfloat *)vertices
               count:(unsigned int)count {
 
@@ -88,7 +106,7 @@
   for(unsigned int i = 0; i < count; i++) {
     resizedVertices[(i * 3)] = vertices[(i * 2)];
     resizedVertices[(i * 3) + 1] = vertices[(i * 2) + 1];
-    resizedVertices[(i * 3) + 2] = 0.0f;
+    resizedVertices[(i * 3) + 2] = 1.0f;
   }
 
   glDeleteBuffers(1, &mPosVertexBuffer);

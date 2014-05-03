@@ -31,6 +31,9 @@
 - (cpVect) getPosition;
 - (float)  getRotation;
 - (GLuint) getRenderMode;
+- (AdefyColor3 *) getColor;
+- (GLfloat *) getVertices;
+- (GLuint) getVertexCount;
 
 ////
 //// Setters

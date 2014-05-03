@@ -9,6 +9,10 @@
 -(void)setG:(int)g;
 -(void)setB:(int)b;
 
+-(int)getR;
+-(int)getG;
+-(int)getB;
+
 -(AdefyColor3 *)init:(int)r withG:(int)g withB:(int)b;
 -(AdefyColor3 *)init:(float)r withGF:(float)g withBF:(float)b;
 

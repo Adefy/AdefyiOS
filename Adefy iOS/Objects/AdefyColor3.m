@@ -48,6 +48,19 @@
   mBFloat = (float)b / 255.0f;
 }
 
+- (int)getR {
+  return mR;
+}
+
+- (int)getG {
+  return mG;
+}
+
+- (int)getB {
+  return mB;
+}
+
+
 - (void)setA:(int)a {
   mA = a;
   mAFloat = (float)a / 255.0f;

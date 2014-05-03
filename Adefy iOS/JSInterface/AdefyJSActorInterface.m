@@ -1,6 +1,7 @@
 #import "AdefyJSActorInterface.h"
 #import "AdefyRectangleActor.h"
 #import "AdefyRenderer.h"
+#import "AdefyColor3.h"
 
 int nextID = 0;
 int getNextID() { return nextID++; }
@@ -129,6 +130,8 @@ int getNextID() { return nextID++; }
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
 
+  [actor setPosition:x y:y];
+
   return YES;
 }
 
@@ -138,6 +141,8 @@ int getNextID() { return nextID++; }
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  [actor setRotation:angle inDegrees:!radians];
 
   return YES;
 }
@@ -149,6 +154,9 @@ int getNextID() { return nextID++; }
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  AdefyColor3 *color = [[AdefyColor3 alloc] init:r withG:g withB:b];
+  [actor setColor:color];
 
   return YES;
 }
@@ -167,7 +175,21 @@ int getNextID() { return nextID++; }
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return nil; }
 
-  return @"";
+  NSMutableString *JSON = [[NSMutableString alloc] initWithString:@"["];
+  GLfloat *vertices = [actor getVertices];
+  GLuint vertexCount = [actor getVertexCount];
+
+  for(unsigned int i = 0; i < vertexCount; i++) {
+    [JSON appendFormat:@"\"%f\"", vertices[i]];
+
+    if(i < vertexCount - 1) {
+      [JSON appendString:@","];
+    }
+  }
+
+  [JSON appendString:@"]"];
+
+  return JSON;
 }
 
 - (NSString *)getActorPosition:(int)id {
@@ -175,7 +197,10 @@ int getNextID() { return nextID++; }
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return nil; }
 
-  return @"";
+  cpVect position = [actor getPosition];
+
+  return [[NSString alloc]
+      initWithFormat:@"{ x:\"%f\", y:\"%f\" }", position.x, position.y];
 }
 
 - (NSString *)getActorColor:(int)id {
@@ -183,7 +208,15 @@ int getNextID() { return nextID++; }
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return nil; }
 
-  return @"";
+  AdefyColor3 *color = [actor getColor];
+
+  if(color == nil) {
+    return @"";
+  } else {
+    return [[NSString alloc]
+        initWithFormat:@"{ r:\"%i\", g:\"%i\", b:\"%i\" }",
+            [color getR], [color getG], [color getB]];
+  }
 }
 
 - (float)getActorRotation:(int)id {
@@ -191,13 +224,15 @@ int getNextID() { return nextID++; }
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return -1; }
 
-  return 0;
+  return [actor getRotation];
 }
 
 - (BOOL)destroyPhysicsBody:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  [actor destroyPhysicsBody];
 
   return YES;
 }
@@ -209,6 +244,8 @@ int getNextID() { return nextID++; }
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  [actor createPhysicsBody:mass friction:friction elasticity:elasticity];
 
   return YES;
 }

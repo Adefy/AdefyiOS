@@ -97,15 +97,13 @@ static float PPM;
 
 - (AdefyActor *)getActorById:(int)id {
 
-  NSUInteger index = [mActors indexOfObjectPassingTest:^BOOL(id element, NSUInteger idx, BOOL *stop) {
-    return [(AdefyActor *)element getId] == id;
-  }];
-
-  if(index == NSNotFound) {
-    return nil;
+  for(AdefyActor *actor in mActors) {
+    if([actor getId] == id) {
+      return actor;
+    }
   }
 
-  return [mActors objectAtIndex:index];
+  return nil;
 }
 
 - (void)update {
