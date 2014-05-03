@@ -1,29 +1,37 @@
 #import <Foundation/Foundation.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 
-@interface AdefyJSEngineInterface : NSObject
+@protocol AdefyJSEngineInterfaceExports <JSExport>
 
-+ (void) initialize:(NSString *)ad
+JSExportAs(initialize,
+- (void) initialize:(NSString *)ad
               width:(int)width
              height:(int)height
            logLevel:(int)logLevel
-                 id:(NSString *)id;
+                 id:(NSString *)id);
 
-+ (NSString *) getClearColor;
-+ (void) setClearColor:(float)r
+- (NSString *) getClearColor;
+JSExportAs(setClearColor,
+- (void) setClearColor:(float)r
                      g:(float)g
-                     b:(float)b;
+                     b:(float)b);
 
-+ (void) setRemindMeButton:(float)x
+JSExportAs(setRemindMeButton,
+- (void) setRemindMeButton:(float)x
                          y:(float)y
                      width:(float)width
-                    height:(float)height;
+                    height:(float)height);
 
-+ (void) setLogLevel:(int)level;
-+ (NSString *) getCameraPosition;
-+ (void) setCameraPosition:(float)x
-                         y:(float)y;
+JSExportAs(setLogLevel, - (void) setLogLevel:(int)level);
+- (NSString *) getCameraPosition;
+JSExportAs(setCameraPosition, - (void) setCameraPosition:(float)x y:(float)y);
 
-+ (void) triggerEnd;
-+ (void) setOrientation:(NSString *)orientation;
+- (void) triggerEnd;
+JSExportAs(setOrientation, - (void) setOrientation:(NSString *)orientation);
 
+JSExportAs(log, - (void) log:(NSString *)string);
+
+@end
+
+@interface AdefyJSEngineInterface : NSObject <AdefyJSEngineInterfaceExports>
 @end

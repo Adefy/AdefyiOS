@@ -1,12 +1,17 @@
 #import <Foundation/Foundation.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 
-@interface AdefyJSAnimationInterface : NSObject
+@protocol AdefyJSAnimationInterfaceExports <JSExport>
 
-+ (BOOL) canAnimate:(NSString *)property;
-+ (NSString *) getAnimationName:(NSString *)property;
-+ (NSString *) preCalculateBez:(NSString *)options;
-+ (void) animate:(int)id
-      properties:(NSString *)properties
-         options:(NSString *)options;
+JSExportAs(canAnimate, - (BOOL) canAnimate:(NSString *)property);
+JSExportAs(getAnimationName, - (NSString *) getAnimationName:(NSString *)property);
+JSExportAs(preCalculateBez, - (NSString *) preCalculateBez:(NSString *)options);
+JSExportAs(animate,
+- (void) animate:(int)id
+properties:(NSString *)properties
+options:(NSString *)options);
 
+@end
+
+@interface AdefyJSAnimationInterface : NSObject <AdefyJSAnimationInterfaceExports>
 @end

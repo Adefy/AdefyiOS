@@ -1,6 +1,217 @@
 #import "AdefyJSActorInterface.h"
+#import "AdefyRectangleActor.h"
+#import "AdefyRenderer.h"
+
+int nextID = 0;
+int getNextID() { return nextID++; }
 
 @implementation AdefyJSActorInterface {
 
+@protected
+  AdefyRenderer *mRenderer;
 }
+- (AdefyJSActorInterface *)init:(AdefyRenderer *)renderer {
+
+  self = [super init];
+
+  mRenderer = renderer;
+
+  return self;
+}
+
+- (BOOL)destroyActor:(int)id1 {
+  return NO;
+}
+
+- (int)createPolygonActor:(NSString *)verts {
+  return 0;
+}
+
+- (int)createRectangleActor:(float)width
+                     height:(float)height {
+  int id = getNextID();
+
+  [[AdefyRectangleActor alloc] init:id
+                              width:width
+                             height:height];
+
+  return id;
+}
+
+- (int)createCircleActor:(float)radius
+                   verts:(NSString *)verts {
+  return 0;
+}
+
+- (int)createTextActor:(NSString *)text
+                  size:(int)size
+                     r:(int)r
+                     g:(int)g
+                     b:(int)b {
+  return 0;
+}
+
+- (BOOL)attachTexture:(NSString *)texture
+                width:(float)width
+               height:(float)height
+                    x:(float)x
+                    y:(float)y
+                angle:(float)angle
+                   id:(int)id {
+  return NO;
+}
+
+- (BOOL)removeAttachment:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setAttachmentVisibility:(BOOL)visible
+                             id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setActorLayer:(int)layer
+                   id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setActorPhysicsLayer:(int)layer
+                          id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setPhysicsVertices:(NSString *)verts
+                        id:(int)id {
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setRenderMode:(int)layer
+                   id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)updateVertices:(NSString *)verts
+                    id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setActorPosition:(float)x
+                       y:(float)y
+                      id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setActorRotation:(float)angle
+                      id:(int)id
+                 radians:(BOOL)radians {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setActorColor:(int)r
+                    g:(int)g
+                    b:(int)b
+                   id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)setActorTexture:(NSString *)name
+                     id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (NSString *)getVertices:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return nil; }
+
+  return @"";
+}
+
+- (NSString *)getActorPosition:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return nil; }
+
+  return @"";
+}
+
+- (NSString *)getActorColor:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return nil; }
+
+  return @"";
+}
+
+- (float)getActorRotation:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return -1; }
+
+  return 0;
+}
+
+- (BOOL)destroyPhysicsBody:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+- (BOOL)enableActorPhysics:(float)mass
+                  friction:(float)friction
+                elasticity:(float)elasticity
+                        id:(int)id {
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  return YES;
+}
+
+
 @end

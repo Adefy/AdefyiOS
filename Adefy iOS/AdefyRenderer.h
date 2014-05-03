@@ -27,6 +27,7 @@
 - (void) setClearColor:(GLfloat [4])color;
 - (void) addActor:(AdefyActor *)actor;
 - (AdefyActor *) getActor:(unsigned int)index;
+- (AdefyActor *) getActorById:(int)id;
 
 - (void) update;
 - (void) drawFrame:(CGRect)rect;

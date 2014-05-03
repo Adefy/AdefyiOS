@@ -1,3 +1,4 @@
+#import <JavaScriptCore/JavaScriptCore.h>
 #import "AdefyViewController.h"
 #import "AdefyRenderer.h"
 #import "AdefySingleColorMaterial.h"
@@ -5,6 +6,7 @@
 #import "AdefyRectangleActor.h"
 #import "AdefyColor3.h"
 #import "AdefyPhysics.h"
+#import "AdefyJSInterface.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -13,6 +15,10 @@
   GLKMatrix4 mProjectionMatrix;
   AdefyRenderer *mRenderer;
   AdefyPhysics *mPhysics;
+
+  JSVirtualMachine *jsVM;
+  JSContext *jsContext;
+  AdefyJSInterface *jsInterface;
 }
 
 - (void)initTest;
@@ -48,7 +54,17 @@
   [AdefyRenderer setGlobalInstance:mRenderer];
   [AdefyPhysics setGlobalInstance:mPhysics];
 
+  [self initJSInterface];
+
   [self initTest];
+}
+
+- (void)initJSInterface {
+
+  jsVM = [[JSVirtualMachine alloc] init];
+  jsContext = [[JSContext alloc] initWithVirtualMachine:jsVM];
+
+  jsInterface = [[AdefyJSInterface alloc] init:jsContext];
 }
 
 - (void)initTest {

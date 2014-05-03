@@ -95,6 +95,19 @@ static float PPM;
   return GLKMatrix4MakeOrtho(0, rect.size.width, 0, rect.size.height, -10, 10);
 }
 
+- (AdefyActor *)getActorById:(int)id {
+
+  NSUInteger index = [mActors indexOfObjectPassingTest:^BOOL(id element, NSUInteger idx, BOOL *stop) {
+    return [(AdefyActor *)element getId] == id;
+  }];
+
+  if(index == NSNotFound) {
+    return nil;
+  }
+
+  return [mActors objectAtIndex:index];
+}
+
 - (void)update {
   for(AdefyActor *actor in mActors) {
     [actor update];

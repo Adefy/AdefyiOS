@@ -1,8 +1,11 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
+@class AdefyRenderer;
+
 @interface AdefyJSInterface : NSObject
 
-+ (void) registerInterface:(JSContext *)context;
+- (AdefyJSInterface *)init:(JSContext *)context
+              withRenderer:(AdefyRenderer *)renderer;
 
 @end
