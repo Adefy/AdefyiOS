@@ -7,6 +7,7 @@
 #import "AdefyColor3.h"
 #import "AdefyPhysics.h"
 #import "AdefyJSInterface.h"
+#import "AdefyDownloader.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -19,6 +20,7 @@
   JSVirtualMachine *jsVM;
   JSContext *jsContext;
   AdefyJSInterface *jsInterface;
+  AdefyDownloader *downloader;
 }
 
 - (void)initTest;
@@ -47,6 +49,9 @@
 
   [self setPreferredFramesPerSecond:60];
 
+  downloader = [[AdefyDownloader alloc] init:@"WHATT"];
+  [downloader fetchAd:@"test" withDurationMS:1000];
+
   mPhysics = [[AdefyPhysics alloc] init];
   mRenderer = [[AdefyRenderer alloc] init:(GLsizei)self.view.bounds.size.width
                                    height:(GLsizei)self.view.bounds.size.height];
@@ -55,7 +60,6 @@
   [AdefyPhysics setGlobalInstance:mPhysics];
 
   [self initJSInterface];
-
   [self initTest];
 }
 
