@@ -105,11 +105,13 @@ int getNextID() { return nextID++; }
   return YES;
 }
 
-- (BOOL)setRenderMode:(int)layer
+- (BOOL)setRenderMode:(unsigned int)mode
                    id:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  [actor setRenderMode:mode];
 
   return YES;
 }
@@ -119,6 +121,39 @@ int getNextID() { return nextID++; }
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  NSError *error = nil;
+  NSArray *vertices = [NSJSONSerialization JSONObjectWithData:verts
+                                                      options:0
+                                                        error:&error];
+
+  if(error) {
+    NSLog(@"Invalid JSON vertex array passed to interface");
+    return NO;
+  }
+
+  // Verts are stored in a flat array, but JSON is an array of vert objects
+  // So multiply by two for each component (2D verts)
+  GLfloat *finalVerts = malloc(sizeof(GLfloat) * [vertices count] * 2);
+
+  int index = 0;
+  for(NSDictionary *vert in vertices) {
+    id xValue = [vert valueForKey:@"x"];
+    id yValue = [vert valueForKey:@"y"];
+
+    if(!xValue || !yValue) {
+      NSLog(@"Invalid vertex format in JSON vert array");
+      return NO;
+    }
+
+    finalVerts[index * 2] = [xValue floatValue];
+    finalVerts[(index * 2) + 1] = [yValue floatValue];
+
+    index++;
+  }
+
+  [actor setVertices:finalVerts
+               count:[vertices count]];
 
   return YES;
 }

@@ -38,7 +38,7 @@ JSExportAs(setAttachmentVisibility, - (BOOL) setAttachmentVisibility:(BOOL)visib
 JSExportAs(setActorLayer, - (BOOL) setActorLayer:(int)layer id:(int)id);
 JSExportAs(setActorPhysicsLayer, - (BOOL) setActorPhysicsLayer:(int)layer id:(int)id);
 JSExportAs(setPhysicsVertices, - (BOOL) setPhysicsVertices:(NSString *)verts id:(int)id);
-JSExportAs(setRenderMode, - (BOOL) setRenderMode:(int)layer id:(int)id);
+JSExportAs(setRenderMode, - (BOOL) setRenderMode:(unsigned int)mode id:(int)id);
 
 JSExportAs(updateVertices, - (BOOL) updateVertices:(NSString *)verts id:(int)id);
 JSExportAs(setActorPosition, - (BOOL) setActorPosition:(float)x y:(float)y id:(int)id);
