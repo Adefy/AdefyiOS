@@ -8,7 +8,15 @@
 
 + (NSString *)getName;
 
+- (AdefySingleColorMaterial *)init:(AdefyColor3 *)withColor;
+
 - (void)setColor:(AdefyColor3 *)color;
 - (AdefyColor3 *)getColor;
+
+- (void)draw:(GLKMatrix4)projection
+   modelView:(GLKMatrix4)modelView
+       verts:(GLuint *)vertBuffer
+   vertCount:(int)vertCount
+        mode:(GLenum)mode;
 
 @end

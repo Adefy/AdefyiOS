@@ -20,10 +20,4 @@
 - (NSString *) getName;
 - (GLuint) getShader;
 
-- (void)draw:(GLKMatrix4)projection
-   modelView:(GLKMatrix4)modelView
-       verts:(GLuint *)vertBuffer
-   vertCount:(int)vertCount
-        mode:(GLenum)mode;
-
 @end

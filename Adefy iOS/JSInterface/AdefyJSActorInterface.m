@@ -123,7 +123,8 @@ int getNextID() { return nextID++; }
   if(actor == nil) { return NO; }
 
   NSError *error = nil;
-  NSArray *vertices = [NSJSONSerialization JSONObjectWithData:verts
+  NSData *JSONData = [verts dataUsingEncoding:NSUTF8StringEncoding];
+  NSArray *vertices = [NSJSONSerialization JSONObjectWithData:JSONData
                                                       options:0
                                                         error:&error];
 
@@ -138,16 +139,16 @@ int getNextID() { return nextID++; }
 
   int index = 0;
   for(NSDictionary *vert in vertices) {
-    id xValue = [vert valueForKey:@"x"];
-    id yValue = [vert valueForKey:@"y"];
+    NSValue *xValue = [vert valueForKey:@"x"];
+    NSValue *yValue = [vert valueForKey:@"y"];
 
     if(!xValue || !yValue) {
       NSLog(@"Invalid vertex format in JSON vert array");
       return NO;
     }
 
-    finalVerts[index * 2] = [xValue floatValue];
-    finalVerts[(index * 2) + 1] = [yValue floatValue];
+    finalVerts[index * 2] = [(NSNumber *)xValue floatValue];
+    finalVerts[(index * 2) + 1] = [(NSNumber *)yValue floatValue];
 
     index++;
   }

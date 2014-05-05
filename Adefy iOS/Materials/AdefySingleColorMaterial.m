@@ -2,7 +2,7 @@
 #import "AdefyColor3.h"
 #import "AdefyShader.h"
 
-const int STATIC_VERT_STRIDE = 3 * sizeof(GL_FLOAT);
+static const int STATIC_VERT_STRIDE = 3 * sizeof(GL_FLOAT);
 
 GLuint STATIC_POSITION_HANDLE;
 GLuint STATIC_COLOR_HANDLE;
@@ -52,16 +52,13 @@ float *STATIC_COLOR;
   [self setShader:shader];
 }
 
-+ (BOOL)wasJustUsed {
-  return STATIC_JUST_USED;
-}
-
-+ (void)setJustUsed:(BOOL)used {
-  STATIC_JUST_USED = used;
-}
++ (BOOL)wasJustUsed { return STATIC_JUST_USED; }
++ (void)setJustUsed:(BOOL)used { STATIC_JUST_USED = used; }
 
 + (NSString *)getName { return STATIC_NAME; }
 - (NSString *)getName { return [AdefySingleColorMaterial getName]; }
+
+- (GLuint)getShader { return [AdefySingleColorMaterial getShader]; }
 
 - (AdefySingleColorMaterial *)init {
   self = [self init:[[AdefyColor3 alloc] init:255 withG:255 withB:255]];
@@ -95,6 +92,14 @@ float *STATIC_COLOR;
     [AdefySingleColorMaterial buildShader];
   }
 
+  // In the future, check if the textured material was just used...
+  if(![AdefySingleColorMaterial wasJustUsed]) {
+    [AdefySingleColorMaterial setJustUsed:true];
+
+    glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
+    glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, GL_FALSE, STATIC_VERT_STRIDE, 0);
+  }
+
   // Copy color into float[] array, to prevent allocation
   [mColor copyToFloatArray:STATIC_COLOR];
 
@@ -104,16 +109,7 @@ float *STATIC_COLOR;
   glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, GL_FALSE, modelView.m);
   glUniform4fv(STATIC_COLOR_HANDLE, 1, STATIC_COLOR);
 
-  glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
-  glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, GL_FALSE, STATIC_VERT_STRIDE, 0);
-
-  // In the future, check if the textured material was just used...
-  if(![AdefySingleColorMaterial wasJustUsed]) {
-    [AdefySingleColorMaterial setJustUsed:true];
-  }
-
   glDrawArrays(mode, 0, vertCount * 3);
-  glDisableVertexAttribArray(STATIC_POSITION_HANDLE);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -121,10 +117,6 @@ float *STATIC_COLOR;
 // Called by other textures if they draw after us
 + (void)postFinalDraw {
   glDisableVertexAttribArray(STATIC_POSITION_HANDLE);
-}
-
-- (GLuint)getShader {
-  return [AdefySingleColorMaterial getShader];
 }
 
 @end

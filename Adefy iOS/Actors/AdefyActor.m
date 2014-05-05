@@ -8,6 +8,7 @@
 #import "ChipmunkShape.h"
 #import "AdefyPhysics.h"
 #import "AdefyColor3.h"
+#import "AdefyTexturedMaterial.h"
 
 // Private methods
 @interface AdefyActor ()
@@ -23,9 +24,13 @@
   int mId;
   BOOL mVisible;
 
-  int mPosVertexCount;
+  GLuint mPosVertexCount;
   GLuint mPosVertexBuffer;
   GLfloat *mPosVertexArray;
+
+  GLuint mTexVertexCount;
+  GLuint mTexVertexBuffer;
+  GLfloat *mTexVertexArray;
 
   GLuint mRenderMode;
 
@@ -54,8 +59,13 @@
   mRotation = 0.0f;
   mPosition = cpv(0.0f, 0.0f);
   mMaterial = [[AdefySingleColorMaterial alloc] init];
+
   mPosVertexBuffer = 0;
   mPosVertexArray = nil;
+
+  mTexVertexBuffer = 0;
+  mTexVertexArray = nil;
+
   mVisible = YES;
   mRenderMode = GL_TRIANGLE_FAN;
   mPhysicsBody = nil;
@@ -85,14 +95,10 @@
   }
 }
 
-- (GLfloat *)getVertices {
-  return mPosVertexArray;
-}
-
-- (GLuint)getVertexCount {
-  return mPosVertexCount;
-}
-
+- (GLfloat *)getVertices { return mPosVertexArray; }
+- (GLfloat *)getTexCoords { return mTexVertexArray; }
+- (GLuint)getTexCoordCount { return mTexVertexCount; }
+- (GLuint)getVertexCount { return mPosVertexCount; }
 
 - (void) setVertices:(GLfloat *)vertices
               count:(unsigned int)count {
@@ -114,9 +120,25 @@
   [AdefyRenderer createVertexBuffer:&mPosVertexBuffer
                            vertices:resizedVertices
                               count:count
+                         components:3
                              useage:GL_STATIC_DRAW];
 
   free(resizedVertices);
+}
+
+- (void) setTexCoords:(GLfloat *)coords
+                count:(unsigned int)count {
+
+  mTexVertexCount = count;
+  mTexVertexArray = coords;
+
+  glDeleteBuffers(1, &mTexVertexBuffer);
+
+  [AdefyRenderer createVertexBuffer:&mTexVertexBuffer
+                           vertices:coords
+                              count:count
+                         components:2
+                             useage:GL_STATIC_DRAW];
 }
 
 - (void) setVisible:(BOOL)isVisible {
@@ -167,13 +189,26 @@
 
   [self setupRenderMatrix];
 
-  // This all has to be moved into a single color material
-  [mMaterial
-           draw:projection
-      modelView:mModelViewMatrix
-          verts:&mPosVertexBuffer
-      vertCount:mPosVertexCount
-           mode:mRenderMode];
+  if([mMaterial getName] == [AdefySingleColorMaterial getName]) {
+
+    [(AdefySingleColorMaterial *)mMaterial
+        draw:projection
+   modelView:mModelViewMatrix
+       verts:&mPosVertexBuffer
+   vertCount:mPosVertexCount
+        mode:mRenderMode];
+
+  } else if([mMaterial getName] == [AdefyTexturedMaterial getName]) {
+
+    [(AdefyTexturedMaterial *)mMaterial draw:projection
+                                  withModelV:mModelViewMatrix
+                                   withVerts:&mPosVertexBuffer
+                               withVertCount:mPosVertexCount
+                               withTexCoords:&mTexVertexBuffer
+                               withTexCCount:mTexVertexCount
+                                    withMode:mRenderMode];
+
+  }
 }
 
 - (void) update {

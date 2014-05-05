@@ -34,13 +34,18 @@
 - (AdefyColor3 *) getColor;
 - (GLfloat *) getVertices;
 - (GLuint) getVertexCount;
+- (GLfloat *)getTexCoords;
+- (GLuint)getTexCoordCount;
 
 ////
 //// Setters
 ////
-- (void) setVisible:(BOOL)isVisible;
 - (void) setVertices:(GLfloat *)vertices
               count:(unsigned int)count;
+- (void) setTexCoords:(GLfloat *)coords
+                count:(unsigned int)count;
+
+- (void) setVisible:(BOOL)isVisible;
 - (void) setPosition:(cpVect)position;
 - (void) setPosition:(float)x y:(float)y;
 - (void) setRenderMode:(GLuint)mode;

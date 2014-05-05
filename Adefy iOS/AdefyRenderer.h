@@ -15,9 +15,10 @@
 + (AdefyRenderer *)getGlobalInstance;
 
 + (void)createVertexBuffer:(GLuint *)buffer
-                 vertices:(GLfloat *)vertices
-                    count:(int)count
-                   useage:(GLenum)useage;
+                  vertices:(GLfloat *)vertices
+                     count:(int)count
+                components:(unsigned int)components
+                    useage:(GLenum)useage;
 
 - (AdefyRenderer *)init:(GLsizei)width
                  height:(GLsizei)height;

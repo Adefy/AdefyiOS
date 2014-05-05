@@ -82,13 +82,13 @@ static float PPM;
 + (void)createVertexBuffer:(GLuint *)buffer
                  vertices:(GLfloat *)vertices
                     count:(int)count
+               components:(unsigned int)components
                    useage:(GLenum)useage {
 
   glGenBuffers(1, buffer);
   glBindBuffer(GL_ARRAY_BUFFER, *buffer);
 
-  // Vertices doesn't mean components, so multiply by 3
-  glBufferData(GL_ARRAY_BUFFER, count * 3 * sizeof(GL_FLOAT), vertices, useage);
+  glBufferData(GL_ARRAY_BUFFER, count * components * sizeof(GL_FLOAT), vertices, useage);
 }
 
 - (GLKMatrix4) generateProjection:(CGRect)rect {
