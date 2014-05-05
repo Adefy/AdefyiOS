@@ -37,6 +37,11 @@ NSMutableString *CACHE_DIR;
   }
 }
 
+/**
+* Get the full path to the ad cache directory
+*
+* @return cache_dir_path
+*/
 + (NSMutableString *)getCacheDir {
   NSArray *paths = NSSearchPathForDirectoriesInDomains(
       NSDocumentDirectory, NSUserDomainMask, YES);
@@ -45,6 +50,11 @@ NSMutableString *CACHE_DIR;
   return [NSMutableString stringWithFormat:@"%@/adefy/ads/", documentsPath];
 }
 
+/**
+* Check if the ad cache directory exists. This does NOT create it!
+*
+* @return exists
+*/
 + (BOOL)cacheDirectoryExists {
 
   BOOL isDir;
@@ -54,6 +64,14 @@ NSMutableString *CACHE_DIR;
   return isDir && exists;
 }
 
+/**
+* Initialises us with a custom server URL. Not recommended for useage.
+*
+* @param apikey Publisher API Key
+* @param server_url Ad server URL, including protocol and serve API suffix
+* @param ad_type Name of desired ad type, case sensitive
+* @return self
+*/
 - (AdefyDownloader *)init:(NSString *)_apiKey
              withAdServer:(NSString *)_url
                    ofType:(NSString *)_adType {
@@ -67,6 +85,19 @@ NSMutableString *CACHE_DIR;
   return self;
 }
 
+/**
+* Initialise with an API key and a custom ad type; use this to
+* request specific ads from the server for display by name; should
+* only be used by Adefy demo apps, as normal requests are handled
+* by our platform.
+*
+* If requesting using a live API key and a non-standard name, any
+* generated impression or click will not count towards your earnings!
+*
+* @param apikey Publisher API key
+* @param ad_type Name of desired ad type, case sensitive
+* @return self
+*/
 - (AdefyDownloader *)init:(NSString *)_apiKey
                    ofType:(NSString *)_adType {
   return [self init:_apiKey
@@ -74,13 +105,27 @@ NSMutableString *CACHE_DIR;
              ofType:_adType];
 }
 
+/**
+* Initialise with an API key, using the default server URL and ad type.
+* This initialiser should be used for the majority of applications!
+*
+* @param apikey Publisher API key
+* @return self
+*/
 - (AdefyDownloader *)init:(NSString *)_apiKey {
   return [self init:_apiKey
        withAdServer:DEFAULT_ADEFY_SERVER
              ofType:DEFAULT_AD_TYPE];
 }
 
-// Returns UUID, Width, and Height in a dictionary
+/**
+* Builds and returns a dictionary containing information about the
+* current client, suitable for building a server query string and
+* requesting an ad. The dictionary contains keys for "UUID", "Width",
+* and "Height".
+*
+* @return user_information Dictionary containing client information
+*/
 - (NSMutableDictionary *)getUserInformation {
   NSMutableDictionary *uInfo = [[NSMutableDictionary alloc] init];
 
@@ -99,7 +144,15 @@ NSMutableString *CACHE_DIR;
   return uInfo;
 }
 
-- (NSString *)buildQueryString {
+/**
+* Builds and returns a suitable query string for our server (GET params)
+* This string contains the information needed to identify us and let
+* the server peform any necessary targeting. It also contains our APIkey,
+* which authorizes us for the request
+*
+* @return queryString
+*/
+- (NSString *)getQueryString {
   NSMutableString *query = [NSMutableString stringWithString:serverURL];
   NSMutableDictionary *userInformation = [self getUserInformation];
 
@@ -107,11 +160,22 @@ NSMutableString *CACHE_DIR;
   NSNumber * height = [userInformation objectForKey:@"Height"];
   NSString *uuid = [userInformation objectForKey:@"UUID"];
 
-  [query appendFormat:@"?width=%i&height=%i&uuid=%@", [width intValue], [height intValue], uuid];
+  [query appendFormat:@"?apikey=%@&width=%i&height=%i&uuid=%@",
+          apiKey, [width intValue], [height intValue], uuid];
 
   return query;
 }
 
+/**
+* Downloads and prepares an ad for execution under the provided name. Requests
+* an ad with a length as close as possible to the provided duration, but there
+* is no gaurantee the served ad is of, or close to the duration!
+*
+* This method is asynchronous!
+*
+* @param name Ad name for future reference
+* @param duration Ad length in milliseconds
+*/
 - (void)fetchAd:(NSString *)name withDurationMS:(int)duration {
 
   // Get queue handles
@@ -124,7 +188,7 @@ NSMutableString *CACHE_DIR;
     //
     // TODO: Use a different download mechanism
     //
-    NSURL *url = [NSURL URLWithString:[self buildQueryString]];
+    NSURL *url = [NSURL URLWithString:[self getQueryString]];
     NSData *data = [NSData dataWithContentsOfURL:url];
     NSString *downloadPath = [CACHE_DIR stringByAppendingPathComponent:name];
     NSMutableString *finalFilename = [NSMutableString stringWithFormat:@"%@.ttx", downloadPath];
