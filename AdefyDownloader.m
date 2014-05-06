@@ -1,4 +1,5 @@
 #import "AdefyDownloader.h"
+#import "SSZipArchive.h"
 #import <AdSupport/ASIdentifierManager.h>
 
 NSString *DEFAULT_ADEFY_SERVER = @"https://app.adefy.com/api/v1/serve";
@@ -160,7 +161,7 @@ NSMutableString *CACHE_DIR;
   NSNumber * height = [userInformation objectForKey:@"Height"];
   NSString *uuid = [userInformation objectForKey:@"UUID"];
 
-  [query appendFormat:@"?apikey=%@&width=%i&height=%i&uuid=%@",
+  [query appendFormat:@"?apikey=%@&type=organic&width=%i&height=%i&uuid=%@",
           apiKey, [width intValue], [height intValue], uuid];
 
   return query;
@@ -185,22 +186,45 @@ NSMutableString *CACHE_DIR;
   // Start primary download
   dispatch_async(backgroundQ, ^{
 
-    //
-    // TODO: Use a different download mechanism
-    //
-    NSURL *url = [NSURL URLWithString:[self getQueryString]];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    NSString *downloadPath = [CACHE_DIR stringByAppendingPathComponent:name];
-    NSMutableString *finalFilename = [NSMutableString stringWithFormat:@"%@.ttx", downloadPath];
+    @autoreleasepool {
+      NSLog(@"Starting Adefy GLAd download...");
 
-    // Perform download (blocks!)
-    [data writeToFile:finalFilename atomically:YES];
+      NSURL *url = [NSURL URLWithString:[self getQueryString]];
+      NSError *downloadError;
 
-    // Notify main thread
-    dispatch_async(mainQ, ^{
-      NSLog(@"Downloaded! %@", name);
-    });
+      NSData *data = [NSData dataWithContentsOfURL:url
+                                           options:NSDataReadingUncached
+                                             error:&downloadError];
+
+      if(downloadError) {
+        NSLog(@"Error downloading Adefy GLAd: %@", [downloadError localizedDescription]);
+        return;
+      }
+
+      NSString *downloadPath = [CACHE_DIR stringByAppendingPathComponent:name];
+      NSString *finalFilename = [NSString stringWithFormat:@"%@.ttx", downloadPath];
+      NSString *extractPath = [NSString stringWithFormat:@"%@_extracted/", downloadPath];
+
+
+      // Perform download (blocks!)
+      [data writeToFile:finalFilename atomically:YES];
+
+      NSLog(@"Downloaded Adefy GLAd '%@' (%i bytes)", name, [data length]);
+
+      // Upzip
+      [SSZipArchive unzipFileAtPath:finalFilename
+                      toDestination:extractPath];
+
+      NSLog(@"Extracted Adefy GLAd '%@'", name);
+
+      // [self loadGLAdFromDirectory:extractPath];
+      // dispatch_async(mainQ, ^{});
+    }
   });
+}
+
+- (NSString *)getPathForGLAd:(NSString *)name {
+  return [NSString stringWithFormat:@"%@/%@_extracted/", CACHE_DIR, name];
 }
 
 @end

@@ -50,7 +50,7 @@
   [self setPreferredFramesPerSecond:60];
 
   downloader = [[AdefyDownloader alloc] init:@"WHATT"];
-  [downloader fetchAd:@"test" withDurationMS:1000];
+  // [downloader fetchAd:@"test" withDurationMS:1000];
 
   mPhysics = [[AdefyPhysics alloc] init];
   mRenderer = [[AdefyRenderer alloc] init:(GLsizei)self.view.bounds.size.width
@@ -73,6 +73,8 @@
 }
 
 - (void)initTest {
+
+  [self displayGLAd:@"test"];
 
   /*
   AdefyRectangleActor *ground = [[AdefyRectangleActor alloc] init:1
@@ -131,6 +133,45 @@
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
   [mRenderer drawFrame:rect];
+}
+
+- (void)displayGLAd:(NSString *)name {
+
+  NSString *path = [downloader getPathForGLAd:name];
+
+  // Ensure path exists
+  BOOL isDir;
+  BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path
+                                                         isDirectory:&isDir];
+
+  if(!fileExists || !isDir) {
+    NSLog(@"GLAd with name '%@' not found.", name);
+    return;
+  }
+
+  NSLog(@"Loading...");
+
+  NSError *error;
+  NSString *manifestPath = [[NSString alloc] initWithFormat:@"%@/package.json", path];
+  NSData *manifestData = [NSData dataWithContentsOfFile:manifestPath
+                                                options:nil
+                                                  error:&error];
+
+  if(error) {
+    NSLog(@"Error loading GLAd manifest: %@", [error localizedDescription]);
+    return;
+  }
+
+  NSDictionary *manifest = [NSJSONSerialization JSONObjectWithData:manifestData
+                                                           options:nil
+                                                             error:&error];
+
+  if(error) {
+    NSLog(@"Error parsing GLAd manifest: %@", [error localizedDescription]);
+    return;
+  }
+
+  NSLog(@"%@", manifest);
 }
 
 @end

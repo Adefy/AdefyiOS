@@ -30,6 +30,12 @@
 		09655CE718F47CE9002D4C92 /* Adefy_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */; };
 		096598261917FE1F001FAE2D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096598251917FE1E001FAE2D /* AdSupport.framework */; };
 		09BDCD14191572FC00675212 /* ajs-prod.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 09BDCD12191572E700675212 /* ajs-prod.min.js */; };
+		09F58E9319194BE700B41613 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F58E9219194BE700B41613 /* libz.dylib */; };
+		09F58EA119194C6400B41613 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F58E9719194C6400B41613 /* ioapi.c */; };
+		09F58EA219194C6400B41613 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F58E9919194C6400B41613 /* mztools.c */; };
+		09F58EA319194C6400B41613 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F58E9B19194C6400B41613 /* unzip.c */; };
+		09F58EA419194C6400B41613 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F58E9D19194C6400B41613 /* zip.c */; };
+		09F58EA519194C6400B41613 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F58EA019194C6400B41613 /* SSZipArchive.m */; };
 		2EB9D15D7B882DF9CE0381A9 /* AdefyJSAnimationInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D7B5606033B6C9DC5240 /* AdefyJSAnimationInterface.m */; };
 		2EB9D189C913E10A0B3D9B33 /* AdefySingleColorMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DB7258BF83202B9C832B /* AdefySingleColorMaterial.m */; };
 		2EB9D3215F94785CF9F6CB75 /* AdefyTexturedMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D6385AC69BE5FEC78A95 /* AdefyTexturedMaterial.m */; };
@@ -133,6 +139,18 @@
 		09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Adefy_iOSTests.m; sourceTree = "<group>"; };
 		096598251917FE1E001FAE2D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		09BDCD12191572E700675212 /* ajs-prod.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "ajs-prod.min.js"; sourceTree = "<group>"; };
+		09F58E9219194BE700B41613 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		09F58E9619194C6400B41613 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		09F58E9719194C6400B41613 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		09F58E9819194C6400B41613 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		09F58E9919194C6400B41613 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		09F58E9A19194C6400B41613 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		09F58E9B19194C6400B41613 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		09F58E9C19194C6400B41613 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		09F58E9D19194C6400B41613 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		09F58E9E19194C6400B41613 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		09F58E9F19194C6400B41613 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		09F58EA019194C6400B41613 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		2EB9D01407797F47CDF7AADC /* AdefyDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyDownloader.h; sourceTree = "<group>"; };
 		2EB9D078C217A58F17C0BFED /* AdefyJSEngineInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSEngineInterface.h; sourceTree = "<group>"; };
 		2EB9D0C265BB7A0A171EB7D5 /* AdefyJSAnimationInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSAnimationInterface.h; sourceTree = "<group>"; };
@@ -170,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F58E9319194BE700B41613 /* libz.dylib in Frameworks */,
 				096598261917FE1F001FAE2D /* AdSupport.framework in Frameworks */,
 				093082BA18FA9443005D8336 /* JavaScriptCore.framework in Frameworks */,
 				09655CB918F47CE9002D4C92 /* OpenGLES.framework in Frameworks */,
@@ -285,6 +304,7 @@
 		09655CAF18F47CE9002D4C92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09F58E9219194BE700B41613 /* libz.dylib */,
 				096598251917FE1E001FAE2D /* AdSupport.framework */,
 				093082B918FA9443005D8336 /* JavaScriptCore.framework */,
 				0956347D18F86AB50012CE23 /* libChipmunkPro.a */,
@@ -305,6 +325,7 @@
 		09655CBA18F47CE9002D4C92 /* Adefy iOS */ = {
 			isa = PBXGroup;
 			children = (
+				09F58E9419194C6400B41613 /* SSZipArchive */,
 				09BDCD11191572C900675212 /* Resources */,
 				09655CC318F47CE9002D4C92 /* AdefyAppDelegate.h */,
 				09655CC418F47CE9002D4C92 /* AdefyAppDelegate.m */,
@@ -362,6 +383,32 @@
 				09BDCD12191572E700675212 /* ajs-prod.min.js */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		09F58E9419194C6400B41613 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				09F58E9519194C6400B41613 /* minizip */,
+				09F58E9F19194C6400B41613 /* SSZipArchive.h */,
+				09F58EA019194C6400B41613 /* SSZipArchive.m */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		09F58E9519194C6400B41613 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				09F58E9619194C6400B41613 /* crypt.h */,
+				09F58E9719194C6400B41613 /* ioapi.c */,
+				09F58E9819194C6400B41613 /* ioapi.h */,
+				09F58E9919194C6400B41613 /* mztools.c */,
+				09F58E9A19194C6400B41613 /* mztools.h */,
+				09F58E9B19194C6400B41613 /* unzip.c */,
+				09F58E9C19194C6400B41613 /* unzip.h */,
+				09F58E9D19194C6400B41613 /* zip.c */,
+				09F58E9E19194C6400B41613 /* zip.h */,
+			);
+			path = minizip;
 			sourceTree = "<group>";
 		};
 		2EB9D104EE1E9C06EFF2B516 /* Actors */ = {
@@ -532,10 +579,14 @@
 				09655CC518F47CE9002D4C92 /* AdefyAppDelegate.m in Sources */,
 				092E4F6C18F53513008CE39F /* AdefyRenderer.m in Sources */,
 				09655CD218F47CE9002D4C92 /* AdefyViewController.m in Sources */,
+				09F58EA219194C6400B41613 /* mztools.c in Sources */,
 				09655CC118F47CE9002D4C92 /* main.m in Sources */,
 				2EB9D7B09D64AEB4A182172C /* AdefyActor.m in Sources */,
+				09F58EA319194C6400B41613 /* unzip.c in Sources */,
 				2EB9DC52E05347D39AF8B0EE /* AdefyMaterial.m in Sources */,
+				09F58EA119194C6400B41613 /* ioapi.c in Sources */,
 				2EB9D189C913E10A0B3D9B33 /* AdefySingleColorMaterial.m in Sources */,
+				09F58EA519194C6400B41613 /* SSZipArchive.m in Sources */,
 				2EB9DA4789DF71BD2A0142DE /* AdefyColor3.m in Sources */,
 				2EB9D724B19EF6EBBB78EA63 /* AdefyShader.m in Sources */,
 				2EB9DC84500A13C3E2E9206C /* AdefyRectangleActor.m in Sources */,
@@ -544,6 +595,7 @@
 				2EB9DEE5411EDC0B0DD18663 /* AdefyJSActorInterface.m in Sources */,
 				2EB9D15D7B882DF9CE0381A9 /* AdefyJSAnimationInterface.m in Sources */,
 				2EB9D8D0E030539F5B4E3962 /* AdefyJSEngineInterface.m in Sources */,
+				09F58EA419194C6400B41613 /* zip.c in Sources */,
 				2EB9D3215F94785CF9F6CB75 /* AdefyTexturedMaterial.m in Sources */,
 				2EB9DB006BDD0A3A5AD96D2B /* AdefyDownloader.m in Sources */,
 			);
