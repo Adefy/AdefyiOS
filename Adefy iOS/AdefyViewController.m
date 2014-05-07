@@ -49,7 +49,7 @@
 
   [self setPreferredFramesPerSecond:60];
 
-  downloader = [[AdefyDownloader alloc] init:@"WHATT"];
+  downloader = [[AdefyDownloader alloc] init:@"FAKE_APIKEY"];
   // [downloader fetchAd:@"test" withDurationMS:1000];
 
   mPhysics = [[AdefyPhysics alloc] init];
@@ -59,17 +59,49 @@
   [AdefyRenderer setGlobalInstance:mRenderer];
   [AdefyPhysics setGlobalInstance:mPhysics];
 
-  [self initJSInterface];
   [self initTest];
 }
 
-- (void)initJSInterface {
+- (void)executeAdLogic:(NSString *)basePath
+             withLogic:(NSString *)logicPath
+               withAJS:(NSString *)AJSPath {
 
+  // Load files
+  NSError *error;
+  NSString *fullAJSPath = [[NSString alloc] initWithFormat:@"%@%@", basePath, AJSPath];
+  NSString *AJS = [[NSString alloc] initWithContentsOfFile:fullAJSPath
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:&error];
+
+  if(!AJS || error) {
+    NSLog(@"%@", [error localizedDescription]);
+    NSLog(@"Failed to load AJS library from %@", AJSPath);
+    return;
+  }
+
+  NSString *fullLogicPath = [[NSString alloc] initWithFormat:@"%@%@", basePath, logicPath];
+  NSString *adLogic = [[NSString alloc] initWithContentsOfFile:fullLogicPath
+                                                      encoding:NSUTF8StringEncoding
+                                                         error:&error];
+
+  if(!adLogic || error) {
+    NSLog(@"%@", [error localizedDescription]);
+    NSLog(@"Failed to load AJS library from %@", AJSPath);
+    return;
+  }
+
+  // Prepare context and interface
   jsVM = [[JSVirtualMachine alloc] init];
   jsContext = [[JSContext alloc] initWithVirtualMachine:jsVM];
-
   jsInterface = [[AdefyJSInterface alloc] init:jsContext
                                   withRenderer:mRenderer];
+
+  [jsContext evaluateScript:AJS];
+
+  // We have to map param manually (no actual window, we partially fake it)
+  [jsContext evaluateScript:@"var param = window.param;"];
+
+  [jsContext evaluateScript:adLogic];
 }
 
 - (void)initTest {
@@ -205,6 +237,10 @@
              withCompression:texCompression];
     }
   }
+
+  [self executeAdLogic:path
+             withLogic:adFile
+               withAJS:AJSFile];
 }
 
 @end

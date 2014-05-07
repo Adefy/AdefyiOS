@@ -25,6 +25,9 @@ int getNextID() { return nextID++; }
 }
 
 - (int)createPolygonActor:(NSString *)verts {
+
+  NSLog(@"Tried to create poly actor...");
+
   return 0;
 }
 
@@ -41,6 +44,9 @@ int getNextID() { return nextID++; }
 
 - (int)createCircleActor:(float)radius
                    verts:(NSString *)verts {
+
+  NSLog(@"Tried to create circle actor...");
+
   return 0;
 }
 

@@ -22,28 +22,21 @@
   animationInterface = [[AdefyJSAnimationInterface alloc] init];
   engineInterface = [[AdefyJSEngineInterface alloc] init];
 
+  [context setExceptionHandler:^(JSContext *ctx, JSValue *value) {
+    NSLog(@"JS Exception: %@", value);
+  }];
+
   context[@"__iface_actors"] = actorInterface;
   context[@"__iface_animations"] = animationInterface;
   context[@"__iface_engine"] = engineInterface;
 
-  // Initialize AJS
-  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ajs-prod.min"
-                                                       ofType:@"js"];
-
-  if (filePath) {
-    NSString *AJS = [[NSString alloc] initWithContentsOfFile:filePath
-                                                    encoding:NSUTF8StringEncoding
-                                                       error:nil];
-
-    [context evaluateScript:AJS];
-    NSLog(@"Loaded AJS");
-  } else {
-    NSLog(@"Failed to load AJS!");
-  }
-
-  [context evaluateScript:@"var actor = __iface_actors.createRectangleActor(200, 20);"];
-  [context evaluateScript:@"__iface_actors.setActorColor(0, 153, 204, actor);"];
-  [context evaluateScript:@"__iface_actors.setActorPosition(150, 50, actor);"];
+  // Set up AJS-visible interface
+  [context evaluateScript:
+      @"var window = { AdefyGLI: {} };"
+      "window.AdefyGLI.Engine = function(){ return __iface_engine; };"
+      "window.AdefyGLI.Actors = function(){ return __iface_actors; };"
+      "window.AdefyGLI.Animations = function(){ return __iface_animations; };"
+  ];
 
   return self;
 }

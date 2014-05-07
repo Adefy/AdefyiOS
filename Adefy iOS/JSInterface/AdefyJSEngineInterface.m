@@ -13,6 +13,7 @@
 
 - (void)setClearColor:(float)r g:(float)g b:(float)b {
 
+  NSLog(@"Clear color set: (%f, %f, %f)", r, g, b);
 }
 
 - (void)setRemindMeButton:(float)x y:(float)y width:(float)width height:(float)height {

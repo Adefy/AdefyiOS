@@ -187,7 +187,7 @@ static float PPM;
         withCompression:(NSString *)compression {
 
   // Sadly we don't support texture atlases just yet
-  if([type isEqualToString:@"image"]) {
+  if(![type isEqualToString:@"image"]) {
     NSLog(@"Unsupported texture type: %@", type);
     NSLog(@"Refusing to load texture %@", name);
     return NO;
