@@ -2,6 +2,7 @@
 #import "AdefyActor.h"
 #import "AdefyMaterial.h"
 #import "AdefyTexture.h"
+#import "AdefyAnimationManager.h"
 
 static AdefyRenderer *GLOBAL_INSTANCE;
 
@@ -29,10 +30,13 @@ size_t nearestPowerOfTwo(size_t v) {
 
 @protected
   cpVect mCameraPosition;
+  GLfloat *mClearColor;
   NSMutableString *mActiveMaterial;
 
-  NSMutableArray* mActors;
+  NSMutableArray *mActors;
   NSMutableArray *mTextures;
+
+  AdefyAnimationManager *mAnimations;
 }
 
 static float PPM;
@@ -48,12 +52,17 @@ static float PPM;
 
   mActors = [[NSMutableArray alloc] init];
   mTextures = [[NSMutableArray alloc] init];
+  mAnimations = [[AdefyAnimationManager alloc] init:self];
 
   mCameraPosition = cpv(0.0f, 0.0f);
   [mActiveMaterial setString:@""];
 
-  GLfloat clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-  [self setClearColor:clearColor];
+  mClearColor = malloc(sizeof(GLfloat) * 4);
+
+  mClearColor[0] = 0.0f;
+  mClearColor[1] = 0.0f;
+  mClearColor[2] = 0.0f;
+  mClearColor[3] = 1.0f;
 
   glViewport(0, 0, width, height);
   glEnable(GL_DEPTH_TEST);
@@ -74,7 +83,6 @@ static float PPM;
 + (cpVect)screenToWorld:(cpVect)v {
   return cpv(v.x / PPM, v.y / PPM);
 }
-
 
 - (void) addActor:(AdefyActor *)actor {
   [mActors addObject:actor];
@@ -211,8 +219,23 @@ static float PPM;
   return mCameraPosition;
 }
 
+- (void) setCameraPosition:(cpVect)v {
+  mCameraPosition.x = v.x;
+  mCameraPosition.y = v.y;
+}
+
 - (void) setClearColor:(GLfloat [4])color {
+
+  mClearColor[0] = color[0];
+  mClearColor[1] = color[1];
+  mClearColor[2] = color[2];
+  mClearColor[3] = color[3];
+
   glClearColor(color[0], color[1], color[2], color[3]);
+}
+
+- (GLfloat *) getClearColor {
+  return mClearColor;
 }
 
 + (void)setGlobalInstance:(AdefyRenderer *)renderer {

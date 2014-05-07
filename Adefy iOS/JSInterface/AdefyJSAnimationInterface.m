@@ -1,8 +1,20 @@
 #import "AdefyJSAnimationInterface.h"
+#import "AdefyJSActorInterface.h"
+#import "AdefyRenderer.h"
 
 @implementation AdefyJSAnimationInterface {
 
+@protected
+  AdefyRenderer *mRenderer;
 }
+- (AdefyJSAnimationInterface *)init:(AdefyRenderer *)renderer {
+  self = [super init];
+
+  mRenderer = renderer;
+
+  return self;
+}
+
 - (BOOL)canAnimate:(NSString *)property {
   return NO;
 }

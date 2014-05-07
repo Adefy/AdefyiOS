@@ -242,6 +242,19 @@
                elasticity:_mElasticity];
 }
 
+- (cpVect *) generatePhysicsVerts:(GLfloat *)verts
+                            count:(unsigned int)count {
+
+  cpVect *physicsVerts = malloc(sizeof(cpVect) * count);
+
+  for(unsigned int i = 0; i < count; i++) {
+    physicsVerts[i] = cpv(verts[i * 2], verts[(i * 2) + 1]);
+    physicsVerts[i] = [AdefyRenderer screenToWorld:physicsVerts[i]];
+  }
+
+  return physicsVerts;
+}
+
 - (void)createPhysicsBody:(float)mass
                  friction:(float)friction
                elasticity:(float)elasticity {
@@ -251,12 +264,8 @@
   }
 
   // Create physics vertices
-  cpVect *physicsVerts = malloc(sizeof(cpVect) * mPosVertexCount);
-
-  for(unsigned int i = 0; i < mPosVertexCount; i++) {
-    physicsVerts[i] = cpv(mPosVertexArray[i * 2], mPosVertexArray[(i * 2) + 1]);
-    physicsVerts[i] = [AdefyRenderer screenToWorld:physicsVerts[i]];
-  }
+  cpVect* physicsVerts = [self generatePhysicsVerts:mPosVertexArray
+                                              count:mPosVertexCount];
 
   if(mass == 0.0f) {
 

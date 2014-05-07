@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
+@class AdefyRenderer;
+
 @protocol AdefyJSAnimationInterfaceExports <JSExport>
 
 JSExportAs(canAnimate, - (BOOL) canAnimate:(NSString *)property);
@@ -14,4 +16,7 @@ options:(NSString *)options);
 @end
 
 @interface AdefyJSAnimationInterface : NSObject <AdefyJSAnimationInterfaceExports>
+
+- (AdefyJSAnimationInterface *)init:(AdefyRenderer *)renderer;
+
 @end

@@ -17,6 +17,9 @@
 - (BOOL) hasPhysicsBody;
 - (void) destroyPhysicsBody;
 - (void) createPhysicsBody;
+
+- (cpVect *)generatePhysicsVerts:(GLfloat *)verts count:(unsigned int)count;
+
 - (void) createPhysicsBody:(float)mass
                   friction:(float)friction
                 elasticity:(float)elasticity;

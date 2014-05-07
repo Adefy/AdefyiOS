@@ -3,8 +3,6 @@
 #import "AdefyRenderer.h"
 #import "AdefySingleColorMaterial.h"
 #import "AdefyActor.h"
-#import "AdefyRectangleActor.h"
-#import "AdefyColor3.h"
 #import "AdefyPhysics.h"
 #import "AdefyJSInterface.h"
 #import "AdefyDownloader.h"

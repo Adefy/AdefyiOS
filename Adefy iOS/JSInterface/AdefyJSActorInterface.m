@@ -2,6 +2,7 @@
 #import "AdefyRectangleActor.h"
 #import "AdefyRenderer.h"
 #import "AdefyColor3.h"
+#import "AdefyPolygonActor.h"
 
 int nextID = 0;
 int getNextID() { return nextID++; }
@@ -12,7 +13,6 @@ int getNextID() { return nextID++; }
   AdefyRenderer *mRenderer;
 }
 - (AdefyJSActorInterface *)init:(AdefyRenderer *)renderer {
-
   self = [super init];
 
   mRenderer = renderer;
@@ -24,11 +24,15 @@ int getNextID() { return nextID++; }
   return NO;
 }
 
-- (int)createPolygonActor:(NSString *)verts {
+- (int)createPolygonActor:(float)radius
+                 segments:(unsigned int)segments {
+  int id = getNextID();
 
-  NSLog(@"Tried to create poly actor...");
+  [[AdefyPolygonActor alloc] init:id
+                       withRadius:radius
+                     withSegments:segments];
 
-  return 0;
+  return id;
 }
 
 - (int)createRectangleActor:(float)width
@@ -42,12 +46,15 @@ int getNextID() { return nextID++; }
   return id;
 }
 
-- (int)createCircleActor:(float)radius
-                   verts:(NSString *)verts {
+- (int)createCircleActor:(float)radius {
+  int id = getNextID();
 
-  NSLog(@"Tried to create circle actor...");
+  // We use a static segment count of 32 for circles
+  [[AdefyPolygonActor alloc] init:id
+                       withRadius:radius
+                     withSegments:32];
 
-  return 0;
+  return id;
 }
 
 - (int)createTextActor:(NSString *)text

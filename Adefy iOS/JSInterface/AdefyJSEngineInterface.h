@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
+@class AdefyRenderer;
+
 @protocol AdefyJSEngineInterfaceExports <JSExport>
 
 JSExportAs(initialize,
@@ -34,4 +36,7 @@ JSExportAs(log, - (void) log:(NSString *)string);
 @end
 
 @interface AdefyJSEngineInterface : NSObject <AdefyJSEngineInterfaceExports>
+
+- (AdefyJSEngineInterface *)init:(AdefyRenderer *)renderer;
+
 @end

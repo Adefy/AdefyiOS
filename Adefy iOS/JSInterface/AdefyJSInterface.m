@@ -19,8 +19,8 @@
 
   // Black magic
   actorInterface = [[AdefyJSActorInterface alloc] init:renderer];
-  animationInterface = [[AdefyJSAnimationInterface alloc] init];
-  engineInterface = [[AdefyJSEngineInterface alloc] init];
+  animationInterface = [[AdefyJSAnimationInterface alloc] init:renderer];
+  engineInterface = [[AdefyJSEngineInterface alloc] init:renderer];
 
   [context setExceptionHandler:^(JSContext *ctx, JSValue *value) {
     NSLog(@"JS Exception: %@", value);

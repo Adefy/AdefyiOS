@@ -6,15 +6,12 @@
 @protocol AdefyJSActorInterfaceExports <JSExport>
 
 JSExportAs(destroyActor, - (BOOL) destroyActor:(int)id);
-JSExportAs(createPolygonActor, - (int) createPolygonActor:(NSString *)verts);
 
 JSExportAs(createRectangleActor,
 - (int) createRectangleActor:(float)width
                       height:(float)height);
 
-JSExportAs(createCircleActor,
-- (int) createCircleActor:(float)radius
-                    verts:(NSString *)verts);
+JSExportAs(createCircleActor, - (int) createCircleActor:(float)radius);
 
 JSExportAs(createTextActor,
 - (int) createTextActor:(NSString *)text
@@ -22,6 +19,10 @@ JSExportAs(createTextActor,
                       r:(int)r
                       g:(int)g
                       b:(int)b);
+
+JSExportAs(createPolygonActor,
+- (int)createPolygonActor:(float)radius
+                 segments:(unsigned int)segments);
 
 JSExportAs(attachTexture,
 - (BOOL) attachTexture:(NSString *)texture

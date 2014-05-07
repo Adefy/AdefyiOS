@@ -11,6 +11,8 @@
 + (cpVect) worldToScreen:(cpVect)v;
 + (cpVect) screenToWorld:(cpVect)v;
 
+- (GLfloat *)getClearColor;
+
 + (void)setGlobalInstance:(AdefyRenderer *)renderer;
 + (AdefyRenderer *)getGlobalInstance;
 
@@ -25,7 +27,9 @@
 
 - (cpVect)getCameraPosition;
 
-- (void) setClearColor:(GLfloat [4])color;
+- (void)setCameraPosition:(cpVect)v;
+
+- (void) setClearColor:(GLfloat[4])color;
 - (void) addActor:(AdefyActor *)actor;
 
 - (void)loadTexture:(NSString *)name ofType:(NSString *)type fromPath:(NSString *)path withCompression:(NSString *)compression;
