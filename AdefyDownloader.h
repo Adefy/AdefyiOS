@@ -10,6 +10,6 @@
 - (AdefyDownloader *)init:(NSString *)_apiKey;
 
 - (void)fetchAd:(NSString *)name withDurationMS:(int)duration;
-
 - (NSString *)getPathForGLAd:(NSString *)name;
+
 @end

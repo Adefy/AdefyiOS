@@ -224,7 +224,7 @@ NSMutableString *CACHE_DIR;
 }
 
 - (NSString *)getPathForGLAd:(NSString *)name {
-  return [NSString stringWithFormat:@"%@/%@_extracted/", CACHE_DIR, name];
+  return [NSString stringWithFormat:@"%@%@_extracted/", CACHE_DIR, name];
 }
 
 @end

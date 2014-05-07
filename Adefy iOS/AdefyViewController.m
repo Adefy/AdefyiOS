@@ -152,13 +152,14 @@
   NSLog(@"Loading...");
 
   NSError *error;
-  NSString *manifestPath = [[NSString alloc] initWithFormat:@"%@/package.json", path];
+  NSString *manifestPath = [[NSString alloc] initWithFormat:@"%@package.json", path];
   NSData *manifestData = [NSData dataWithContentsOfFile:manifestPath
                                                 options:nil
                                                   error:&error];
 
   if(error) {
     NSLog(@"Error loading GLAd manifest: %@", [error localizedDescription]);
+    NSLog(@"Attempted load from %@", manifestPath);
     return;
   }
 
@@ -171,7 +172,39 @@
     return;
   }
 
-  NSLog(@"%@", manifest);
+  NSString *adFile = [manifest valueForKey:@"ad"];
+  NSString *AJSFile = [manifest valueForKey:@"lib"];
+  NSString *clickURL = [manifest valueForKey:@"click"];
+  NSString *impressionURL = [manifest valueForKey:@"impression"];
+
+  if(!adFile) { NSLog(@"Ad filename missing from manifest"); }
+  if(!AJSFile) { NSLog(@"AJS library filename missing from manifest"); }
+  if(!clickURL) { NSLog(@"Click URL missing from manifest"); }
+  if(!impressionURL) { NSLog(@"Impression URL missing from manifest"); }
+
+  if(!adFile || !AJSFile || !clickURL || !impressionURL) {
+    NSLog(@"Invalid manifest, can't load GLAd %@", name);
+    return;
+  }
+
+  NSArray *textures = [manifest valueForKey:@"textures"];
+
+  // Load up textures
+  if(textures) {
+    for(NSDictionary *texture in textures) {
+
+      NSString *texCompression = [texture valueForKey:@"compression"];
+      NSString *texName = [texture valueForKey:@"name"];
+      NSString *texType = [texture valueForKey:@"type"];
+      NSString *texPath = [[NSString alloc]
+          initWithFormat:@"%@%@", path, [texture valueForKey:@"path"]];
+
+      [mRenderer loadTexture:texName
+                      ofType:texType
+                    fromPath:texPath
+             withCompression:texCompression];
+    }
+  }
 }
 
 @end

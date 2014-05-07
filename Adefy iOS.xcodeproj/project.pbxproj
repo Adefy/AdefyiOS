@@ -51,6 +51,7 @@
 		2EB9DB81318AF545C9796350 /* ShaderTexture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9D1CE17F584797A9EFB7A /* ShaderTexture.fsh */; };
 		2EB9DC52E05347D39AF8B0EE /* AdefyMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DF263ADCA010FDE055AA /* AdefyMaterial.m */; };
 		2EB9DC84500A13C3E2E9206C /* AdefyRectangleActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D720C130100B16B6F8C6 /* AdefyRectangleActor.m */; };
+		2EB9DD317222AC528DBE9F07 /* AdefyTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D7093A86FF89655CFE97 /* AdefyTexture.m */; };
 		2EB9DE96DDCC1AF1523E37AB /* ShaderTexture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9D3ADBCDBE722D20E60E7 /* ShaderTexture.vsh */; };
 		2EB9DEE5411EDC0B0DD18663 /* AdefyJSActorInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DF7BF67D528EBB45BD59 /* AdefyJSActorInterface.m */; };
 /* End PBXBuildFile section */
@@ -167,11 +168,13 @@
 		2EB9D52B7ECC448E95F818C5 /* AdefyMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyMaterial.h; sourceTree = "<group>"; };
 		2EB9D5AE7D1269607D4CA9AE /* AdefyShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyShader.m; sourceTree = "<group>"; };
 		2EB9D6385AC69BE5FEC78A95 /* AdefyTexturedMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyTexturedMaterial.m; sourceTree = "<group>"; };
+		2EB9D7093A86FF89655CFE97 /* AdefyTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyTexture.m; sourceTree = "<group>"; };
 		2EB9D720C130100B16B6F8C6 /* AdefyRectangleActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyRectangleActor.m; sourceTree = "<group>"; };
 		2EB9D7B5606033B6C9DC5240 /* AdefyJSAnimationInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyJSAnimationInterface.m; sourceTree = "<group>"; };
 		2EB9D7FC6EC6A22383BD55F3 /* AdefyDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyDownloader.m; sourceTree = "<group>"; };
 		2EB9D93ABD24EE5EB7972FB9 /* AdefyPhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyPhysics.h; sourceTree = "<group>"; };
 		2EB9D961131F4EE491D24713 /* AdefyJSInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSInterface.h; sourceTree = "<group>"; };
+		2EB9DB3CEC6CD699ACC02D3E /* AdefyTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyTexture.h; sourceTree = "<group>"; };
 		2EB9DB7258BF83202B9C832B /* AdefySingleColorMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefySingleColorMaterial.m; sourceTree = "<group>"; };
 		2EB9DC9B3F4AF72D120A28A5 /* AdefyJSActorInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSActorInterface.h; sourceTree = "<group>"; };
 		2EB9DD258F0BA49CDCEBBE6C /* AdefyJSInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyJSInterface.m; sourceTree = "<group>"; };
@@ -468,6 +471,8 @@
 				2EB9DFEA0DFD5B0D0171408D /* AdefyColor3.h */,
 				2EB9D3D91035EEACF4467FCC /* AdefyColor3.m */,
 				2EB9D5AE7D1269607D4CA9AE /* AdefyShader.m */,
+				2EB9D7093A86FF89655CFE97 /* AdefyTexture.m */,
+				2EB9DB3CEC6CD699ACC02D3E /* AdefyTexture.h */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -598,6 +603,7 @@
 				09F58EA419194C6400B41613 /* zip.c in Sources */,
 				2EB9D3215F94785CF9F6CB75 /* AdefyTexturedMaterial.m in Sources */,
 				2EB9DB006BDD0A3A5AD96D2B /* AdefyDownloader.m in Sources */,
+				2EB9DD317222AC528DBE9F07 /* AdefyTexture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

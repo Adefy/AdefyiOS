@@ -27,6 +27,9 @@
 
 - (void) setClearColor:(GLfloat [4])color;
 - (void) addActor:(AdefyActor *)actor;
+
+- (void)loadTexture:(NSString *)name ofType:(NSString *)type fromPath:(NSString *)path withCompression:(NSString *)compression;
+
 - (AdefyActor *) getActor:(unsigned int)index;
 - (AdefyActor *) getActorById:(int)id;
 
