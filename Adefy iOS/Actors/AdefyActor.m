@@ -9,6 +9,7 @@
 #import "AdefyPhysics.h"
 #import "AdefyColor3.h"
 #import "AdefyTexturedMaterial.h"
+#import "AdefyTexture.h"
 
 // Private methods
 @interface AdefyActor ()
@@ -44,7 +45,10 @@
 
   AdefyRenderer *mRenderer;
   AdefyPhysics *mPhysics;
-  AdefyMaterial *mMaterial;
+
+  AdefyMaterial *mActiveMaterial;
+  AdefySingleColorMaterial *mColorMaterial;
+  AdefyTexturedMaterial *mTextureMaterial;
 }
 
 - (AdefyActor *)init:(int)id
@@ -58,7 +62,12 @@
   mPhysics = [AdefyPhysics getGlobalInstance];
   mRotation = 0.0f;
   mPosition = cpv(0.0f, 0.0f);
-  mMaterial = [[AdefySingleColorMaterial alloc] init];
+
+  mColorMaterial = [[AdefySingleColorMaterial alloc] init];
+  mTextureMaterial = [[AdefyTexturedMaterial alloc] init];
+
+  // Default is single color material
+  mActiveMaterial = mColorMaterial;
 
   mPosVertexBuffer = 0;
   mPosVertexArray = nil;
@@ -88,11 +97,7 @@
 - (GLuint) getRenderMode { return mRenderMode; }
 
 - (AdefyColor3 *)getColor {
-  if([mMaterial getName] == [AdefySingleColorMaterial getName]) {
-    return [(AdefySingleColorMaterial *)mMaterial getColor];
-  } else {
-    return nil;
-  }
+  return [mColorMaterial getColor];
 }
 
 - (GLfloat *)getVertices { return mPosVertexArray; }
@@ -141,6 +146,20 @@
                              useage:GL_STATIC_DRAW];
 }
 
+- (void) setTexture:(NSString *)name {
+
+  AdefyTexture* texture = [mRenderer getTexture:name];
+
+  if(!texture) {
+    NSLog(@"Texture %@ not found", name);
+    return;
+  }
+
+  GLuint handle = [texture getHandle];
+  float scaleU = [texture getClipScaleU];
+  float scaleV = [texture getClipScaleV];
+}
+
 - (void) setVisible:(BOOL)isVisible {
   mVisible = isVisible;
 }
@@ -171,9 +190,7 @@
 
 
 - (void)setColor:(AdefyColor3 *)color {
-  if([mMaterial getName] == [AdefySingleColorMaterial getName]) {
-    [(AdefySingleColorMaterial *)mMaterial setColor:color];
-  }
+  [mColorMaterial setColor:color];
 }
 
 //
@@ -189,24 +206,24 @@
 
   [self setupRenderMatrix];
 
-  if([mMaterial getName] == [AdefySingleColorMaterial getName]) {
+  if([mActiveMaterial getName] == [AdefySingleColorMaterial getName]) {
 
-    [(AdefySingleColorMaterial *)mMaterial
+    [mColorMaterial
         draw:projection
    modelView:mModelViewMatrix
        verts:&mPosVertexBuffer
    vertCount:mPosVertexCount
         mode:mRenderMode];
 
-  } else if([mMaterial getName] == [AdefyTexturedMaterial getName]) {
+  } else if([mActiveMaterial getName] == [AdefyTexturedMaterial getName]) {
 
-    [(AdefyTexturedMaterial *)mMaterial draw:projection
-                                  withModelV:mModelViewMatrix
-                                   withVerts:&mPosVertexBuffer
-                               withVertCount:mPosVertexCount
-                               withTexCoords:&mTexVertexBuffer
-                               withTexCCount:mTexVertexCount
-                                    withMode:mRenderMode];
+    [mTextureMaterial draw:projection
+                withModelV:mModelViewMatrix
+                 withVerts:&mPosVertexBuffer
+             withVertCount:mPosVertexCount
+             withTexCoords:&mTexVertexBuffer
+             withTexCCount:mTexVertexCount
+                  withMode:mRenderMode];
 
   }
 }
@@ -311,11 +328,11 @@
 }
 
 - (NSString *)getMaterialName {
-  return [mMaterial getName];
+  return [mActiveMaterial getName];
 }
 
 - (AdefyMaterial *)getMaterial {
-  return mMaterial;
+  return mActiveMaterial;
 }
 
 @end

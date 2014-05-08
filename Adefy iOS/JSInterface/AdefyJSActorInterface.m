@@ -20,7 +20,7 @@ int getNextID() { return nextID++; }
   return self;
 }
 
-- (BOOL)destroyActor:(int)id1 {
+- (BOOL)destroyActor:(int)id {
   return NO;
 }
 
@@ -72,6 +72,9 @@ int getNextID() { return nextID++; }
                     y:(float)y
                 angle:(float)angle
                    id:(int)id {
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
   return NO;
 }
 
@@ -215,6 +218,8 @@ int getNextID() { return nextID++; }
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+
 
   return YES;
 }

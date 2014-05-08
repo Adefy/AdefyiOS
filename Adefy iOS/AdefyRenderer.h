@@ -3,6 +3,7 @@
 #import "chipmunk.h"
 
 @class AdefyActor;
+@class AdefyTexture;
 
 @interface AdefyRenderer : NSObject
 
@@ -31,6 +32,8 @@
 
 - (void) setClearColor:(GLfloat[4])color;
 - (void) addActor:(AdefyActor *)actor;
+
+- (AdefyTexture *)getTexture:(NSString *)name;
 
 - (void)loadTexture:(NSString *)name ofType:(NSString *)type fromPath:(NSString *)path withCompression:(NSString *)compression;
 
