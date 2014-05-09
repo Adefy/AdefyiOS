@@ -98,8 +98,6 @@
   // We have to map param manually (no actual window, we partially fake it)
   [jsContext evaluateScript:@"var param = window.param;"];
 
-  NSLog(@"%@", adLogic);
-
   [jsContext evaluateScript:adLogic];
 }
 
