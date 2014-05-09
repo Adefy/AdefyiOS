@@ -74,7 +74,7 @@
 }
 
 - (void)log:(NSString *)string {
-  NSLog(@"JS: %@", string);
+  NSLog(@"<Console Log> %@", string);
 }
 
 

@@ -4,4 +4,6 @@
 
 @interface AdefyAnimationManager : NSObject
 - (AdefyAnimationManager *)init:(AdefyRenderer *)renderer;
+
+- (void)update;
 @end

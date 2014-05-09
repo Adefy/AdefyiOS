@@ -32,6 +32,8 @@ int getNextID() { return nextID++; }
                        withRadius:radius
                      withSegments:segments];
 
+  NSLog(@"Created fake poly actor");
+
   return id;
 }
 
@@ -219,7 +221,7 @@ int getNextID() { return nextID++; }
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
 
-
+  [actor setTexture:name];
 
   return YES;
 }

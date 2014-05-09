@@ -23,10 +23,13 @@
   mHeight = height;
 
   GLfloat *vertices = [self generateVertices];
+  GLfloat *texCoords = [self generateUVCoords];
 
   self = [super init:id
             vertices:vertices
-               count:4];
+           vertCount:4
+           texCoords:texCoords
+            texCount:4];
 
   return self;
 }
@@ -67,6 +70,22 @@
   vertices[7] = -hH;
 
   return vertices;
+}
+
+- (GLfloat *) generateUVCoords {
+
+  GLfloat *coords = malloc(sizeof(GLfloat) * 8);
+
+  coords[0] = 0.0f;
+  coords[1] = 1.0f;
+  coords[2] = 0.0f;
+  coords[3] = 0.0f;
+  coords[4] = 1.0f;
+  coords[5] = 0.0f;
+  coords[6] = 1.0f;
+  coords[7] = 1.0f;
+
+  return coords;
 }
 
 - (float)getWidth  { return mWidth; }

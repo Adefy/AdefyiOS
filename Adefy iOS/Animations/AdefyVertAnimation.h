@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "AdefyAnimation.h"
 
-@interface AdefyBezAnimation : AdefyAnimation
+@interface AdefyVertAnimation : AdefyAnimation
 + (BOOL)canAnimate:(NSString *)property;
 @end

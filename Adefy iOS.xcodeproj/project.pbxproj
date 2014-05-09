@@ -44,6 +44,7 @@
 		2EB9D78A3A9FBA95E4E4BAE7 /* AdefyJSInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DD258F0BA49CDCEBBE6C /* AdefyJSInterface.m */; };
 		2EB9D7B09D64AEB4A182172C /* AdefyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DD26FC09AEA5C7BB84DB /* AdefyActor.m */; };
 		2EB9D86F01F5C04B5095A1F8 /* AdefyPolygonActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DC802A2C9E34108F063D /* AdefyPolygonActor.m */; };
+		2EB9D87178A50092110D37C4 /* AdefyVertAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DCE1DC2F105FF103C163 /* AdefyVertAnimation.m */; };
 		2EB9D8D0E030539F5B4E3962 /* AdefyJSEngineInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DD4B02C86A8CAD1F9948 /* AdefyJSEngineInterface.m */; };
 		2EB9D90F79955CA078435601 /* AdefyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DCC44CF9B463B9DE59C4 /* AdefyAnimation.m */; };
 		2EB9D93581E8473411A1F68D /* AdefyPhysics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D4EC7EF13587E46152A3 /* AdefyPhysics.m */; };
@@ -181,11 +182,13 @@
 		2EB9D7FC6EC6A22383BD55F3 /* AdefyDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyDownloader.m; sourceTree = "<group>"; };
 		2EB9D93ABD24EE5EB7972FB9 /* AdefyPhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyPhysics.h; sourceTree = "<group>"; };
 		2EB9D961131F4EE491D24713 /* AdefyJSInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSInterface.h; sourceTree = "<group>"; };
+		2EB9D9A5A52C81531517CD90 /* AdefyVertAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyVertAnimation.h; sourceTree = "<group>"; };
 		2EB9DB3CEC6CD699ACC02D3E /* AdefyTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyTexture.h; sourceTree = "<group>"; };
 		2EB9DB7258BF83202B9C832B /* AdefySingleColorMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefySingleColorMaterial.m; sourceTree = "<group>"; };
 		2EB9DC802A2C9E34108F063D /* AdefyPolygonActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyPolygonActor.m; sourceTree = "<group>"; };
 		2EB9DC9B3F4AF72D120A28A5 /* AdefyJSActorInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSActorInterface.h; sourceTree = "<group>"; };
 		2EB9DCC44CF9B463B9DE59C4 /* AdefyAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyAnimation.m; sourceTree = "<group>"; };
+		2EB9DCE1DC2F105FF103C163 /* AdefyVertAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyVertAnimation.m; sourceTree = "<group>"; };
 		2EB9DD258F0BA49CDCEBBE6C /* AdefyJSInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyJSInterface.m; sourceTree = "<group>"; };
 		2EB9DD26FC09AEA5C7BB84DB /* AdefyActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyActor.m; sourceTree = "<group>"; };
 		2EB9DD4B02C86A8CAD1F9948 /* AdefyJSEngineInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyJSEngineInterface.m; sourceTree = "<group>"; };
@@ -498,6 +501,8 @@
 				2EB9DEBBB626CA0774C659D1 /* AdefyAnimationManager.h */,
 				2EB9DCC44CF9B463B9DE59C4 /* AdefyAnimation.m */,
 				2EB9D1C401E46177C26C3DBE /* AdefyAnimation.h */,
+				2EB9DCE1DC2F105FF103C163 /* AdefyVertAnimation.m */,
+				2EB9D9A5A52C81531517CD90 /* AdefyVertAnimation.h */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -632,6 +637,7 @@
 				2EB9DCDED4E59136DB4B9F4D /* AdefyBezAnimation.m in Sources */,
 				2EB9D5B9F7A69389E1C05409 /* AdefyAnimationManager.m in Sources */,
 				2EB9D90F79955CA078435601 /* AdefyAnimation.m in Sources */,
+				2EB9D87178A50092110D37C4 /* AdefyVertAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

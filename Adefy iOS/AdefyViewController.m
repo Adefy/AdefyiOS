@@ -2,7 +2,6 @@
 #import "AdefyViewController.h"
 #import "AdefyRenderer.h"
 #import "AdefySingleColorMaterial.h"
-#import "AdefyActor.h"
 #import "AdefyPhysics.h"
 #import "AdefyJSInterface.h"
 #import "AdefyDownloader.h"
@@ -98,6 +97,8 @@
 
   // We have to map param manually (no actual window, we partially fake it)
   [jsContext evaluateScript:@"var param = window.param;"];
+
+  NSLog(@"%@", adLogic);
 
   [jsContext evaluateScript:adLogic];
 }

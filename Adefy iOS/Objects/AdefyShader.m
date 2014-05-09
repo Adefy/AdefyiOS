@@ -106,7 +106,7 @@
   glGetShaderiv(*shader, GL_INFO_LOG_LENGTH, &logLength);
 
   if (logLength > 0) {
-    GLchar *log = (GLchar *)malloc(logLength);
+    GLchar *log = (GLchar *)malloc((size_t)logLength);
 
     glGetShaderInfoLog(*shader, logLength, &logLength, log);
     NSLog(@"%@ compile log:\n%s", name, log);
@@ -134,7 +134,7 @@
   glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &logLength);
 
   if (logLength > 0) {
-    GLchar *log = (GLchar *)malloc(logLength);
+    GLchar *log = (GLchar *)malloc((size_t)logLength);
 
     glGetProgramInfoLog(prog, logLength, &logLength, log);
     NSLog(@"Program link log:\n%s", log);

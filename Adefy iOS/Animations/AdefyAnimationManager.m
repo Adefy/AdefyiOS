@@ -20,7 +20,7 @@
 
   // Set us up to be updated on each render
   mDisplayLink = [CADisplayLink displayLinkWithTarget:self
-                                             selector:@selector(update:)];
+                                             selector:@selector(update)];
   [mDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 
   return self;

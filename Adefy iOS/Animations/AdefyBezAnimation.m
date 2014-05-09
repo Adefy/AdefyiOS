@@ -49,7 +49,7 @@
   return self;
 }
 
-- (BOOL) canAnimate:(NSString *)property {
++ (BOOL) canAnimate:(NSString *)property {
 
   return
       [property isEqualToString:@"position"] ||

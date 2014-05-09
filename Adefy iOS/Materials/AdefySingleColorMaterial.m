@@ -1,18 +1,21 @@
 #import "AdefySingleColorMaterial.h"
 #import "AdefyColor3.h"
 #import "AdefyShader.h"
+#import "AdefyTexturedMaterial.h"
 
-static const int STATIC_VERT_STRIDE = 3 * sizeof(GL_FLOAT);
+static const int STATIC_VERT_STRIDE = 3 * sizeof(GLfloat);
 
-GLuint STATIC_POSITION_HANDLE;
-GLuint STATIC_COLOR_HANDLE;
-GLuint STATIC_MODEL_HANDLE;
-GLuint STATIC_PROJECTION_HANDLE;
+static GLuint STATIC_SHADER;
 
-BOOL STATIC_JUST_USED;
-NSString *STATIC_NAME;
+static GLuint STATIC_POSITION_HANDLE;
+static GLuint STATIC_COLOR_HANDLE;
+static GLuint STATIC_MODEL_HANDLE;
+static GLuint STATIC_PROJECTION_HANDLE;
 
-float *STATIC_COLOR;
+static BOOL STATIC_JUST_USED;
+static NSString *STATIC_NAME;
+
+static GLfloat *STATIC_COLOR;
 
 @implementation AdefySingleColorMaterial {
 
@@ -24,7 +27,7 @@ float *STATIC_COLOR;
   STATIC_NAME = @"single_color";
   STATIC_JUST_USED = NO;
 
-  STATIC_COLOR = malloc(sizeof(float) * 4);
+  STATIC_COLOR = malloc(sizeof(GLfloat) * 4);
   STATIC_COLOR[0] = 1.0f;
   STATIC_COLOR[1] = 1.0f;
   STATIC_COLOR[2] = 1.0f;
@@ -41,16 +44,17 @@ float *STATIC_COLOR;
   NSString *vertSource = [self getVertSource];
   NSString *fragSource = [self getFragSource];
 
-  GLuint shader;
-  [AdefyShader buildProgram:&shader withVert:vertSource withFrag:fragSource];
+  [AdefyShader buildProgram:&STATIC_SHADER withVert:vertSource withFrag:fragSource];
 
-  STATIC_POSITION_HANDLE = (GLuint)glGetAttribLocation(shader, "Position");
-  STATIC_COLOR_HANDLE = (GLuint)glGetUniformLocation(shader, "Color");
-  STATIC_MODEL_HANDLE = (GLuint)glGetUniformLocation(shader, "ModelView");
-  STATIC_PROJECTION_HANDLE = (GLuint)glGetUniformLocation(shader, "Projection");
+  STATIC_POSITION_HANDLE = (GLuint)glGetAttribLocation(STATIC_SHADER, "Position");
+  STATIC_COLOR_HANDLE = (GLuint)glGetUniformLocation(STATIC_SHADER, "Color");
+  STATIC_MODEL_HANDLE = (GLuint)glGetUniformLocation(STATIC_SHADER, "ModelView");
+  STATIC_PROJECTION_HANDLE = (GLuint)glGetUniformLocation(STATIC_SHADER, "Projection");
 
-  [self setShader:shader];
+  NSLog(@"<SingleColorMaterial> Built shader");
 }
+
++ (void)destroyShader { glDeleteProgram(STATIC_SHADER); }
 
 + (BOOL)wasJustUsed { return STATIC_JUST_USED; }
 + (void)setJustUsed:(BOOL)used { STATIC_JUST_USED = used; }
@@ -58,7 +62,7 @@ float *STATIC_COLOR;
 + (NSString *)getName { return STATIC_NAME; }
 - (NSString *)getName { return [AdefySingleColorMaterial getName]; }
 
-- (GLuint)getShader { return [AdefySingleColorMaterial getShader]; }
+- (GLuint)getShader { return STATIC_SHADER; }
 
 - (AdefySingleColorMaterial *)init {
   self = [self init:[[AdefyColor3 alloc] init:255 withG:255 withB:255]];
@@ -87,17 +91,15 @@ float *STATIC_COLOR;
     vertCount:(int)vertCount
          mode:(GLenum)mode {
 
-  // Check if we need to re-build our shader
-  if([AdefySingleColorMaterial getShader] == 0) {
-    [AdefySingleColorMaterial buildShader];
-  }
+  if(!STATIC_JUST_USED) {
+    STATIC_JUST_USED = YES;
 
-  // In the future, check if the textured material was just used...
-  if(![AdefySingleColorMaterial wasJustUsed]) {
-    [AdefySingleColorMaterial setJustUsed:true];
+    [AdefyTexturedMaterial postFinalDraw];
+    [AdefyTexturedMaterial setJustUsed:false];
 
     glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
-    glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, GL_FALSE, STATIC_VERT_STRIDE, 0);
+
+    [self glErrorCheck:@"<SingleColorMaterial> Finished justUsed()"];
   }
 
   // Copy color into float[] array, to prevent allocation
@@ -105,11 +107,22 @@ float *STATIC_COLOR;
 
   glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);
 
+  [self glErrorCheck:@"<SingleColorMaterial> Bound vert buffer"];
+
   glUniformMatrix4fv(STATIC_PROJECTION_HANDLE, 1, GL_FALSE, projection.m);
   glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, GL_FALSE, modelView.m);
   glUniform4fv(STATIC_COLOR_HANDLE, 1, STATIC_COLOR);
 
-  glDrawArrays(mode, 0, vertCount * 3);
+  [self glErrorCheck:@"<SingleColorMaterial> Set uniforms"];
+
+  glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, GL_FALSE, STATIC_VERT_STRIDE, 0);
+
+  [self glErrorCheck:@"<SingleColorMaterial> Set vert attrib pointer"];
+
+  // TODO: Fix mode set bug
+  glDrawArrays(GL_TRIANGLE_FAN, 0, vertCount);
+
+  [self glErrorCheck:@"<SingleColorMaterial> Drew arrays"];
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

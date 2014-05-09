@@ -1,6 +1,8 @@
 #import "AdefyJSAnimationInterface.h"
 #import "AdefyJSActorInterface.h"
 #import "AdefyRenderer.h"
+#import "AdefyVertAnimation.h"
+#import "AdefyBezAnimation.h"
 
 @implementation AdefyJSAnimationInterface {
 
@@ -16,18 +18,34 @@
 }
 
 - (BOOL)canAnimate:(NSString *)property {
-  return NO;
+
+  BOOL vertCanAnimate = [AdefyVertAnimation canAnimate:property];
+  BOOL bezCanAnimate = [AdefyBezAnimation canAnimate:property];
+
+  return vertCanAnimate || bezCanAnimate;
 }
 
 - (NSString *)getAnimationName:(NSString *)property {
-  return nil;
+
+  BOOL vertCanAnimate = [AdefyVertAnimation canAnimate:property];
+  BOOL bezCanAnimate = [AdefyBezAnimation canAnimate:property];
+
+  if(vertCanAnimate) {
+    return @"vert";
+  } else if(bezCanAnimate) {
+    return @"bezier";
+  }
+
+  return @"";
 }
 
 - (NSString *)preCalculateBez:(NSString *)options {
-  return nil;
+  return @"[]";
 }
 
-- (void)animate:(int)id1 properties:(NSString *)properties options:(NSString *)options {
+- (void)animate:(int)id
+     properties:(NSString *)properties
+        options:(NSString *)options {
 
 }
 

@@ -33,7 +33,7 @@
   GLuint mTexVertexBuffer;
   GLfloat *mTexVertexArray;
 
-  GLuint mRenderMode;
+  GLenum mRenderMode;
 
   float mRotation;    // Stored in radians
   cpVect mPosition;
@@ -53,7 +53,9 @@
 
 - (AdefyActor *)init:(int)id
            vertices:(GLfloat *)vertices
-              count:(unsigned int)count {
+          vertCount:(unsigned int)vCount
+    texCoords:(GLfloat *)texCoords
+           texCount:(unsigned int)tCount {
 
   self = [super init];
 
@@ -63,8 +65,8 @@
   mRotation = 0.0f;
   mPosition = cpv(0.0f, 0.0f);
 
-  mColorMaterial = [[AdefySingleColorMaterial alloc] init];
   mTextureMaterial = [[AdefyTexturedMaterial alloc] init];
+  mColorMaterial = [[AdefySingleColorMaterial alloc] init];
 
   // Default is single color material
   mActiveMaterial = mColorMaterial;
@@ -80,7 +82,9 @@
   mPhysicsBody = nil;
   mPhysicsShape = nil;
 
-  [self setVertices:vertices count:count];
+  [self setVertices:vertices count:vCount];
+  [self setTexCoords:texCoords count:tCount];
+
   [self addToRenderer:mRenderer];
 
   return self;
@@ -158,6 +162,12 @@
   GLuint handle = [texture getHandle];
   float scaleU = [texture getClipScaleU];
   float scaleV = [texture getClipScaleV];
+
+  [mTextureMaterial setTextureHandle:handle];
+  [mTextureMaterial setUScale:scaleU];
+  [mTextureMaterial setVScale:scaleV];
+
+  mActiveMaterial = mTextureMaterial;
 }
 
 - (void) setVisible:(BOOL)isVisible {
@@ -172,7 +182,7 @@
   mPosition = cpv(x, y);
 }
 
-- (void)setRenderMode:(GLuint)mode {
+- (void)setRenderMode:(GLenum)mode {
   mRenderMode = mode;
 }
 
@@ -206,16 +216,15 @@
 
   [self setupRenderMatrix];
 
-  if([mActiveMaterial getName] == [AdefySingleColorMaterial getName]) {
+  if(mActiveMaterial == mColorMaterial) {
 
-    [mColorMaterial
-        draw:projection
-   modelView:mModelViewMatrix
-       verts:&mPosVertexBuffer
-   vertCount:mPosVertexCount
-        mode:mRenderMode];
+    [mColorMaterial draw:projection
+               modelView:mModelViewMatrix
+                   verts:&mPosVertexBuffer
+               vertCount:mPosVertexCount
+                    mode:mRenderMode];
 
-  } else if([mActiveMaterial getName] == [AdefyTexturedMaterial getName]) {
+  } else if(mActiveMaterial == mTextureMaterial) {
 
     [mTextureMaterial draw:projection
                 withModelV:mModelViewMatrix
@@ -295,15 +304,21 @@
 
   } else {
 
+    unsigned int _psyx_count = mPosVertexCount;
+
+    if(mPosVertexCount == 33) {
+      _psyx_count = 32;
+    }
+
     // Dynamic body
-    float moment = cpMomentForPoly(mass, mPosVertexCount, physicsVerts, cpv(0, 0));
+    float moment = cpMomentForPoly(mass, _psyx_count, physicsVerts, cpv(0, 0));
     mPhysicsBody = [ChipmunkBody bodyWithMass:mass andMoment:moment];
 
     [mPhysicsBody setPos:[AdefyRenderer screenToWorld:mPosition]];
     [mPhysicsBody setAngle:mRotation];
 
     mPhysicsShape = [ChipmunkPolyShape polyWithBody:mPhysicsBody
-                                              count:mPosVertexCount
+                                              count:_psyx_count
                                               verts:physicsVerts
                                              offset:cpv(0, 0)];
   }

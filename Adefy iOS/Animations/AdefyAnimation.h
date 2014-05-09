@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 
 @interface AdefyAnimation : NSObject
-- (void)update:(double)time1;
-
-- (BOOL)canAnimate:(NSString *)property;
++ (BOOL)canAnimate:(NSString *)property;
+- (double)update:(double)time;
 @end

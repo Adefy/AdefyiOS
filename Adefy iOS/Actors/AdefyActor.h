@@ -9,8 +9,10 @@
 @interface AdefyActor : NSObject
 
 - (AdefyActor *)init:(int)id
-           vertices:(GLfloat *)vertices
-              count:(unsigned int)count;
+            vertices:(GLfloat *)vertices
+           vertCount:(unsigned int)vCount
+           texCoords:(GLfloat *)coords
+            texCount:(unsigned int)tCount;
 
 - (void) draw:(GLKMatrix4)projection;
 - (void) update;
@@ -48,10 +50,12 @@
 - (void) setTexCoords:(GLfloat *)coords
                 count:(unsigned int)count;
 
+- (void)setTexture:(NSString *)name;
+
 - (void) setVisible:(BOOL)isVisible;
 - (void) setPosition:(cpVect)position;
 - (void) setPosition:(float)x y:(float)y;
-- (void) setRenderMode:(GLuint)mode;
+- (void) setRenderMode:(GLenum)mode;
 - (void) setRotation:(float)angle;
 - (void) setRotation:(float)angle inDegrees:(BOOL)degrees;
 - (void) setColor:(AdefyColor3 *)color;

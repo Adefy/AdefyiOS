@@ -4,11 +4,9 @@
 
 + (void)setVertSource:(NSString *)src;
 + (void)setFragSource:(NSString *)src;
-+ (void)setShader:(GLuint)shader;
 
 + (NSString *)getVertSource;
 + (NSString *)getFragSource;
-+ (GLuint)getShader;
 
 + (void)buildShader;
 + (BOOL)wasJustUsed;
@@ -19,5 +17,7 @@
 
 - (NSString *) getName;
 - (GLuint) getShader;
+
+- (void)glErrorCheck:(NSString *)desc;
 
 @end

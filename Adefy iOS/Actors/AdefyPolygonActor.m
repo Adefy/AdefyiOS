@@ -1,29 +1,29 @@
 #import "AdefyPolygonActor.h"
+#import "AdefyRenderer.h"
 
 @implementation AdefyPolygonActor {
-
 }
 
 + (GLfloat *) generateVertices:(float)radius
                   withSegments:(unsigned int)segments {
 
-  int count = [AdefyPolygonActor getVertCount:segments];
-  GLfloat *verts = malloc(sizeof(GLfloat) * count * 3);
+  unsigned int count = [AdefyPolygonActor getVertCount:segments];
+  GLfloat *verts = calloc(count * 2, sizeof(GLfloat));
+  GLfloat *tempVerts = calloc(count * 2, sizeof(GLfloat));
 
   // Generate verts, uses algo from:
   // http://slabode.exofire.net/circle_draw.shtml
-  double x = radius;
-  double y = 0;
+  float x = radius;
+  float y = 0;
   double theta = (2.0f * 3.1415926f) / segments;
-  double tanFactor = tan(theta);
-  double radFactor = cos(theta);
+  float tanFactor = (float)tan(theta);
+  float radFactor = (float)cos(theta);
 
-  for(int i = 0; i < segments; i++) {
+  for(unsigned int i = 0; i < segments; i++) {
 
     // NOTE! We cast floats to doubles.
-    verts[i * 3] = (float)x;
-    verts[(i * 3) + 1] = (float)y;
-    verts[(i * 3) + 2] = 1.0f;
+    tempVerts[i * 2] = x;
+    tempVerts[(i * 2) + 1] = y;
 
     double tx = -y;
     double ty = x;
@@ -35,16 +35,45 @@
     y *= radFactor;
   }
 
-  // Cap shape
-  verts[(segments * 3)] = 0;
-  verts[(segments * 3) + 1] = 1;
-  verts[(segments * 3) + 2] = 1;
+  // Reverse winding
+  for(unsigned int i = 1; i <= count; i++) {
+    verts[(i - 1) * 2] = tempVerts[(count - i) * 2];
+    verts[((i - 1) * 2) + 1] = tempVerts[((count - i) * 2) + 1];
+  }
+
+  free(tempVerts);
 
   return verts;
 }
 
+- (cpVect *) generatePhysicsVerts:(GLfloat *)verts
+                            count:(unsigned int)count {
+
+  cpVect *physicsVerts = malloc(sizeof(cpVect) * (count));
+
+  for(unsigned int i = 0; i < count; i++) {
+    physicsVerts[i] = cpv(verts[i * 2], verts[(i * 2) + 1]);
+    physicsVerts[i] = [AdefyRenderer screenToWorld:physicsVerts[i]];
+  }
+
+  return physicsVerts;
+}
+
++ (GLfloat *) generateUVCoords:(GLfloat* )vertices
+                         count:(unsigned int)count
+                        radius:(float)radius {
+
+  GLfloat *coords = malloc(sizeof(GLfloat) * count * 2);
+
+  for(unsigned int i = 0; i < count * 2; i++) {
+    coords[i] = ((vertices[i] / radius) / 2.0f) + 0.5f;
+  }
+
+  return coords;
+}
+
 + (unsigned int)getVertCount:(unsigned int)segments {
-  return segments + 1;
+  return segments;
 }
 
 - (AdefyPolygonActor *)init:(int)id
@@ -52,12 +81,19 @@
               withSegments:(unsigned int)segments {
 
   unsigned int vertCount = [AdefyPolygonActor getVertCount:segments];
+
   GLfloat *verts = [AdefyPolygonActor generateVertices:radius
                                           withSegments:segments];
 
+  GLfloat *texCoords = [AdefyPolygonActor generateUVCoords:verts
+                                                     count:vertCount
+                                                    radius:radius];
+
   self = [super init:id
-     vertices:verts
-        count:vertCount];
+            vertices:verts
+           vertCount:vertCount
+           texCoords:texCoords
+            texCount:vertCount];
 
   [self setRenderMode:GL_TRIANGLE_FAN];
 

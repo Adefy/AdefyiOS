@@ -4,7 +4,7 @@
 #import "AdefyTexture.h"
 #import "AdefyAnimationManager.h"
 
-static AdefyRenderer *GLOBAL_INSTANCE;
+static static AdefyRenderer *GLOBAL_INSTANCE;
 
 // Helper
 size_t nearestPowerOfTwo(size_t v) {
@@ -55,7 +55,7 @@ static float PPM;
   mAnimations = [[AdefyAnimationManager alloc] init:self];
 
   mCameraPosition = cpv(0.0f, 0.0f);
-  [mActiveMaterial setString:@""];
+  mActiveMaterial = [[NSMutableString alloc] init];
 
   mClearColor = malloc(sizeof(GLfloat) * 4);
 
@@ -288,7 +288,8 @@ static float PPM;
   for(AdefyActor *actor in mActors) {
 
     // Switch material if needed
-    if(mActiveMaterial != [actor getMaterialName]) {
+    if(![mActiveMaterial isEqualToString:[actor getMaterialName]]) {
+
       glUseProgram([[actor getMaterial] getShader]);
       [mActiveMaterial setString:[actor getMaterialName]];
     }

@@ -18,7 +18,7 @@ static AdefyPhysics *GLOBAL_INSTANCE;
   self = [super init];
 
   space = [[ChipmunkSpace alloc] init];
-  space.gravity = cpv(0.0f, -1.0f);
+  space.gravity = cpv(0.0f, -4.4f);
 
   return self;
 }
