@@ -11,6 +11,7 @@
 + (float) getMPP;
 + (cpVect) worldToScreen:(cpVect)v;
 + (cpVect) screenToWorld:(cpVect)v;
++ (int) getNextActorID;
 
 - (GLfloat *)getClearColor;
 
@@ -32,6 +33,7 @@
 
 - (void) setClearColor:(GLfloat[4])color;
 - (void) addActor:(AdefyActor *)actor;
+- (void) removeActor:(AdefyActor *)actor;
 
 - (AdefyTexture *)getTexture:(NSString *)name;
 

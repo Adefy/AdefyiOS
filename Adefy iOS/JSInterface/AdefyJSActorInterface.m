@@ -4,9 +4,6 @@
 #import "AdefyColor3.h"
 #import "AdefyPolygonActor.h"
 
-int nextID = 0;
-int getNextID() { return nextID++; }
-
 @implementation AdefyJSActorInterface {
 
 @protected
@@ -26,7 +23,7 @@ int getNextID() { return nextID++; }
 
 - (int)createPolygonActor:(float)radius
                  segments:(unsigned int)segments {
-  int id = getNextID();
+  int id = [AdefyRenderer getNextActorID];
 
   [[AdefyPolygonActor alloc] init:id
                        withRadius:radius
@@ -39,7 +36,7 @@ int getNextID() { return nextID++; }
 
 - (int)createRectangleActor:(float)width
                      height:(float)height {
-  int id = getNextID();
+  int id = [AdefyRenderer getNextActorID];
 
   [[AdefyRectangleActor alloc] init:id
                               width:width
@@ -49,7 +46,7 @@ int getNextID() { return nextID++; }
 }
 
 - (int)createCircleActor:(float)radius {
-  int id = getNextID();
+  int id = [AdefyRenderer getNextActorID];
 
   // We use a static segment count of 32 for circles
   [[AdefyPolygonActor alloc] init:id
@@ -77,7 +74,14 @@ int getNextID() { return nextID++; }
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
 
-  return NO;
+  [actor attachTexture:texture
+                 width:width
+                height:height
+               offsetX:x
+               offsetY:y
+                 angle:angle];
+
+  return YES;
 }
 
 - (BOOL)removeAttachment:(int)id {

@@ -19,6 +19,13 @@
 - (BOOL) hasPhysicsBody;
 - (void) destroyPhysicsBody;
 - (void) createPhysicsBody;
+- (BOOL) removeAttachment;
+- (AdefyActor *) attachTexture:(NSString *)name
+                         width:(float)w
+                        height:(float)h
+                       offsetX:(float)offx
+                       offsetY:(float)offy
+                         angle:(float)angle;
 
 - (cpVect *)generatePhysicsVerts:(GLfloat *)verts count:(unsigned int)count;
 
@@ -34,13 +41,18 @@
 - (BOOL)   getVisible;
 - (int)    getId;
 - (cpVect) getPosition;
+- (cpVect) getRenderOffset;
 - (float)  getRotation;
+- (float)  getRenderOffsetRotation;
 - (GLuint) getRenderMode;
 - (AdefyColor3 *) getColor;
 - (GLfloat *) getVertices;
 - (GLuint) getVertexCount;
 - (GLfloat *)getTexCoords;
 - (GLuint)getTexCoordCount;
+- (AdefyActor *) getAttachment;
+- (BOOL) hasAttachment;
+- (NSString *) getTextureName;
 
 ////
 //// Setters
@@ -50,15 +62,18 @@
 - (void) setTexCoords:(GLfloat *)coords
                 count:(unsigned int)count;
 
-- (void)setTexture:(NSString *)name;
+- (void) setTexture:(NSString *)name;
 
 - (void) setVisible:(BOOL)isVisible;
 - (void) setPosition:(cpVect)position;
+- (void) setRenderOffset:(cpVect)offset;
 - (void) setPosition:(float)x y:(float)y;
 - (void) setRenderMode:(GLenum)mode;
 - (void) setRotation:(float)angle;
 - (void) setRotation:(float)angle inDegrees:(BOOL)degrees;
+- (void) setRenderOffsetRotation:(float)angle;
 - (void) setColor:(AdefyColor3 *)color;
+- (void) setAttachmentVisiblity:(BOOL)visible;
 
 @property(nonatomic) float mMass;
 @property(nonatomic) float mFriction;

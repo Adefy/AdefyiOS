@@ -4,7 +4,8 @@
 #import "AdefyTexture.h"
 #import "AdefyAnimationManager.h"
 
-static static AdefyRenderer *GLOBAL_INSTANCE;
+static AdefyRenderer *GLOBAL_INSTANCE;
+static int LAST_ACTOR_ID;
 
 // Helper
 size_t nearestPowerOfTwo(size_t v) {
@@ -43,6 +44,11 @@ static float PPM;
 
 + (void) initialize {
   PPM = 128.0f;
+  LAST_ACTOR_ID = 0;
+}
+
++ (int) getNextActorID {
+  return LAST_ACTOR_ID++;
 }
 
 - (AdefyRenderer *)init:(GLsizei)width
@@ -88,22 +94,23 @@ static float PPM;
   [mActors addObject:actor];
 }
 
+- (void) removeActor:(AdefyActor *)actor {
+  [mActors removeObject:actor];
+}
+
 - (void) addTexture:(AdefyTexture *)texture {
   [mTextures addObject:texture];
 }
 
 - (AdefyTexture *) getTexture:(NSString *)name {
-  unsigned int index = [mTextures indexOfObjectPassingTest:
-      ^(id obj, NSUInteger idx, BOOL *stop) {
-        return [[(AdefyTexture *)obj getName] isEqualToString:name];
-      }
-  ];
 
-  if(index) {
-    return [mTextures objectAtIndex:index];
-  } else {
-    return nil;
+  for(AdefyTexture *texture in mTextures) {
+    if([[texture getName] isEqualToString:name]) {
+      return texture;
+    }
   }
+
+  return nil;
 }
 
 - (void) loadTexture:(NSString *)name
@@ -138,9 +145,9 @@ static float PPM;
   GLubyte *textureData = calloc(bufferSize, sizeof(GLubyte));
 
   if(!textureData) {
-    NSLog(@"Insufficient RAM for texture %@ (%i bytes)", name, bufferSize);
+    NSLog(@"Insufficient RAM for texture %@ (%i bytes)", name, (int)bufferSize);
   } else {
-    NSLog(@"Loaded data for texture %@ (%i bytes)", name, bufferSize);
+    NSLog(@"Loaded data for texture %@ (%i bytes)", name, (int)bufferSize);
   }
 
   CGContextRef imageContext = CGBitmapContextCreate(
@@ -188,6 +195,14 @@ static float PPM;
                                            withClipV:clipV];
 
   [self addTexture:texture];
+
+  // Go through and reset texture on all actors referencing it
+  // Actors can be created and textures set before we have actually loaded them
+  for(AdefyActor *actor in mActors) {
+    if([[actor getTextureName] isEqualToString:name]) {
+      [actor setTexture:name];
+    }
+  }
 }
 
 - (BOOL) canLoadTexture:(NSString *)name

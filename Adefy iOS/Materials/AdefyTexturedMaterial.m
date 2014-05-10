@@ -97,11 +97,14 @@ withTexCCount:(int)texCount
   [self glErrorCheck:@"<TextureMaterial> Loop start"];
 
   if(mTextureHandle != PREV_TEXTURE_HANDLE || mNeedsValueRefresh) {
+
     glBindTexture(GL_TEXTURE_2D, mTextureHandle);
-    glUniform1i(STATIC_TEX_SAMPLER_HANDLE, 0);
     glVertexAttrib2f(STATIC_UV_SCALE_HANDLE, mTextureU, mTextureV);
 
-    [self glErrorCheck:@"<TextureMaterial> Bound texture handle and information"];
+    // This causes a GL_INVALID_OPERATION error, no idea why
+    // glUniform1i(STATIC_TEX_SAMPLER_HANDLE, 0);
+
+    [self glErrorCheck:@"<TextureMaterial> Bound texture and UV scale"];
 
     PREV_TEXTURE_HANDLE = mTextureHandle;
     mNeedsValueRefresh = NO;

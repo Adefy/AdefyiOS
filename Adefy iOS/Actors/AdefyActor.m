@@ -10,6 +10,7 @@
 #import "AdefyColor3.h"
 #import "AdefyTexturedMaterial.h"
 #import "AdefyTexture.h"
+#import "AdefyRectangleActor.h"
 
 // Private methods
 @interface AdefyActor ()
@@ -35,8 +36,11 @@
 
   GLenum mRenderMode;
 
-  float mRotation;    // Stored in radians
+  float mRotation;             // Stored in radians
+  float mRenderOffsetRotation; //
+
   cpVect mPosition;
+  cpVect mRenderOffset;
 
   ChipmunkBody *mPhysicsBody;
   ChipmunkShape *mPhysicsShape;
@@ -49,6 +53,9 @@
   AdefyMaterial *mActiveMaterial;
   AdefySingleColorMaterial *mColorMaterial;
   AdefyTexturedMaterial *mTextureMaterial;
+  NSString* mTextureName;
+
+  AdefyActor* mAttachment;
 }
 
 - (AdefyActor *)init:(int)id
@@ -64,6 +71,7 @@
   mPhysics = [AdefyPhysics getGlobalInstance];
   mRotation = 0.0f;
   mPosition = cpv(0.0f, 0.0f);
+  mRenderOffset = cpv(0.0f, 0.0f);
 
   mTextureMaterial = [[AdefyTexturedMaterial alloc] init];
   mColorMaterial = [[AdefySingleColorMaterial alloc] init];
@@ -81,6 +89,7 @@
   mRenderMode = GL_TRIANGLE_FAN;
   mPhysicsBody = nil;
   mPhysicsShape = nil;
+  mAttachment = nil;
 
   [self setVertices:vertices count:vCount];
   [self setTexCoords:texCoords count:tCount];
@@ -98,16 +107,28 @@
 - (int)    getId         { return mId; }
 - (cpVect) getPosition   { return mPosition;}
 - (float)  getRotation   { return mRotation; }
+- (float)  getRenderOffsetRotation { return mRenderOffsetRotation; }
 - (GLuint) getRenderMode { return mRenderMode; }
+- (BOOL)   hasAttachment { return mAttachment == nil; }
 
-- (AdefyColor3 *)getColor {
-  return [mColorMaterial getColor];
+- (AdefyActor *)  getAttachment { return mAttachment; }
+- (AdefyColor3 *) getColor { return [mColorMaterial getColor]; }
+
+- (GLfloat *) getVertices { return mPosVertexArray; }
+- (GLfloat *) getTexCoords { return mTexVertexArray; }
+- (GLuint) getTexCoordCount { return mTexVertexCount; }
+- (GLuint) getVertexCount { return mPosVertexCount; }
+- (cpVect) getRenderOffset { return mRenderOffset; }
+- (NSString *) getTextureName { return mTextureName; }
+
+- (void) setRenderOffset:(cpVect)offset {
+  mRenderOffset.x = offset.x;
+  mRenderOffset.y = offset.y;
 }
 
-- (GLfloat *)getVertices { return mPosVertexArray; }
-- (GLfloat *)getTexCoords { return mTexVertexArray; }
-- (GLuint)getTexCoordCount { return mTexVertexCount; }
-- (GLuint)getVertexCount { return mPosVertexCount; }
+- (void) setRenderOffsetRotation:(float)angle {
+  mRenderOffsetRotation = angle;
+}
 
 - (void) setVertices:(GLfloat *)vertices
               count:(unsigned int)count {
@@ -153,6 +174,7 @@
 - (void) setTexture:(NSString *)name {
 
   AdefyTexture* texture = [mRenderer getTexture:name];
+  mTextureName = name;
 
   if(!texture) {
     NSLog(@"Texture %@ not found", name);
@@ -211,8 +233,58 @@
   [renderer addActor:self];
 }
 
+- (BOOL) removeAttachment {
+  if(mAttachment == nil) { return NO; }
+
+  [mAttachment destroyPhysicsBody];
+  [mRenderer removeActor:mAttachment];
+
+  mAttachment = nil;
+  return YES;
+}
+
+- (void) setAttachmentVisiblity:(BOOL)visible {
+  if(mAttachment != nil) {
+    [mAttachment setVisible:visible];
+  }
+}
+
+- (AdefyActor *) attachTexture:(NSString *)name
+                         width:(float)w
+                        height:(float)h
+                       offsetX:(float)offx
+                       offsetY:(float)offy
+                         angle:(float)angle {
+
+  if(mAttachment != nil) {
+    [self removeAttachment];
+  }
+
+  int attachmentId = [AdefyRenderer getNextActorID];
+
+  mAttachment = [[AdefyRectangleActor alloc] init:attachmentId
+                                            width:w
+                                           height:h];
+
+  [mAttachment setTexture:name];
+  [mAttachment setRenderOffsetRotation:angle];
+  [mAttachment setRenderOffset:cpv(offx, offy)];
+
+  return mAttachment;
+}
+
 - (void) draw:(GLKMatrix4)projection {
   if(!mVisible) { return; }
+
+  // If we have an attachment, render that and return prematurely
+  if(mAttachment != nil) {
+
+    [mAttachment setPosition:mPosition];
+    [mAttachment setRotation:mRotation];
+
+    [mAttachment draw:projection];
+    return;
+  }
 
   [self setupRenderMatrix];
 
@@ -335,11 +407,11 @@
 
 - (void) setupRenderMatrix {
 
-  float finalX = mPosition.x - [mRenderer getCameraPosition].x;
-  float finalY = mPosition.y - [mRenderer getCameraPosition].y;
+  float finalX = mPosition.x - [mRenderer getCameraPosition].x + mRenderOffset.x;
+  float finalY = mPosition.y - [mRenderer getCameraPosition].y + mRenderOffset.y;
 
   mModelViewMatrix = GLKMatrix4Translate(GLKMatrix4Identity, finalX, finalY, 0.0f);
-  mModelViewMatrix = GLKMatrix4Rotate(mModelViewMatrix, mRotation, 0.0f, 0.0f, 1.0f);
+  mModelViewMatrix = GLKMatrix4Rotate(mModelViewMatrix, mRotation + mRenderOffsetRotation, 0.0f, 0.0f, 1.0f);
 }
 
 - (NSString *)getMaterialName {
