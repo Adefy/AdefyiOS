@@ -1,11 +1,13 @@
 #import "AdefyBezAnimation.h"
 #import "AdefyActor.h"
 #import "AdefyColor3.h"
+#import "AdefyAnimationManager.h"
 
 @implementation AdefyBezAnimation {
 
 @protected
   AdefyActor* mActor;
+  AdefyAnimationManager* mManager;
 
   NSString* mProperty;
   NSString* mPropComponent;
@@ -23,18 +25,19 @@
 }
 
 - (AdefyBezAnimation *)init:(AdefyActor *)_actor
-                      start:(double)_start
-                        end:(double)_end
+                   endValue:(double)_end
                         cp1:(cpVect *)_cp1
                         cp2:(cpVect *)_cp2
                    duration:(double)_duration
                    property:(NSString *)_prop
                   component:(NSString *)_comp
-                        fps:(int)_fps {
+                        fps:(int)_fps
+                withManager:(AdefyAnimationManager *)manager {
   self = [super init];
 
+  mManager = manager;
   mActor = _actor;
-  mStartTime = _start;
+  mStartTime = -1;
   mEndVal = _end;
   mCp1 = _cp1;
   mCp2 = _cp2;
@@ -44,24 +47,33 @@
   mFPS = _fps;
   mDone = NO;
 
-  // TODO: Get start value
+  [self getStartValue];
 
   return self;
 }
 
-+ (BOOL) canAnimate:(NSString *)property {
++ (BOOL) canAnimate:(NSArray *)properties {
+
+  NSString *prop1 = [properties objectAtIndex:0];
 
   return
-      [property isEqualToString:@"position"] ||
-      [property isEqualToString:@"color"] ||
-      [property isEqualToString:@"rotation"];
+      [prop1 isEqualToString:@"position"] ||
+      [prop1 isEqualToString:@"color"] ||
+      [prop1 isEqualToString:@"rotation"];
 }
 
-- (double)update:(double)time { return [self update:time apply:YES]; }
-- (double)update:(double)time apply:(BOOL)_apply {
+- (BOOL) isDone { return mDone; }
+
+- (double)update:(double)timeMS { return [self update:timeMS apply:YES]; }
+- (double)update:(double)timeMS apply:(BOOL)_apply {
+
+  // Set up start time
+  if(mStartTime == -1) {
+    mStartTime = timeMS;
+  }
 
   // t represents our position along the bezier func
-  double t = (time - mStartTime) / mDuration;
+  double t = (timeMS - mStartTime) / mDuration;
   double value = 0;
 
   // Linear interpolation
@@ -92,6 +104,11 @@
 
   if(_apply) {
     [self applyValue:value];
+  }
+
+  // Setting done to YES tells the animation manager to remove us.
+  if(t >= 1.0) {
+    mDone = YES;
   }
 
   return value;
@@ -144,7 +161,7 @@
 - (void) applyValue:(double)value {
 
   if([mProperty isEqualToString:@"rotation"]) {
-    [mActor setRotation:(float)value];
+    [mActor setRotation:(float)value inDegrees:YES];
   } else if([mProperty isEqualToString:@"position"]) {
 
     if(!mPropComponent) {

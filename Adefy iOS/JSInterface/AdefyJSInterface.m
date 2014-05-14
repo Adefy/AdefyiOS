@@ -3,6 +3,7 @@
 #import "AdefyJSAnimationInterface.h"
 #import "AdefyJSEngineInterface.h"
 #import "AdefyRenderer.h"
+#import "AdefyAnimationManager.h"
 
 @implementation AdefyJSInterface {
 
@@ -13,7 +14,8 @@
 }
 
 - (AdefyJSInterface *)init:(JSContext *)context
-              withRenderer:(AdefyRenderer *)renderer{
+              withRenderer:(AdefyRenderer *)renderer
+      withAnimationManager:(AdefyAnimationManager *)manager {
 
   self = [super init];
 
@@ -24,7 +26,8 @@
 
   // Black magic
   actorInterface = [[AdefyJSActorInterface alloc] init:renderer];
-  animationInterface = [[AdefyJSAnimationInterface alloc] init:renderer];
+  animationInterface = [[AdefyJSAnimationInterface alloc] init:renderer
+                                          withAnimationManager:manager];
   engineInterface = [[AdefyJSEngineInterface alloc] init:renderer];
 
   context[@"__iface_actors"] = actorInterface;

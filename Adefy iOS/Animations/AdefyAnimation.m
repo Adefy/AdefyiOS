@@ -6,6 +6,7 @@
 
 // Stubs
 - (double) update:(double)time { return 0; }
-+ (BOOL) canAnimate:(NSString *)property { return NO; }
+- (BOOL) isDone { return NO; }
++ (BOOL) canAnimate:(NSArray *)property { return NO; }
 
 @end

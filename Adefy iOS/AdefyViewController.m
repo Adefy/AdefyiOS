@@ -5,6 +5,7 @@
 #import "AdefyPhysics.h"
 #import "AdefyJSInterface.h"
 #import "AdefyDownloader.h"
+#import "AdefyAnimationManager.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -13,6 +14,7 @@
   GLKMatrix4 mProjectionMatrix;
   AdefyRenderer *mRenderer;
   AdefyPhysics *mPhysics;
+  AdefyAnimationManager *mAnimations;
 
   JSVirtualMachine *jsVM;
   JSContext *jsContext;
@@ -52,6 +54,7 @@
   mPhysics = [[AdefyPhysics alloc] init];
   mRenderer = [[AdefyRenderer alloc] init:(GLsizei)self.view.bounds.size.width
                                    height:(GLsizei)self.view.bounds.size.height];
+  mAnimations = [[AdefyAnimationManager alloc] init:mRenderer];
 
   [AdefyRenderer setGlobalInstance:mRenderer];
   [AdefyPhysics setGlobalInstance:mPhysics];
@@ -91,7 +94,8 @@
   jsVM = [[JSVirtualMachine alloc] init];
   jsContext = [[JSContext alloc] initWithVirtualMachine:jsVM];
   jsInterface = [[AdefyJSInterface alloc] init:jsContext
-                                  withRenderer:mRenderer];
+                                  withRenderer:mRenderer
+                          withAnimationManager:mAnimations];
 
   [jsContext evaluateScript:AJS];
 
@@ -104,29 +108,6 @@
 - (void)initTest {
 
   [self displayGLAd:@"test"];
-
-  /*
-  AdefyRectangleActor *ground = [[AdefyRectangleActor alloc] init:1
-                                                           width:200
-                                                          height:20];
-
-  AdefyColor3 *colorBlue = [[AdefyColor3 alloc] init:0 withG:153 withB:204];
-
-  [ground setColor:colorBlue];
-  [ground setPosition:cpv(150, 50)];
-  [ground createPhysicsBody:0 friction:0.5f elasticity:0.2f];
-
-  AdefyRectangleActor *box = [[AdefyRectangleActor alloc] init:2
-                                                            width:30
-                                                           height:30];
-
-  AdefyColor3 *colorRed = [[AdefyColor3 alloc] init:204 withG:139 withB:0];
-
-  [box setColor:colorRed];
-  [box setRotation:45.0f inDegrees:YES];
-  [box setPosition:cpv(150, 200)];
-  [box createPhysicsBody:10.0f friction:1.0f elasticity:0.1f];
-  */
 }
 
 - (void)dealloc {
@@ -183,7 +164,7 @@
   NSError *error;
   NSString *manifestPath = [[NSString alloc] initWithFormat:@"%@package.json", path];
   NSData *manifestData = [NSData dataWithContentsOfFile:manifestPath
-                                                options:nil
+                                                options:0
                                                   error:&error];
 
   if(error) {
@@ -193,7 +174,7 @@
   }
 
   NSDictionary *manifest = [NSJSONSerialization JSONObjectWithData:manifestData
-                                                           options:nil
+                                                           options:0
                                                              error:&error];
 
   if(error) {

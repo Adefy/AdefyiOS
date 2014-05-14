@@ -198,25 +198,52 @@
 
 - (void)setPosition:(cpVect)position {
   mPosition = position;
+
+  if(mPhysicsShape) {
+
+    // Dynamic has a body
+    if(mPhysicsBody) {
+      [mPhysicsBody setPos:[AdefyRenderer screenToWorld:mPosition]];
+    } else {
+
+      // Static bodies can't be rotated, they must be recreated
+      [self destroyPhysicsBody];
+      [self createPhysicsBody];
+    }
+  }
 }
 
 - (void)setPosition:(float)x y:(float)y {
-  mPosition = cpv(x, y);
+  [self setPosition:cpv(x, y)];
 }
 
 - (void)setRenderMode:(GLenum)mode {
   mRenderMode = mode;
 }
 
+// Assumes radians!
 - (void)setRotation:(float)angle {
-  mRotation = angle;
+  [self setRotation:angle inDegrees:NO];
 }
 
 - (void)setRotation:(float)angle inDegrees:(BOOL)degrees {
   if(degrees) {
-    mRotation = angle * 57.2957795f;
+    mRotation = angle / 57.2957795f;
   } else {
     mRotation = angle;
+  }
+
+  if(mPhysicsShape) {
+
+    // Dynamic has a body
+    if(mPhysicsBody) {
+      [mPhysicsBody setAngle:mRotation];
+    } else {
+
+      // Static bodies can't be rotated, they must be recreated
+      [self destroyPhysicsBody];
+      [self createPhysicsBody];
+    }
   }
 }
 
@@ -317,18 +344,18 @@
 }
 
 - (BOOL) hasPhysicsBody {
-  return mPhysicsBody != nil;
+  return mPhysicsBody != nil || mPhysicsShape != nil;
 }
 
 - (void)destroyPhysicsBody {
   if(![self hasPhysicsBody]) { return; }
 
-  if(mPhysicsShape != nil) {
+  if(mPhysicsShape) {
     [mPhysics removeShape:mPhysicsShape];
     mPhysicsShape = nil;
   }
 
-  if(mPhysicsBody != nil) {
+  if(mPhysicsBody) {
     [mPhysics removeBody:mPhysicsBody];
     mPhysicsBody = nil;
   }
@@ -367,7 +394,16 @@
 
   if(mass == 0.0f) {
 
-    // Static body
+    // Static body. We can't rotate static bodies, so rotate the physics verts manually
+    for(unsigned int i = 0; i < mPosVertexCount; i++) {
+
+      float x = physicsVerts[i].x;
+      float y = physicsVerts[i].y;
+
+      physicsVerts[i].x = (x * (float)cos(mRotation)) - (y * (float)sin(mRotation));
+      physicsVerts[i].y = (x * (float)sin(mRotation)) + (y * (float)cos(mRotation));
+    }
+
     mPhysicsBody = nil;
     mPhysicsShape = [ChipmunkPolyShape polyWithBody:[mPhysics getStaticBody]
                                               count:mPosVertexCount
@@ -376,21 +412,15 @@
 
   } else {
 
-    unsigned int _psyx_count = mPosVertexCount;
-
-    if(mPosVertexCount == 33) {
-      _psyx_count = 32;
-    }
-
     // Dynamic body
-    float moment = cpMomentForPoly(mass, _psyx_count, physicsVerts, cpv(0, 0));
+    float moment = cpMomentForPoly(mass, mPosVertexCount, physicsVerts, cpv(0, 0));
     mPhysicsBody = [ChipmunkBody bodyWithMass:mass andMoment:moment];
 
     [mPhysicsBody setPos:[AdefyRenderer screenToWorld:mPosition]];
     [mPhysicsBody setAngle:mRotation];
 
     mPhysicsShape = [ChipmunkPolyShape polyWithBody:mPhysicsBody
-                                              count:_psyx_count
+                                              count:mPosVertexCount
                                               verts:physicsVerts
                                              offset:cpv(0, 0)];
   }

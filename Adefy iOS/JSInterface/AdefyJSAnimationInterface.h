@@ -2,6 +2,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 @class AdefyRenderer;
+@class AdefyAnimationManager;
 
 @protocol AdefyJSAnimationInterfaceExports <JSExport>
 
@@ -17,6 +18,7 @@ options:(NSString *)options);
 
 @interface AdefyJSAnimationInterface : NSObject <AdefyJSAnimationInterfaceExports>
 
-- (AdefyJSAnimationInterface *)init:(AdefyRenderer *)renderer;
+- (AdefyJSAnimationInterface *)init:(AdefyRenderer *)renderer
+               withAnimationManager:(AdefyAnimationManager *)manager;
 
 @end

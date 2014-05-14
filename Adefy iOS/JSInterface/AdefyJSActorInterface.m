@@ -17,10 +17,20 @@
   return self;
 }
 
+// Implemented
 - (BOOL)destroyActor:(int)id {
-  return NO;
+
+  AdefyActor *actor = [mRenderer getActorById:id];
+  if(actor == nil) { return NO; }
+
+  [actor removeAttachment];
+  [actor destroyPhysicsBody];
+  [mRenderer removeActor:actor];
+
+  return YES;
 }
 
+// Implemented
 - (int)createPolygonActor:(float)radius
                  segments:(unsigned int)segments {
   int id = [AdefyRenderer getNextActorID];
@@ -34,6 +44,7 @@
   return id;
 }
 
+// Implemented
 - (int)createRectangleActor:(float)width
                      height:(float)height {
   int id = [AdefyRenderer getNextActorID];
@@ -45,6 +56,7 @@
   return id;
 }
 
+// Implemented
 - (int)createCircleActor:(float)radius {
   int id = [AdefyRenderer getNextActorID];
 
@@ -56,6 +68,7 @@
   return id;
 }
 
+// STUB
 - (int)createTextActor:(NSString *)text
                   size:(int)size
                      r:(int)r
@@ -64,6 +77,7 @@
   return 0;
 }
 
+// Implemented
 - (BOOL)attachTexture:(NSString *)texture
                 width:(float)width
                height:(float)height
@@ -84,19 +98,28 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)removeAttachment:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
 
+  [actor removeAttachment];
+
   return YES;
 }
 
+// Implemented
 - (BOOL)setAttachmentVisibility:(BOOL)visible
                              id:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  AdefyActor *attachment = [actor getAttachment];
+  if(attachment == nil) { return NO; }
+
+  [attachment setVisible:visible];
 
   return YES;
 }
@@ -127,6 +150,7 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)setRenderMode:(unsigned int)mode
                    id:(int)id {
 
@@ -138,6 +162,7 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)updateVertices:(NSString *)verts
                     id:(int)id {
 
@@ -181,6 +206,7 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)setActorPosition:(float)x
                        y:(float)y
                       id:(int)id {
@@ -193,6 +219,7 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)setActorRotation:(float)angle
                       id:(int)id
                  radians:(BOOL)radians {
@@ -205,6 +232,7 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)setActorColor:(int)r
                     g:(int)g
                     b:(int)b
@@ -219,6 +247,7 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)setActorTexture:(NSString *)name
                      id:(int)id {
 
@@ -230,6 +259,7 @@
   return YES;
 }
 
+// Implemented
 - (NSString *)getVertices:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
@@ -252,6 +282,7 @@
   return JSON;
 }
 
+// Implemented
 - (NSString *)getActorPosition:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
@@ -263,6 +294,7 @@
       initWithFormat:@"{ x:\"%f\", y:\"%f\" }", position.x, position.y];
 }
 
+// Implemented
 - (NSString *)getActorColor:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
@@ -279,6 +311,7 @@
   }
 }
 
+// Implemented
 - (float)getActorRotation:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
@@ -287,6 +320,7 @@
   return [actor getRotation];
 }
 
+// Implemented
 - (BOOL)destroyPhysicsBody:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
@@ -297,6 +331,7 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)enableActorPhysics:(float)mass
                   friction:(float)friction
                 elasticity:(float)elasticity

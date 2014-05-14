@@ -8,7 +8,8 @@
   AdefyRenderer *mRenderer;
   CADisplayLink *mDisplayLink;
 
-  NSMutableArray* mAnimations;
+  NSMutableArray *mAnimations;
+  NSMutableArray *mAnimationsNeedingRemoval;
 
   double lastUpdate;
 }
@@ -17,6 +18,8 @@
   self = [super init];
 
   mRenderer = renderer;
+  mAnimations = [[NSMutableArray alloc] init];
+  mAnimationsNeedingRemoval = [[NSMutableArray alloc] init];
 
   // Set us up to be updated on each render
   mDisplayLink = [CADisplayLink displayLinkWithTarget:self
@@ -26,17 +29,31 @@
   return self;
 }
 
-- (void) addAnimation:(AdefyAnimation*)animation {
+- (void) addAnimation:(AdefyAnimation *)animation {
   [mAnimations addObject:animation];
+}
+
+- (void) removeAnimation:(AdefyAnimation *)animation {
+  [mAnimations removeObject:animation];
 }
 
 // Update each individual animation
 - (void) update {
-  double currentTime = [mDisplayLink timestamp];
+  double currentTimeMS = [mDisplayLink timestamp] * 1000.0;
 
   for(AdefyAnimation *animation in mAnimations) {
-    [animation update:currentTime];
+    [animation update:currentTimeMS];
+
+    if([animation isDone]) {
+      [mAnimationsNeedingRemoval addObject:animation];
+    }
   }
+
+  for(AdefyAnimation *animation in mAnimationsNeedingRemoval) {
+    [mAnimations removeObject:animation];
+  }
+
+  [mAnimationsNeedingRemoval removeAllObjects];
 }
 
 @end

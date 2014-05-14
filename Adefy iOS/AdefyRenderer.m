@@ -36,8 +36,6 @@ size_t nearestPowerOfTwo(size_t v) {
 
   NSMutableArray *mActors;
   NSMutableArray *mTextures;
-
-  AdefyAnimationManager *mAnimations;
 }
 
 static float PPM;
@@ -58,7 +56,6 @@ static float PPM;
 
   mActors = [[NSMutableArray alloc] init];
   mTextures = [[NSMutableArray alloc] init];
-  mAnimations = [[AdefyAnimationManager alloc] init:self];
 
   mCameraPosition = cpv(0.0f, 0.0f);
   mActiveMaterial = [[NSMutableString alloc] init];

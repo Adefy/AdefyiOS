@@ -14,6 +14,7 @@
   return self;
 }
 
+// STUB
 - (void)initialize:(NSString *)ad
              width:(int)width
             height:(int)height
@@ -22,6 +23,7 @@
 
 }
 
+// Implemented
 - (NSString *)getClearColor {
 
   GLfloat *clearColor = [mRenderer getClearColor];
@@ -33,6 +35,7 @@
   return [[NSString alloc] initWithFormat:@"{ r: %i, g: %i, b: %i }", r, g, b];
 }
 
+// Implemented
 - (void)setClearColor:(float)r g:(float)g b:(float)b {
 
   GLfloat *clearColor = malloc(4 * sizeof(GLfloat));
@@ -45,20 +48,24 @@
   [mRenderer setClearColor:clearColor];
 }
 
+// STUB
 - (void)setRemindMeButton:(float)x y:(float)y width:(float)width height:(float)height {
  // Not sure if we even need this anymore, GLAd format is undergoing strategy changes...
 }
 
+// STUB
 - (void)setLogLevel:(int)level {
   // Doesn't do anything on iOS
 }
 
+// Implemented
 - (NSString *)getCameraPosition {
   cpVect pos = [mRenderer getCameraPosition];
 
   return [[NSString alloc] initWithFormat:@"{ x: %f, y: %f }", pos.x, pos.y];
 }
 
+// Implemented
 - (void)setCameraPosition:(float)x y:(float)y {
   cpVect pos = cpv(x, y);
 
@@ -73,6 +80,7 @@
   // Also not sure.
 }
 
+// Implemented
 - (void)log:(NSString *)string {
   NSLog(@"<Console Log> %@", string);
 }

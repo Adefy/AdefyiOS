@@ -2,5 +2,5 @@
 #import "AdefyAnimation.h"
 
 @interface AdefyVertAnimation : AdefyAnimation
-+ (BOOL)canAnimate:(NSString *)property;
++ (BOOL)canAnimate:(NSArray *)properties;
 @end
