@@ -180,10 +180,13 @@ NSMutableString *CACHE_DIR;
 *
 * @param name Ad name for future reference
 * @param duration Ad length in milliseconds
+* @param template Template name, optional
+* @param callback Optional callback block
 */
 - (void)fetchAd:(NSString *)name
  withDurationMS:(int)duration
-   withTemplate:(NSString *)template {
+   withTemplate:(NSString *)template
+         withCB:(void(^)(void))callback {
 
   // Get queue handles
   dispatch_queue_t backgroundQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -223,8 +226,11 @@ NSMutableString *CACHE_DIR;
 
       NSLog(@"Extracted Adefy GLAd '%@'", name);
 
-      // [self loadGLAdFromDirectory:extractPath];
-      // dispatch_async(mainQ, ^{});
+      if(callback) {
+        dispatch_async(mainQ, ^{
+          callback();
+        });
+      }
     }
   });
 }

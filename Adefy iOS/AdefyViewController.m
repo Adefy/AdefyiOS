@@ -49,7 +49,9 @@
   [self setPreferredFramesPerSecond:60];
 
   downloader = [[AdefyDownloader alloc] init:@"FAKE_APIKEY"];
-  // [downloader fetchAd:@"skittles" withDurationMS:1000 withTemplate:@"skittle_template"];
+  [downloader fetchAd:@"skittles" withDurationMS:1000 withTemplate:@"skittle_template" withCB:^{
+    [self initTest];
+  }];
 
   mPhysics = [[AdefyPhysics alloc] init];
   mRenderer = [[AdefyRenderer alloc] init:(GLsizei)self.view.bounds.size.width
@@ -58,8 +60,6 @@
 
   [AdefyRenderer setGlobalInstance:mRenderer];
   [AdefyPhysics setGlobalInstance:mPhysics];
-
-  [self initTest];
 }
 
 - (void)executeAdLogic:(NSString *)basePath
@@ -106,7 +106,6 @@
 }
 
 - (void)initTest {
-
   [self displayGLAd:@"skittles"];
 }
 

@@ -11,7 +11,9 @@
 
 - (void)fetchAd:(NSString *)name
  withDurationMS:(int)duration
-   withTemplate:(NSString *)template;
+   withTemplate:(NSString *)template
+         withCB:(void(^)(void))callback;
+
 - (NSString *)getPathForGLAd:(NSString *)name;
 
 @end

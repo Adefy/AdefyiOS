@@ -121,21 +121,13 @@ static float PPM;
   return nil;
 }
 
-- (void) loadTexture:(NSString *)name
-              ofType:(NSString *)type
-            fromPath:(NSString *)path
-     withCompression:(NSString *)compression {
-
-  BOOL canLoad = [self canLoadTexture:name
-                               ofType:type
-                      withCompression:compression];
-
-  if(!canLoad) { return; }
+- (AdefyTexture *) loadUncompressedTexture:(NSString *)name
+                                      path:(NSString *)path {
 
   CGImageRef image = [[UIImage imageWithContentsOfFile:path] CGImage];
   if(!image) {
     NSLog(@"Failed to load texture from image '%@' at %@", name, path);
-    return;
+    return 0;
   }
 
   // Get padded dimensions
@@ -196,19 +188,38 @@ static float PPM;
 
   free(textureData);
 
-  // Now create and add texture to our internal collection
-  AdefyTexture *texture = [[AdefyTexture alloc] init:name
-                                          withHandle:texHandle
-                                           withClipU:clipU
-                                           withClipV:clipV];
+  return [[AdefyTexture alloc] init:name
+                         withHandle:texHandle
+                          withClipU:clipU
+                          withClipV:clipV];
+}
 
-  [self addTexture:texture];
+- (void) loadTexture:(NSString *)name
+              ofType:(NSString *)type
+            fromPath:(NSString *)path
+     withCompression:(NSString *)compression {
 
-  // Go through and reset texture on all actors referencing it
-  // Actors can be created and textures set before we have actually loaded them
-  for(AdefyActor *actor in mActors) {
-    if([[actor getTextureName] isEqualToString:name]) {
-      [actor setTexture:name];
+  BOOL canLoad = [self canLoadTexture:name
+                               ofType:type
+                      withCompression:compression];
+
+  if(!canLoad) { return; }
+
+  AdefyTexture *texture = nil;
+
+  if([compression isEqualToString:@"none"]) {
+    texture = [self loadUncompressedTexture:name path:path];
+  }
+
+  if(texture != nil) {
+    [self addTexture:texture];
+
+    // Go through and reset texture on all actors referencing it
+    // Actors can be created and textures set before we have actually loaded them
+    for(AdefyActor *actor in mActors) {
+      if([[actor getTextureName] isEqualToString:name]) {
+        [actor setTexture:name];
+      }
     }
   }
 }
@@ -219,15 +230,13 @@ static float PPM;
 
   // Sadly we don't support texture atlases just yet
   if(![type isEqualToString:@"image"]) {
-    NSLog(@"Unsupported texture type: %@", type);
-    NSLog(@"Refusing to load texture %@", name);
+    NSLog(@"Unsupported texture type for '%@': %@", name, type);
     return NO;
   }
 
-  // Support uncompressed and ETC1 compressed textures
-  if(![compression isEqualToString:@"none"] && ![compression isEqualToString:@"etc1"]) {
-    NSLog(@"Unsupported compression type: %@", compression);
-    NSLog(@"Refusing to load texture %@", name);
+  // Support uncompressed textures only (no ETC1 on iOS, too lazy atm to code loader)
+  if(![compression isEqualToString:@"none"]) {
+    NSLog(@"Unsupported compression type for '%@': %@", name, compression);
     return NO;
   }
 
