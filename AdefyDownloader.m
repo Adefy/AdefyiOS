@@ -153,7 +153,7 @@ NSMutableString *CACHE_DIR;
 *
 * @return queryString
 */
-- (NSString *)getQueryString {
+- (NSString *)getQueryString:(NSString *)template {
   NSMutableString *query = [NSMutableString stringWithString:serverURL];
   NSMutableDictionary *userInformation = [self getUserInformation];
 
@@ -163,6 +163,10 @@ NSMutableString *CACHE_DIR;
 
   [query appendFormat:@"?apikey=%@&type=organic&width=%i&height=%i&uuid=%@",
           apiKey, [width intValue], [height intValue], uuid];
+
+  if(template) {
+    [query appendFormat:@"&template=%@", template];
+  }
 
   return query;
 }
@@ -177,7 +181,9 @@ NSMutableString *CACHE_DIR;
 * @param name Ad name for future reference
 * @param duration Ad length in milliseconds
 */
-- (void)fetchAd:(NSString *)name withDurationMS:(int)duration {
+- (void)fetchAd:(NSString *)name
+ withDurationMS:(int)duration
+   withTemplate:(NSString *)template {
 
   // Get queue handles
   dispatch_queue_t backgroundQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -189,7 +195,7 @@ NSMutableString *CACHE_DIR;
     @autoreleasepool {
       NSLog(@"Starting Adefy GLAd download...");
 
-      NSURL *url = [NSURL URLWithString:[self getQueryString]];
+      NSURL *url = [NSURL URLWithString:[self getQueryString:template]];
       NSError *downloadError;
 
       NSData *data = [NSData dataWithContentsOfURL:url

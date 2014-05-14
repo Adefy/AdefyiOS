@@ -49,7 +49,7 @@
   [self setPreferredFramesPerSecond:60];
 
   downloader = [[AdefyDownloader alloc] init:@"FAKE_APIKEY"];
-  // [downloader fetchAd:@"test" withDurationMS:1000];
+  // [downloader fetchAd:@"skittles" withDurationMS:1000 withTemplate:@"skittle_template"];
 
   mPhysics = [[AdefyPhysics alloc] init];
   mRenderer = [[AdefyRenderer alloc] init:(GLsizei)self.view.bounds.size.width
@@ -107,7 +107,7 @@
 
 - (void)initTest {
 
-  [self displayGLAd:@"test"];
+  [self displayGLAd:@"skittles"];
 }
 
 - (void)dealloc {

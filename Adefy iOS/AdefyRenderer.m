@@ -95,6 +95,17 @@ static float PPM;
   [mActors removeObject:actor];
 }
 
+- (void) resortActorsByLayer {
+
+  [mActors sortUsingComparator:^NSComparisonResult(id a, id b) {
+
+    NSNumber *aL = [[NSNumber alloc] initWithInt:[(AdefyActor *)a getLayer]];
+    NSNumber *bL = [[NSNumber alloc] initWithInt:[(AdefyActor *)b getLayer]];
+
+    return [aL compare:bL];
+  }];
+}
+
 - (void) addTexture:(AdefyTexture *)texture {
   [mTextures addObject:texture];
 }

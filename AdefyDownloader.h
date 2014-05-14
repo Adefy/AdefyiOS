@@ -9,7 +9,9 @@
                    ofType:(NSString *)_adType;
 - (AdefyDownloader *)init:(NSString *)_apiKey;
 
-- (void)fetchAd:(NSString *)name withDurationMS:(int)duration;
+- (void)fetchAd:(NSString *)name
+ withDurationMS:(int)duration
+   withTemplate:(NSString *)template;
 - (NSString *)getPathForGLAd:(NSString *)name;
 
 @end

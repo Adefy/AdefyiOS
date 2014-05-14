@@ -124,20 +124,26 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)setActorLayer:(int)layer
                    id:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
 
+  [actor setLayer:layer];
+
   return YES;
 }
 
+// Implemented
 - (BOOL)setActorPhysicsLayer:(int)layer
                           id:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  [actor setLayer:layer];
 
   return YES;
 }

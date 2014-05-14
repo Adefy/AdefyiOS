@@ -39,6 +39,10 @@
   float mRotation;             // Stored in radians
   float mRenderOffsetRotation; //
 
+  int mLayer;
+  cpLayers mPhysicsLayer;
+  int mRawPhysicsLayer;
+
   cpVect mPosition;
   cpVect mRenderOffset;
 
@@ -73,6 +77,10 @@
   mPosition = cpv(0.0f, 0.0f);
   mRenderOffset = cpv(0.0f, 0.0f);
 
+  mLayer = 0;
+  mPhysicsLayer = ~0;
+  mRawPhysicsLayer = 0;
+
   mTextureMaterial = [[AdefyTexturedMaterial alloc] init];
   mColorMaterial = [[AdefySingleColorMaterial alloc] init];
 
@@ -103,6 +111,8 @@
 // Getters and setters
 //
 
+- (int)    getLayer      { return mLayer; }
+- (int)    getPhysicsLayer { return mRawPhysicsLayer; }
 - (BOOL)   getVisible    { return mVisible; }
 - (int)    getId         { return mId; }
 - (cpVect) getPosition   { return mPosition;}
@@ -120,6 +130,29 @@
 - (GLuint) getVertexCount { return mPosVertexCount; }
 - (cpVect) getRenderOffset { return mRenderOffset; }
 - (NSString *) getTextureName { return mTextureName; }
+
+- (void) setLayer:(int)layer {
+  mLayer = layer;
+
+  [mRenderer resortActorsByLayer];
+}
+
+- (void) setPhysicsLayer:(unsigned int)layer {
+  if(layer < 0) {
+    NSLog(@"Warning, physics layer must be >0 [got %i]", layer);
+    layer = 0;
+  } else if(layer > 16) {
+    NSLog(@"Warning, physics layer must be <16 [got %i]", layer);
+    layer = 15;
+  }
+
+  mPhysicsLayer = 1 << layer;
+  mRawPhysicsLayer = layer;
+
+  if(mPhysicsShape) {
+    [mPhysicsShape setLayers:mPhysicsLayer];
+  }
+}
 
 - (void) setRenderOffset:(cpVect)offset {
   mRenderOffset.x = offset.x;
@@ -427,6 +460,7 @@
 
   [mPhysicsShape setFriction:friction];
   [mPhysicsShape setElasticity:elasticity];
+  [mPhysicsShape setLayers:mPhysicsLayer];
 
   [mPhysics registerShape:mPhysicsShape];
 

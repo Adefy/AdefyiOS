@@ -38,6 +38,11 @@
 ////
 - (NSString *)      getMaterialName;
 - (AdefyMaterial *) getMaterial;
+
+- (int)getLayer;
+
+- (int)getPhysicsLayer;
+
 - (BOOL)   getVisible;
 - (int)    getId;
 - (cpVect) getPosition;
@@ -53,6 +58,10 @@
 - (AdefyActor *) getAttachment;
 - (BOOL) hasAttachment;
 - (NSString *) getTextureName;
+
+- (void)setLayer:(int)layer;
+
+- (void)setPhysicsLayer:(unsigned int)layer;
 
 ////
 //// Setters

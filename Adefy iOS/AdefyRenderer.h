@@ -35,6 +35,8 @@
 - (void) addActor:(AdefyActor *)actor;
 - (void) removeActor:(AdefyActor *)actor;
 
+- (void)resortActorsByLayer;
+
 - (AdefyTexture *)getTexture:(NSString *)name;
 
 - (void)loadTexture:(NSString *)name ofType:(NSString *)type fromPath:(NSString *)path withCompression:(NSString *)compression;
