@@ -153,7 +153,6 @@ withTexCCount:(int)texCount
   [self glErrorCheck:@"<TextureMaterial> Bound tex coord buffer"];
 #endif
 
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
   //
   //
 

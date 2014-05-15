@@ -141,6 +141,7 @@
 
 - (void)update {
 
+  [mAnimations update];
   [mRenderer update];
   [mPhysics update:(float)[self timeSinceLastUpdate]];
 }

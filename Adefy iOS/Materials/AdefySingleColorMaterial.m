@@ -134,7 +134,6 @@ static GLfloat *STATIC_COLOR;
   [self glErrorCheck:@"<SingleColorMaterial> Drew arrays"];
 #endif
 
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 // Called by other textures if they draw after us

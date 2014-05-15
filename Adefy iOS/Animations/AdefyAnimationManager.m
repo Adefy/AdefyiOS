@@ -6,7 +6,6 @@
 
 @protected
   AdefyRenderer *mRenderer;
-  CADisplayLink *mDisplayLink;
 
   NSMutableArray *mAnimations;
   NSMutableArray *mAnimationsNeedingRemoval;
@@ -21,11 +20,6 @@
   mAnimations = [[NSMutableArray alloc] init];
   mAnimationsNeedingRemoval = [[NSMutableArray alloc] init];
 
-  // Set us up to be updated on each render
-  mDisplayLink = [CADisplayLink displayLinkWithTarget:self
-                                             selector:@selector(update)];
-  [mDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-
   return self;
 }
 
@@ -39,7 +33,7 @@
 
 // Update each individual animation
 - (void) update {
-  double currentTimeMS = [mDisplayLink timestamp] * 1000.0;
+  double currentTimeMS = CACurrentMediaTime() * 1000.0;
 
   for(AdefyAnimation *animation in mAnimations) {
     [animation update:currentTimeMS];
