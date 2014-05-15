@@ -134,6 +134,10 @@
 - (void) setLayer:(int)layer {
   mLayer = layer;
 
+  if(mAttachment) {
+    [mAttachment setLayer:mLayer];
+  }
+
   [mRenderer resortActorsByLayer];
 }
 
@@ -316,7 +320,7 @@
                        offsetY:(float)offy
                          angle:(float)angle {
 
-  if(mAttachment != nil) {
+  if(mAttachment) {
     [self removeAttachment];
   }
 
@@ -329,6 +333,7 @@
   [mAttachment setTexture:name];
   [mAttachment setRenderOffsetRotation:angle];
   [mAttachment setRenderOffset:cpv(offx, offy)];
+  [mAttachment setLayer:mLayer];
 
   return mAttachment;
 }
