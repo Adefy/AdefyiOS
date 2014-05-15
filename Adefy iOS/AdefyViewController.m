@@ -49,7 +49,7 @@
   [self setPreferredFramesPerSecond:60];
 
   downloader = [[AdefyDownloader alloc] init:@"FAKE_APIKEY"];
-  [downloader fetchAd:@"skittles" withDurationMS:1000 withTemplate:@"skittle_template" withCB:^{
+  [downloader fetchAd:@"watch" withDurationMS:1000 withTemplate:@"watch_template" withCB:^{
     [self initTest];
   }];
 
@@ -106,7 +106,7 @@
 }
 
 - (void)initTest {
-  [self displayGLAd:@"skittles"];
+  [self displayGLAd:@"watch"];
 }
 
 - (void)dealloc {
