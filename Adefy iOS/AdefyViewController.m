@@ -51,7 +51,7 @@
 
   [EAGLContext setCurrentContext:self.context];
 
-  [self setPreferredFramesPerSecond:60];
+  [self setPreferredFramesPerSecond:30];
 
   downloader = [[AdefyDownloader alloc] init:@"FAKE_APIKEY"];
   [downloader fetchAd:@"watch" withDurationMS:1000 withTemplate:@"watch_template" withCB:^{
