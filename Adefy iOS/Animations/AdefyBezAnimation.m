@@ -47,8 +47,6 @@
   mFPS = _fps;
   mDone = NO;
 
-  [self getStartValue];
-
   return self;
 }
 
@@ -67,14 +65,20 @@
 - (double)update:(double)timeMS { return [self update:timeMS apply:YES]; }
 - (double)update:(double)timeMS apply:(BOOL)_apply {
 
-  // Set up start time
+  // Set up start time and value
   if(mStartTime == -1) {
     mStartTime = timeMS;
+    [self getStartValue];
   }
 
   // t represents our position along the bezier func
   double t = (timeMS - mStartTime) / mDuration;
   double value = 0;
+
+  // Cap t
+  if(t >= 1.0) {
+    t = 1.0;
+  }
 
   // Linear interpolation
   if(!mCp1 && !mCp2) {
@@ -117,7 +121,7 @@
 - (void) getStartValue {
 
   if([mProperty isEqualToString:@"rotation"]) {
-    mStartVal = [mActor getRotation];
+    mStartVal = [mActor getRotation] * 57.2957795f;
   } else if([mProperty isEqualToString:@"position"]) {
 
     if(!mPropComponent) {
@@ -156,6 +160,7 @@
       return;
     }
   }
+
 }
 
 - (void) applyValue:(double)value {
@@ -208,6 +213,9 @@
 
 - (NSString *) preCalculateJSON { return [self preCalculateJSON:mStartVal]; }
 - (NSString *) preCalculateJSON:(double)_start {
+
+  [self getStartValue];
+
   double oldStart = mStartVal;
   mStartVal = _start;
 

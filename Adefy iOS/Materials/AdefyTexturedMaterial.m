@@ -101,9 +101,6 @@ withTexCCount:(int)texCount
     glBindTexture(GL_TEXTURE_2D, mTextureHandle);
     glVertexAttrib2f(STATIC_UV_SCALE_HANDLE, mTextureU, mTextureV);
 
-    // This causes a GL_INVALID_OPERATION error, no idea why
-    // glUniform1i(STATIC_TEX_SAMPLER_HANDLE, 0);
-
     [self glErrorCheck:@"<TextureMaterial> Bound texture and UV scale"];
 
     PREV_TEXTURE_HANDLE = mTextureHandle;

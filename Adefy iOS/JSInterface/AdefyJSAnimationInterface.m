@@ -117,23 +117,26 @@
       }
     }
 
-    int64_t delta = (int)start * NSEC_PER_MSEC;
-    dispatch_time_t trueStartTime = dispatch_time(DISPATCH_TIME_NOW, delta);
+    AdefyBezAnimation *animation = [[AdefyBezAnimation alloc] init:actor
+                                                          endValue:endVal
+                                                               cp1:cp1
+                                                               cp2:cp2
+                                                          duration:duration
+                                                          property:property
+                                                         component:component
+                                                               fps:fps
+                                                       withManager:mManager];
 
-    dispatch_after(trueStartTime, dispatch_get_main_queue(), ^(void) {
-
-      AdefyBezAnimation *animation = [[AdefyBezAnimation alloc] init:actor
-                                                            endValue:endVal
-                                                                 cp1:cp1
-                                                                 cp2:cp2
-                                                            duration:duration
-                                                            property:property
-                                                           component:component
-                                                                 fps:fps
-                                                         withManager:mManager ];
-
+    if(start == 0) {
       [mManager addAnimation:animation];
-    });
+    } else {
+      int64_t delta = (int)start * NSEC_PER_MSEC;
+      dispatch_time_t trueStartTime = dispatch_time(DISPATCH_TIME_NOW, delta);
+
+      dispatch_after(trueStartTime, dispatch_get_main_queue(), ^(void) {
+        [mManager addAnimation:animation];
+      });
+    }
 
   } else if([AdefyVertAnimation canAnimate:propArray]) {
     NSLog(@"Get vert animation");
