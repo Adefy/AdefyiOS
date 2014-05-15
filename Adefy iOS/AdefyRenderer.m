@@ -2,13 +2,12 @@
 #import "AdefyActor.h"
 #import "AdefyMaterial.h"
 #import "AdefyTexture.h"
-#import "AdefyAnimationManager.h"
 
 static AdefyRenderer *GLOBAL_INSTANCE;
 static int LAST_ACTOR_ID;
 
 // Helper
-size_t nearestPowerOfTwo(size_t v) {
+NSUInteger nearestPowerOfTwo(NSUInteger v) {
 
   v--;
   v |= v >> 1;
@@ -89,6 +88,7 @@ static float PPM;
 
 - (void) addActor:(AdefyActor *)actor {
   [mActors addObject:actor];
+  [self resortActorsByLayer];
 }
 
 - (void) removeActor:(AdefyActor *)actor {
@@ -127,18 +127,18 @@ static float PPM;
   CGImageRef image = [[UIImage imageWithContentsOfFile:path] CGImage];
   if(!image) {
     NSLog(@"Failed to load texture from image '%@' at %@", name, path);
-    return 0;
+    return nil;
   }
 
   // Get padded dimensions
-  size_t width = CGImageGetWidth(image);
-  size_t height = CGImageGetHeight(image);
+  GLuint width = CGImageGetWidth(image);
+  GLuint height = CGImageGetHeight(image);
 
-  size_t POTWidth = nearestPowerOfTwo(width);
-  size_t POTHeight = nearestPowerOfTwo(height);
+  GLuint POTWidth = nearestPowerOfTwo(width);
+  GLuint POTHeight = nearestPowerOfTwo(height);
 
-  float clipU = width / POTWidth;
-  float clipV = height / POTHeight;
+  float clipU = (float)width / POTWidth;
+  float clipV = (float)height / POTHeight;
 
   // Allocate buffer, and prepare image data
   size_t bufferSize = POTWidth * POTHeight * 4;
@@ -161,7 +161,7 @@ static float PPM;
   );
 
   // Draw image on buffer
-  CGContextDrawImage(imageContext, CGRectMake(0, 0, width, height), image);
+  CGContextDrawImage(imageContext, CGRectMake(0, POTHeight - height, width, height), image);
   CGContextRelease(imageContext);
 
   // Load into GL ES
@@ -221,6 +221,8 @@ static float PPM;
         [actor setTexture:name];
       }
     }
+  } else {
+    NSLog(@"Failed to load texture '%@'", name);
   }
 }
 
