@@ -29,6 +29,8 @@
 
 - (cpVect *)generatePhysicsVerts:(GLfloat *)verts count:(unsigned int)count;
 
+- (void)setPhysicsVerts:(cpVect *)verts count:(unsigned int)count;
+
 - (void) createPhysicsBody:(float)mass
                   friction:(float)friction
                 elasticity:(float)elasticity;

@@ -1,5 +1,6 @@
 #import "AdefyJSEngineInterface.h"
 #import "AdefyRenderer.h"
+#import <objc/message.h>
 
 @implementation AdefyJSEngineInterface {
 
@@ -76,8 +77,9 @@
   // HAH. No idea what to do on iOS here.
 }
 
+// Stub, not implemented on iOS
 - (void)setOrientation:(NSString *)orientation {
-  // Also not sure.
+  NSLog(@"Got orientation request: %@", orientation);
 }
 
 // Implemented

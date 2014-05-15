@@ -1,4 +1,5 @@
 #import <JavaScriptCore/JavaScriptCore.h>
+#import <objc/message.h>
 #import "AdefyViewController.h"
 #import "AdefyRenderer.h"
 #import "AdefySingleColorMaterial.h"
@@ -8,6 +9,10 @@
 #import "AdefyAnimationManager.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
+
+#if !defined(DEBUG) || !(TARGET_IPHONE_SIMULATOR)
+#define NSLog(...)
+#endif
 
 @interface AdefyViewController () {
 

@@ -3,7 +3,7 @@
 @interface AdefyTexture : NSObject
 
 - (AdefyTexture *)init:(NSString *)_name
-            withHandle:(int)_handle
+            withHandle:(GLuint)_handle
              withClipU:(float)_u
              withClipV:(float)_v;
 

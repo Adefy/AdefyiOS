@@ -46,6 +46,9 @@
   cpVect mPosition;
   cpVect mRenderOffset;
 
+  cpVect *mPhysicsVertices;
+  GLuint mPhysicsVertCount;
+
   ChipmunkBody *mPhysicsBody;
   ChipmunkShape *mPhysicsShape;
 
@@ -102,6 +105,11 @@
   [self setVertices:vertices count:vCount];
   [self setTexCoords:texCoords count:tCount];
 
+  // Create physics vertices
+  mPhysicsVertCount = mPosVertexCount;
+  mPhysicsVertices = [self generatePhysicsVerts:mPosVertexArray
+                                          count:mPosVertexCount];
+
   [self addToRenderer:mRenderer];
 
   return self;
@@ -142,10 +150,7 @@
 }
 
 - (void) setPhysicsLayer:(unsigned int)layer {
-  if(layer < 0) {
-    NSLog(@"Warning, physics layer must be >0 [got %i]", layer);
-    layer = 0;
-  } else if(layer > 16) {
+  if(layer > 16) {
     NSLog(@"Warning, physics layer must be <16 [got %i]", layer);
     layer = 15;
   }
@@ -418,6 +423,22 @@
   return physicsVerts;
 }
 
+- (void) setPhysicsVerts:(cpVect *)verts
+                   count:(unsigned int)count {
+
+  if(mPhysicsVertices) {
+    free(mPhysicsVertices);
+  }
+
+  mPhysicsVertices = verts;
+  mPhysicsVertCount = count;
+
+  if([self hasPhysicsBody]) {
+    [self destroyPhysicsBody];
+    [self createPhysicsBody];
+  }
+}
+
 - (void)createPhysicsBody:(float)mass
                  friction:(float)friction
                elasticity:(float)elasticity {
@@ -426,40 +447,42 @@
     [self destroyPhysicsBody];
   }
 
-  // Create physics vertices
-  cpVect* physicsVerts = [self generatePhysicsVerts:mPosVertexArray
-                                              count:mPosVertexCount];
+  // Copy physics verts (free'd after shape creation)
+  cpVect *copyPhysicsVerts = malloc(sizeof(cpVect) * mPhysicsVertCount);
+  for(unsigned int i = 0; i < mPhysicsVertCount; i++) {
+    copyPhysicsVerts[i] = cpv(mPhysicsVertices[i].x, mPhysicsVertices[i].y);
+  }
 
   if(mass == 0.0f) {
 
     // Static body. We can't rotate static bodies, so rotate the physics verts manually
-    for(unsigned int i = 0; i < mPosVertexCount; i++) {
+    for(unsigned int i = 0; i < mPhysicsVertCount; i++) {
 
-      float x = physicsVerts[i].x;
-      float y = physicsVerts[i].y;
+      float x = copyPhysicsVerts[i].x;
+      float y = copyPhysicsVerts[i].y;
 
-      physicsVerts[i].x = (x * (float)cos(mRotation)) - (y * (float)sin(mRotation));
-      physicsVerts[i].y = (x * (float)sin(mRotation)) + (y * (float)cos(mRotation));
+      copyPhysicsVerts[i].x = (x * (float)cos(mRotation)) - (y * (float)sin(mRotation));
+      copyPhysicsVerts[i].y = (x * (float)sin(mRotation)) + (y * (float)cos(mRotation));
     }
 
     mPhysicsBody = nil;
     mPhysicsShape = [ChipmunkPolyShape polyWithBody:[mPhysics getStaticBody]
-                                              count:mPosVertexCount
-                                              verts:physicsVerts
+                                              count:mPhysicsVertCount
+                                              verts:copyPhysicsVerts
                                              offset:[AdefyRenderer screenToWorld:mPosition]];
 
   } else {
 
     // Dynamic body
-    float moment = cpMomentForPoly(mass, mPosVertexCount, physicsVerts, cpv(0, 0));
+    float moment = cpMomentForPoly(mass, mPhysicsVertCount, copyPhysicsVerts, cpv(0, 0));
     mPhysicsBody = [ChipmunkBody bodyWithMass:mass andMoment:moment];
 
     [mPhysicsBody setPos:[AdefyRenderer screenToWorld:mPosition]];
     [mPhysicsBody setAngle:mRotation];
 
     mPhysicsShape = [ChipmunkPolyShape polyWithBody:mPhysicsBody
-                                              count:mPosVertexCount
-                                              verts:physicsVerts
+                                              count:mPhysicsVertCount
+                                              verts:copyPhysicsVerts
                                              offset:cpv(0, 0)];
   }
 
@@ -472,6 +495,8 @@
   if(mPhysicsBody != nil) {
     [mPhysics registerBody:mPhysicsBody];
   }
+
+  free(copyPhysicsVerts);
 }
 
 - (void) setupRenderMatrix {

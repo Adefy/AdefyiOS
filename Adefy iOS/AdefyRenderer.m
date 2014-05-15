@@ -157,7 +157,7 @@ static float PPM;
       8,                              // Bits per component
       POTWidth * 4,                   // Bytes-per-row
       CGImageGetColorSpace(image),    // Colorspace
-      kCGImageAlphaPremultipliedLast  // Bitmap info (alpha)
+      (CGBitmapInfo)kCGImageAlphaPremultipliedLast  // Bitmap info (alpha)
   );
 
   // Draw image on buffer

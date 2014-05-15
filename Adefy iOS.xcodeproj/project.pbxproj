@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		092E4F6C18F53513008CE39F /* AdefyRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 092E4F6B18F53513008CE39F /* AdefyRenderer.m */; };
 		093082BA18FA9443005D8336 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093082B918FA9443005D8336 /* JavaScriptCore.framework */; };
-		0956347F18F86AB50012CE23 /* libChipmunkPro.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0956347D18F86AB50012CE23 /* libChipmunkPro.a */; };
-		0956348018F86AB50012CE23 /* libObjectiveChipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0956347E18F86AB50012CE23 /* libObjectiveChipmunk.a */; };
 		09655CB118F47CE9002D4C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB018F47CE9002D4C92 /* Foundation.framework */; };
 		09655CB318F47CE9002D4C92 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB218F47CE9002D4C92 /* CoreGraphics.framework */; };
 		09655CB518F47CE9002D4C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB418F47CE9002D4C92 /* UIKit.framework */; };
@@ -212,8 +210,6 @@
 				09655CB518F47CE9002D4C92 /* UIKit.framework in Frameworks */,
 				09655CB718F47CE9002D4C92 /* GLKit.framework in Frameworks */,
 				09655CB118F47CE9002D4C92 /* Foundation.framework in Frameworks */,
-				0956347F18F86AB50012CE23 /* libChipmunkPro.a in Frameworks */,
-				0956348018F86AB50012CE23 /* libObjectiveChipmunk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +752,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "DEBUG=0";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -778,6 +775,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Adefy iOS/Adefy iOS-Prefix.pch";
 				INFOPLIST_FILE = "Adefy iOS/Adefy iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/cris/Documents/projects/adefy/adefyios/Adefy\\ iOS/ChipmunkPro-6.2.1/build/Debug-iphonesimulator",
@@ -788,8 +786,21 @@
 					"/Users/cris/Documents/projects/adefy/adefyios/Adefy\\ iOS/ChipmunkPro-6.2.1/ChipmunkPro-iPhone",
 					"/Users/cris/Documents/projects/adefy/adefyios/Adefy\\ iOS/ChipmunkPro-6.2.1/build/Release-iphoneos",
 				);
+				"OTHER_LDFLAGS[arch=arm64]" = (
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libChipmunkPro.a\"",
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a\"",
+				);
+				"OTHER_LDFLAGS[arch=armv7]" = (
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libChipmunkPro.a\"",
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a\"",
+				);
+				"OTHER_LDFLAGS[arch=armv7s]" = (
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libChipmunkPro.a\"",
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -802,7 +813,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Adefy iOS/Adefy iOS-Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "DEBUG=0";
 				INFOPLIST_FILE = "Adefy iOS/Adefy iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/cris/Documents/projects/adefy/adefyios/Adefy\\ iOS/ChipmunkPro-6.2.1/build/Debug-iphonesimulator",
@@ -813,8 +826,21 @@
 					"/Users/cris/Documents/projects/adefy/adefyios/Adefy\\ iOS/ChipmunkPro-6.2.1/ChipmunkPro-iPhone",
 					"/Users/cris/Documents/projects/adefy/adefyios/Adefy\\ iOS/ChipmunkPro-6.2.1/build/Release-iphoneos",
 				);
+				"OTHER_LDFLAGS[arch=arm64]" = (
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libChipmunkPro.a\"",
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a\"",
+				);
+				"OTHER_LDFLAGS[arch=armv7]" = (
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libChipmunkPro.a\"",
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a\"",
+				);
+				"OTHER_LDFLAGS[arch=armv7s]" = (
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libChipmunkPro.a\"",
+					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

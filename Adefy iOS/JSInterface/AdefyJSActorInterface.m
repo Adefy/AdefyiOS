@@ -35,13 +35,11 @@
                  segments:(unsigned int)segments {
   int id = [AdefyRenderer getNextActorID];
 
-  [[AdefyPolygonActor alloc] init:id
-                       withRadius:radius
-                     withSegments:segments];
+  AdefyActor* actor = [[AdefyPolygonActor alloc] init:id
+                                           withRadius:radius
+                                         withSegments:segments];
 
-  NSLog(@"Created fake poly actor");
-
-  return id;
+  return [actor getId];
 }
 
 // Implemented
@@ -49,11 +47,11 @@
                      height:(float)height {
   int id = [AdefyRenderer getNextActorID];
 
-  [[AdefyRectangleActor alloc] init:id
-                              width:width
-                             height:height];
+  AdefyActor* actor =   [[AdefyRectangleActor alloc] init:id
+                                                    width:width
+                                                   height:height];
 
-  return id;
+  return [actor getId];
 }
 
 // Implemented
@@ -61,11 +59,11 @@
   int id = [AdefyRenderer getNextActorID];
 
   // We use a static segment count of 32 for circles
-  [[AdefyPolygonActor alloc] init:id
-                       withRadius:radius
-                     withSegments:32];
+  AdefyActor* actor =   [[AdefyPolygonActor alloc] init:id
+                                             withRadius:radius
+                                          withSegments:32];
 
-  return id;
+  return [actor getId];
 }
 
 // STUB
@@ -148,10 +146,36 @@
   return YES;
 }
 
+// Implemented
 - (BOOL)setPhysicsVertices:(NSString *)verts
                         id:(int)id {
   AdefyActor *actor = [mRenderer getActorById:id];
   if(actor == nil) { return NO; }
+
+  NSError *error = nil;
+  NSData *JSONData = [verts dataUsingEncoding:NSUTF8StringEncoding];
+  NSArray *rawVerts = [NSJSONSerialization JSONObjectWithData:JSONData
+                                                      options:0
+                                                        error:&error];
+
+  if(error) {
+    NSLog(@"Invalid JSON vertex array passed to interface");
+    return NO;
+  }
+
+  GLuint vertCount = [rawVerts count] / 2;
+  cpVect *physicsVerts = malloc(sizeof(cpVect) * vertCount);
+
+  for(unsigned int i = 0; i < vertCount; i++) {
+
+    NSNumber *x = [rawVerts objectAtIndex:(i * 2)];
+    NSNumber *y = [rawVerts objectAtIndex:(i * 2) + 1];
+
+    physicsVerts[i] = cpv([x floatValue], [y floatValue]);
+    physicsVerts[i] = [AdefyRenderer screenToWorld:physicsVerts[i]];
+  }
+
+  [actor setPhysicsVerts:physicsVerts count:vertCount];
 
   return YES;
 }
@@ -188,26 +212,19 @@
 
   // Verts are stored in a flat array, but JSON is an array of vert objects
   // So multiply by two for each component (2D verts)
-  GLfloat *finalVerts = malloc(sizeof(GLfloat) * [vertices count] * 2);
+  GLuint vertCount = [vertices count] / 2;
+  GLfloat *finalVerts = malloc(sizeof(GLfloat) * vertCount * 2);
 
-  int index = 0;
-  for(NSDictionary *vert in vertices) {
-    NSValue *xValue = [vert valueForKey:@"x"];
-    NSValue *yValue = [vert valueForKey:@"y"];
+  for(unsigned int i = 0; i < vertCount; i++) {
+    NSNumber *x = [vertices objectAtIndex:(i * 2)];
+    NSNumber *y = [vertices objectAtIndex:(i * 2) + 1];
 
-    if(!xValue || !yValue) {
-      NSLog(@"Invalid vertex format in JSON vert array");
-      return NO;
-    }
-
-    finalVerts[index * 2] = [(NSNumber *)xValue floatValue];
-    finalVerts[(index * 2) + 1] = [(NSNumber *)yValue floatValue];
-
-    index++;
+    finalVerts[i * 2] = [x floatValue];
+    finalVerts[(i * 2) + 1] = [y floatValue];
   }
 
   [actor setVertices:finalVerts
-               count:[vertices count]];
+               count:vertCount];
 
   return YES;
 }

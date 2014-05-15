@@ -99,7 +99,9 @@ static GLfloat *STATIC_COLOR;
 
     glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
 
+#ifdef DEBUG
     [self glErrorCheck:@"<SingleColorMaterial> Finished justUsed()"];
+#endif
   }
 
   // Copy color into float[] array, to prevent allocation
@@ -107,22 +109,30 @@ static GLfloat *STATIC_COLOR;
 
   glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);
 
+#ifdef DEBUG
   [self glErrorCheck:@"<SingleColorMaterial> Bound vert buffer"];
+#endif
 
   glUniformMatrix4fv(STATIC_PROJECTION_HANDLE, 1, GL_FALSE, projection.m);
   glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, GL_FALSE, modelView.m);
   glUniform4fv(STATIC_COLOR_HANDLE, 1, STATIC_COLOR);
 
+#ifdef DEBUG
   [self glErrorCheck:@"<SingleColorMaterial> Set uniforms"];
+#endif
 
   glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, GL_FALSE, STATIC_VERT_STRIDE, 0);
 
+#ifdef DEBUG
   [self glErrorCheck:@"<SingleColorMaterial> Set vert attrib pointer"];
+#endif
 
   // TODO: Fix mode set bug
   glDrawArrays(GL_TRIANGLE_FAN, 0, vertCount);
 
+#ifdef DEBUG
   [self glErrorCheck:@"<SingleColorMaterial> Drew arrays"];
+#endif
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

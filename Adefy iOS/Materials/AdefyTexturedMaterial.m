@@ -94,14 +94,18 @@ withTexCoords:(GLuint *)texCoordBuffer
 withTexCCount:(int)texCount
      withMode:(GLenum)mode {
 
+#ifdef DEBUG
   [self glErrorCheck:@"<TextureMaterial> Loop start"];
+#endif
 
   if(mTextureHandle != PREV_TEXTURE_HANDLE || mNeedsValueRefresh) {
 
     glBindTexture(GL_TEXTURE_2D, mTextureHandle);
     glVertexAttrib2f(STATIC_UV_SCALE_HANDLE, mTextureU, mTextureV);
 
+#ifdef DEBUG
     [self glErrorCheck:@"<TextureMaterial> Bound texture and UV scale"];
+#endif
 
     PREV_TEXTURE_HANDLE = mTextureHandle;
     mNeedsValueRefresh = NO;
@@ -121,29 +125,43 @@ withTexCCount:(int)texCount
     glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
     glEnableVertexAttribArray(STATIC_TEX_COORD_HANDLE);
 
+#ifdef DEBUG
     [self glErrorCheck:@"<TextureMaterial> Finished justUsed()"];
+#endif
   }
 
   glUniformMatrix4fv(STATIC_PROJECTION_HANDLE, 1, GL_FALSE, projection.m);
   glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, GL_FALSE, modelView.m);
+
+#ifdef DEBUG
   [self glErrorCheck:@"<TextureMaterial> Set uniforms"];
+#endif
 
   //
   // Bind buffers
   glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);
   glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, GL_FALSE, STATIC_VERT_STRIDE, 0);
+
+#ifdef DEBUG
   [self glErrorCheck:@"<TextureMaterial> Bound vertex buffer"];
+#endif
 
   glBindBuffer(GL_ARRAY_BUFFER, *texCoordBuffer);
   glVertexAttribPointer(STATIC_TEX_COORD_HANDLE, 2, GL_FLOAT, GL_FALSE, STATIC_TEX_VERT_STRIDE, 0);
+
+#ifdef DEBUG
   [self glErrorCheck:@"<TextureMaterial> Bound tex coord buffer"];
+#endif
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   //
   //
 
   glDrawArrays(mode, 0, vertCount);
+
+#ifdef DEBUG
   [self glErrorCheck:@"<TextureMaterial> Post drawArrays()"];
+#endif
 }
 
 // Called by other textures if they draw after us
