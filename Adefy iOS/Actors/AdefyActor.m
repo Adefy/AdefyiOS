@@ -1,6 +1,5 @@
 #import <GLKit/GLKit.h>
 #import "AdefyActor.h"
-#import "AdefyRenderer.h"
 #import "AdefyMaterial.h"
 #import "AdefySingleColorMaterial.h"
 #import "ChipmunkObject.h"
@@ -26,18 +25,14 @@
   int mId;
   BOOL mVisible;
 
-  GLuint mPosVertexCount;
-  GLuint mPosVertexBuffer;
-  GLfloat *mPosVertexArray;
-
-  GLuint mTexVertexCount;
-  GLuint mTexVertexBuffer;
-  GLfloat *mTexVertexArray;
+  VertexData2D *mVertexData;
+  GLuint mVertexIndiceBuffer;
+  GLuint mVertexCount;
 
   GLenum mRenderMode;
 
-  float mRotation;             // Stored in radians
-  float mRenderOffsetRotation; //
+  float mRotationRadians;
+  float mRenderOffsetRotationRadians;
 
   int mLayer;
   cpLayers mPhysicsLayer;
@@ -66,22 +61,20 @@
 }
 
 - (AdefyActor *)init:(int)id
-           vertices:(GLfloat *)vertices
-          vertCount:(unsigned int)vCount
-    texCoords:(GLfloat *)texCoords
-           texCount:(unsigned int)tCount {
+          vertexData:(VertexData2D *)vertexData
+         vertexCount:(GLuint)vertexCount {
 
   self = [super init];
 
   mId = id;
   mRenderer = [AdefyRenderer getGlobalInstance];
   mPhysics = [AdefyPhysics getGlobalInstance];
-  mRotation = 0.0f;
+  mRotationRadians = 0.0f;
   mPosition = cpv(0.0f, 0.0f);
   mRenderOffset = cpv(0.0f, 0.0f);
 
   mLayer = 0;
-  mPhysicsLayer = ~0;
+  mPhysicsLayer = (cpLayers)~0;
   mRawPhysicsLayer = 0;
 
   mTextureMaterial = [[AdefyTexturedMaterial alloc] init];
@@ -90,11 +83,9 @@
   // Default is single color material
   mActiveMaterial = mColorMaterial;
 
-  mPosVertexBuffer = 0;
-  mPosVertexArray = nil;
-
-  mTexVertexBuffer = 0;
-  mTexVertexArray = nil;
+  mVertexIndiceBuffer = 0;
+  mVertexData = vertexData;
+  mVertexCount = vertexCount;
 
   mVisible = YES;
   mRenderMode = GL_TRIANGLE_FAN;
@@ -102,43 +93,40 @@
   mPhysicsShape = nil;
   mAttachment = nil;
 
-  [self setVertices:vertices count:vCount];
-  [self setTexCoords:texCoords count:tCount];
-
   // Create physics vertices
-  mPhysicsVertCount = mPosVertexCount;
-  mPhysicsVertices = [self generatePhysicsVerts:mPosVertexArray
-                                          count:mPosVertexCount];
+  mPhysicsVertCount = mVertexCount;
+  mPhysicsVertices = [self generatePhysicsVerts];
 
   [self addToRenderer:mRenderer];
 
   return self;
 }
 
-//
-// Getters and setters
-//
+/**
+* Getters
+*/
+- (int)             getLayer                { return mLayer; }
+- (int)             getPhysicsLayer         { return mRawPhysicsLayer; }
+- (BOOL)            getVisible              { return mVisible; }
+- (int)             getId                   { return mId; }
+- (cpVect)          getPosition             { return mPosition;}
+- (float)           getRotation             { return mRotationRadians; }
+- (float)           getRenderOffsetRotation { return mRenderOffsetRotationRadians; }
+- (GLuint)          getRenderMode           { return mRenderMode; }
+- (AdefyActor *)    getAttachment           { return mAttachment; }
+- (AdefyColor3 *)   getColor                { return [mColorMaterial getColor]; }
+- (VertexData2D *)  getVertexData           { return mVertexData; }
+- (GLuint)          getVertexCount          { return mVertexCount; }
+- (cpVect)          getRenderOffset         { return mRenderOffset; }
+- (NSString *)      getTextureName          { return mTextureName; }
+- (NSString *)      getMaterialName         { return [mActiveMaterial getName]; }
+- (AdefyMaterial *) getMaterial             { return mActiveMaterial; }
+- (BOOL)            hasAttachment           { return mAttachment == nil; }
 
-- (int)    getLayer      { return mLayer; }
-- (int)    getPhysicsLayer { return mRawPhysicsLayer; }
-- (BOOL)   getVisible    { return mVisible; }
-- (int)    getId         { return mId; }
-- (cpVect) getPosition   { return mPosition;}
-- (float)  getRotation   { return mRotation; }
-- (float)  getRenderOffsetRotation { return mRenderOffsetRotation; }
-- (GLuint) getRenderMode { return mRenderMode; }
-- (BOOL)   hasAttachment { return mAttachment == nil; }
 
-- (AdefyActor *)  getAttachment { return mAttachment; }
-- (AdefyColor3 *) getColor { return [mColorMaterial getColor]; }
-
-- (GLfloat *) getVertices { return mPosVertexArray; }
-- (GLfloat *) getTexCoords { return mTexVertexArray; }
-- (GLuint) getTexCoordCount { return mTexVertexCount; }
-- (GLuint) getVertexCount { return mPosVertexCount; }
-- (cpVect) getRenderOffset { return mRenderOffset; }
-- (NSString *) getTextureName { return mTextureName; }
-
+/**
+* Set layer, also sets attachment layer (if we have one). Triggers a renderer actor resort!
+*/
 - (void) setLayer:(int)layer {
   mLayer = layer;
 
@@ -149,13 +137,18 @@
   [mRenderer resortActorsByLayer];
 }
 
-- (void) setPhysicsLayer:(unsigned int)layer {
+/**
+* Set actor physics layer, valid values are between 0 and 16. Anything outside of that range gets truncated.
+*
+* Value is applied to a physics shape if we have one, and persists between physics bodies.
+*/
+- (void) setPhysicsLayer:(GLubyte)layer {
   if(layer > 16) {
     NSLog(@"Warning, physics layer must be <16 [got %i]", layer);
     layer = 15;
   }
 
-  mPhysicsLayer = 1 << layer;
+  mPhysicsLayer = (cpLayers)1 << layer;
   mRawPhysicsLayer = layer;
 
   if(mPhysicsShape) {
@@ -163,56 +156,91 @@
   }
 }
 
+/**
+* Set render offset, relative to position. Used by attachments (relative to parent).
+*/
 - (void) setRenderOffset:(cpVect)offset {
   mRenderOffset.x = offset.x;
   mRenderOffset.y = offset.y;
 }
 
+/**
+* Set render rotation offset, relative to angle. Used by attachments (relative to parent).
+*/
 - (void) setRenderOffsetRotation:(float)angle {
-  mRenderOffsetRotation = angle;
+  mRenderOffsetRotationRadians = angle;
 }
 
-- (void) setVertices:(GLfloat *)vertices
-              count:(unsigned int)count {
+/**
+* Set vertex data, triggers a renderer VBO re-generation! This should be used sparingly!
+*
+* Also frees current vertex data (if we have any)
+*/
+- (void) setVertexData:(VertexData2D *)vertices
+                 count:(GLuint)count {
 
-  mPosVertexCount = count;
-  mPosVertexArray = vertices;
+  if(mVertexData)
+    free(mVertexData);
 
-  // Add a Z coord to the vertices
-  GLfloat *resizedVertices = malloc(sizeof(GLfloat) * count * 3);
+  mVertexCount = count;
+  mVertexData = vertices;
 
-  for(unsigned int i = 0; i < count; i++) {
-    resizedVertices[(i * 3)] = vertices[(i * 2)];
-    resizedVertices[(i * 3) + 1] = vertices[(i * 2) + 1];
-    resizedVertices[(i * 3) + 2] = 1.0f;
+  // This is EXPENSIVE!
+  [mRenderer regenerateVBO];
+}
+
+/**
+* Update vertex data with an array of new vertex positions. Expects the supplied vertex count to match our own,
+* and triggers a renderer VBO regeneration!
+*/
+- (void) updateVerticesWith:(Vertex2D *)vertices {
+
+  for(GLuint i = 0; i < mVertexCount; i++) {
+    mVertexData[i].vertex.x = vertices[i].x;
+    mVertexData[i].vertex.y = vertices[i].y;
   }
 
-  glDeleteBuffers(1, &mPosVertexBuffer);
-
-  [AdefyRenderer createVertexBuffer:&mPosVertexBuffer
-                           vertices:resizedVertices
-                              count:count
-                         components:3
-                             useage:GL_STATIC_DRAW];
-
-  free(resizedVertices);
+  [mRenderer regenerateVBO];
 }
 
-- (void) setTexCoords:(GLfloat *)coords
-                count:(unsigned int)count {
+/**
+* Update vertex data with an array of new texture coordinates. Expects the supplied tex coord count to match our own,
+* and triggers a renderer VBO regeneration!
+*/
+- (void) updateTexCoordsWith:(TextureCoord *)coords {
 
-  mTexVertexCount = count;
-  mTexVertexArray = coords;
+  for(GLuint i = 0; i < mVertexCount; i++) {
+    mVertexData[i].texture.u = coords[i].u;
+    mVertexData[i].texture.v = coords[i].v;
+  }
 
-  glDeleteBuffers(1, &mTexVertexBuffer);
-
-  [AdefyRenderer createVertexBuffer:&mTexVertexBuffer
-                           vertices:coords
-                              count:count
-                         components:2
-                             useage:GL_STATIC_DRAW];
+  [mRenderer regenerateVBO];
 }
 
+/**
+* Provides us with a new set of vertex indices. Creates a new GL_ELEMENT_ARRAY_BUFFER for us,
+* and deletes any existing one. Should only be called by the renderer.
+*
+* NOTE: This method frees the supplied indice array!
+*/
+- (void) setVertexIndices:(GLushort *)indices {
+
+  if(mVertexIndiceBuffer)
+    glDeleteBuffers(1, &mVertexIndiceBuffer);
+
+  // Setup indice buffer
+  glGenBuffers(1, &mVertexIndiceBuffer);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVertexIndiceBuffer);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * mVertexCount, indices, GL_STATIC_DRAW);
+
+  // We are in charge of freeing the indices!
+  free(indices);
+}
+
+/**
+* Set texture by name; fails with a log message if the texture is not found.
+* Also switches our active material to the texture material!
+*/
 - (void) setTexture:(NSString *)name {
 
   AdefyTexture* texture = [mRenderer getTexture:name];
@@ -223,22 +251,26 @@
     return;
   }
 
-  GLuint handle = [texture getHandle];
-  float scaleU = [texture getClipScaleU];
-  float scaleV = [texture getClipScaleV];
-
-  [mTextureMaterial setTextureHandle:handle];
-  [mTextureMaterial setUScale:scaleU];
-  [mTextureMaterial setVScale:scaleV];
+  [mTextureMaterial setTextureHandle:[texture getHandle]];
+  [mTextureMaterial setUScale:[texture getClipScaleU]];
+  [mTextureMaterial setVScale:[texture getClipScaleV]];
 
   mActiveMaterial = mTextureMaterial;
 }
 
+/**
+* Sets our visiblity; invisible actors return at the start of their render method.
+* The renderer still iterates over us!
+*/
 - (void) setVisible:(BOOL)isVisible {
   mVisible = isVisible;
 }
 
-- (void)setPosition:(cpVect)position {
+/**
+* Set actor position. Also updates our physics body if we have one.
+* If we have a static body, it is re-created!
+*/
+- (void) setPosition:(cpVect)position {
   mPosition = position;
 
   if(mPhysicsShape) {
@@ -255,31 +287,44 @@
   }
 }
 
-- (void)setPosition:(float)x y:(float)y {
+/**
+* setPosition alias, creates an intermediate cpVect
+*/
+- (void)setPosition:(float)x
+                  y:(float)y {
   [self setPosition:cpv(x, y)];
 }
 
+/**
+* Set render mode, passed to the render on each draw call.
+*/
 - (void)setRenderMode:(GLenum)mode {
   mRenderMode = mode;
 }
 
-// Assumes radians!
+/**
+* Set angle of rotation in radians. Alias for setRotation:inDegrees:NO
+*/
 - (void)setRotation:(float)angle {
   [self setRotation:angle inDegrees:NO];
 }
 
+/**
+* Set rotation in either radians or degrees. Also updates our physics body if we have one.
+* If we have a static body, it is re-created!
+*/
 - (void)setRotation:(float)angle inDegrees:(BOOL)degrees {
   if(degrees) {
-    mRotation = angle / 57.2957795f;
+    mRotationRadians = angle / 57.2957795f;
   } else {
-    mRotation = angle;
+    mRotationRadians = angle;
   }
 
   if(mPhysicsShape) {
 
     // Dynamic has a body
     if(mPhysicsBody) {
-      [mPhysicsBody setAngle:mRotation];
+      [mPhysicsBody setAngle:mRotationRadians];
     } else {
 
       // Static bodies can't be rotated, they must be recreated
@@ -289,15 +334,16 @@
   }
 }
 
-
+/**
+* Set our color material's color. The pointer to the object is passed through, it is not copied!
+*/
 - (void)setColor:(AdefyColor3 *)color {
   [mColorMaterial setColor:color];
 }
 
-//
-// Fancy stuff
-//
-
+/**
+* Add ourselves to a renderer. This triggers a renderer VBO re-generation!
+*/
 - (void) addToRenderer:(AdefyRenderer *)renderer {
   [renderer addActor:self];
 }
@@ -318,6 +364,12 @@
   }
 }
 
+/**
+* Create a new attached @AdefyRectangleActor with the specified dimensions. The actor is rendered at the specific
+* offset, and is given the specified texture. It becomes our "attachment."
+*
+* Any existing attachment is removed.
+*/
 - (AdefyActor *) attachTexture:(NSString *)name
                          width:(float)w
                         height:(float)h
@@ -343,6 +395,12 @@
   return mAttachment;
 }
 
+/**
+* Sexy draw method. Our vertex data is in the renderer's VBO, so we pass our indices to our active material,
+* after calculating a new projection.
+*
+* If we have an attachment, its state is updated to match ours and it is drawn instead.
+*/
 - (void) draw:(GLKMatrix4)projection {
   if(!mVisible) { return; }
 
@@ -350,7 +408,7 @@
   if(mAttachment != nil) {
 
     [mAttachment setPosition:mPosition];
-    [mAttachment setRotation:mRotation];
+    [mAttachment setRotation:mRotationRadians];
 
     [mAttachment draw:projection];
     return;
@@ -360,32 +418,37 @@
 
   if(mActiveMaterial == mColorMaterial) {
 
+    /* TODO: Fix color material to use new VBO system
     [mColorMaterial draw:projection
-               modelView:mModelViewMatrix
-                   verts:&mPosVertexBuffer
-               vertCount:mPosVertexCount
-                    mode:mRenderMode];
+              withModelV:mModelViewMatrix
+                 indices:mVertexIndices
+               vertCount:mVertexCount
+                    mode:mRenderMode]; */
 
   } else if(mActiveMaterial == mTextureMaterial) {
 
     [mTextureMaterial draw:projection
                 withModelV:mModelViewMatrix
-                 withVerts:&mPosVertexBuffer
-             withVertCount:mPosVertexCount
-             withTexCoords:&mTexVertexBuffer
-             withTexCCount:mTexVertexCount
+          withIndiceBuffer:mVertexIndiceBuffer
+             withVertCount:mVertexCount
                   withMode:mRenderMode];
 
   }
 }
 
+/**
+* If we have a physics body, update our visual with its state.
+*/
 - (void) update {
   if(mPhysicsBody != nil) {
     mPosition = [AdefyRenderer worldToScreen:mPhysicsBody.pos];
-    mRotation = mPhysicsBody.angle;
+    mRotationRadians = mPhysicsBody.angle;
   }
 }
 
+/**
+* Check if we have either a dynamic or static body.
+*/
 - (BOOL) hasPhysicsBody {
   return mPhysicsBody != nil || mPhysicsShape != nil;
 }
@@ -404,25 +467,33 @@
   }
 }
 
+/**
+* Alias for creating a physics body with our saved mass/friction/elasticity.
+*/
 - (void)createPhysicsBody {
   [self createPhysicsBody:_mMass
                  friction:_mFriction
                elasticity:_mElasticity];
 }
 
-- (cpVect *) generatePhysicsVerts:(GLfloat *)verts
-                            count:(unsigned int)count {
+/**
+* Generates a cpVect array suitable for ChipmunkJS, with coordinates translated into world-space.
+*/
+- (cpVect *) generatePhysicsVerts {
 
-  cpVect *physicsVerts = malloc(sizeof(cpVect) * count);
+  cpVect *physicsVerts = malloc(sizeof(cpVect) * mVertexCount);
 
-  for(unsigned int i = 0; i < count; i++) {
-    physicsVerts[i] = cpv(verts[i * 2], verts[(i * 2) + 1]);
-    physicsVerts[i] = [AdefyRenderer screenToWorld:physicsVerts[i]];
+  for(GLuint i = 0; i < mVertexCount; i++) {
+    physicsVerts[i] = [AdefyRenderer screenToWorld:
+        cpv(mVertexData[i].vertex.x, mVertexData[i].vertex.y)];
   }
 
   return physicsVerts;
 }
 
+/**
+* Set new physics vertices, this re-creates our physics body if we have one.
+*/
 - (void) setPhysicsVerts:(cpVect *)verts
                    count:(unsigned int)count {
 
@@ -439,6 +510,12 @@
   }
 }
 
+/**
+* Create new physics body, destroying the current one if needed. The mass/friction/elasticity values are saved for
+* later use.
+*
+* Dynamic bodies use our state, whereas we have to manually rotate our physics vertices for static bodies.
+*/
 - (void)createPhysicsBody:(float)mass
                  friction:(float)friction
                elasticity:(float)elasticity {
@@ -461,8 +538,8 @@
       float x = copyPhysicsVerts[i].x;
       float y = copyPhysicsVerts[i].y;
 
-      copyPhysicsVerts[i].x = (x * (float)cos(mRotation)) - (y * (float)sin(mRotation));
-      copyPhysicsVerts[i].y = (x * (float)sin(mRotation)) + (y * (float)cos(mRotation));
+      copyPhysicsVerts[i].x = (x * (float)cos(mRotationRadians)) - (y * (float)sin(mRotationRadians));
+      copyPhysicsVerts[i].y = (x * (float)sin(mRotationRadians)) + (y * (float)cos(mRotationRadians));
     }
 
     mPhysicsBody = nil;
@@ -478,7 +555,7 @@
     mPhysicsBody = [ChipmunkBody bodyWithMass:mass andMoment:moment];
 
     [mPhysicsBody setPos:[AdefyRenderer screenToWorld:mPosition]];
-    [mPhysicsBody setAngle:mRotation];
+    [mPhysicsBody setAngle:mRotationRadians];
 
     mPhysicsShape = [ChipmunkPolyShape polyWithBody:mPhysicsBody
                                               count:mPhysicsVertCount
@@ -499,21 +576,16 @@
   free(copyPhysicsVerts);
 }
 
+/**
+* Update our model view matrix using our current position and rotation.
+*/
 - (void) setupRenderMatrix {
 
   float finalX = mPosition.x - [mRenderer getCameraPosition].x + mRenderOffset.x;
   float finalY = mPosition.y - [mRenderer getCameraPosition].y + mRenderOffset.y;
 
   mModelViewMatrix = GLKMatrix4Translate(GLKMatrix4Identity, finalX, finalY, 0.0f);
-  mModelViewMatrix = GLKMatrix4Rotate(mModelViewMatrix, mRotation + mRenderOffsetRotation, 0.0f, 0.0f, 1.0f);
-}
-
-- (NSString *)getMaterialName {
-  return [mActiveMaterial getName];
-}
-
-- (AdefyMaterial *)getMaterial {
-  return mActiveMaterial;
+  mModelViewMatrix = GLKMatrix4Rotate(mModelViewMatrix, mRotationRadians + mRenderOffsetRotationRadians, 0.0f, 0.0f, 1.0f);
 }
 
 @end

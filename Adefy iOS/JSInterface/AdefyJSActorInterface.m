@@ -1,6 +1,5 @@
 #import "AdefyJSActorInterface.h"
 #import "AdefyRectangleActor.h"
-#import "AdefyRenderer.h"
 #import "AdefyColor3.h"
 #import "AdefyPolygonActor.h"
 
@@ -213,18 +212,17 @@
   // Verts are stored in a flat array, but JSON is an array of vert objects
   // So multiply by two for each component (2D verts)
   GLuint vertCount = [vertices count] / 2;
-  GLfloat *finalVerts = malloc(sizeof(GLfloat) * vertCount * 2);
+  Vertex2D *data = malloc(sizeof(VertexData2D) * vertCount);
 
   for(unsigned int i = 0; i < vertCount; i++) {
     NSNumber *x = [vertices objectAtIndex:(i * 2)];
     NSNumber *y = [vertices objectAtIndex:(i * 2) + 1];
 
-    finalVerts[i * 2] = [x floatValue];
-    finalVerts[(i * 2) + 1] = [y floatValue];
+    data[i].x = [x shortValue];
+    data[i].y = [y shortValue];
   }
 
-  [actor setVertices:finalVerts
-               count:vertCount];
+  [actor updateVerticesWith:data];
 
   return YES;
 }
@@ -256,9 +254,9 @@
 }
 
 // Implemented
-- (BOOL)setActorColor:(int)r
-                    g:(int)g
-                    b:(int)b
+- (BOOL)setActorColor:(GLubyte)r
+                    g:(GLubyte)g
+                    b:(GLubyte)b
                    id:(int)id {
 
   AdefyActor *actor = [mRenderer getActorById:id];
@@ -289,11 +287,14 @@
   if(actor == nil) { return nil; }
 
   NSMutableString *JSON = [[NSMutableString alloc] initWithString:@"["];
-  GLfloat *vertices = [actor getVertices];
+  VertexData2D *data = [actor getVertexData];
   GLuint vertexCount = [actor getVertexCount];
 
   for(unsigned int i = 0; i < vertexCount; i++) {
-    [JSON appendFormat:@"\"%f\"", vertices[i]];
+
+    [JSON appendFormat:@"\"%i\"", data[i].vertex.x];
+    [JSON appendString:@","];
+    [JSON appendFormat:@"\"%i\"", data[i].vertex.y];
 
     if(i < vertexCount - 1) {
       [JSON appendString:@","];

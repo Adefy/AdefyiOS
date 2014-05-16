@@ -2,31 +2,52 @@
 #import "AdefyRenderer.h"
 
 @implementation AdefyPolygonActor {
+
+@protected
+  float mRadius;
+  unsigned int mSegments;
 }
 
-+ (GLfloat *) generateVertices:(float)radius
-                  withSegments:(unsigned int)segments {
+- (cpVect *) generatePhysicsVerts {
 
-  unsigned int count = [AdefyPolygonActor getVertCount:segments];
+  unsigned int count = [AdefyPolygonActor getVertCount:mSegments];
+  GLfloat *raw = [self generateRawVertices];
+  cpVect *physicsVerts = malloc(sizeof(cpVect) * count);
+
+  for(unsigned int i = 0; i < count; i++) {
+    physicsVerts[i] = [AdefyRenderer screenToWorld:cpv(raw[i * 2], raw[(i * 2) + 1])];
+  }
+
+  free(raw);
+
+  return physicsVerts;
+}
+
+/**
+* Generate high-precision float vertices, to be either used for physics, or converted to GLshorts for rendering
+*/
+- (GLfloat *) generateRawVertices {
+
+  unsigned int count = [self getVertexCount];
   GLfloat *verts = calloc(count * 2, sizeof(GLfloat));
   GLfloat *tempVerts = calloc(count * 2, sizeof(GLfloat));
 
   // Generate verts, uses algo from:
   // http://slabode.exofire.net/circle_draw.shtml
-  float x = radius;
+  float x = mRadius;
   float y = 0;
-  double theta = (2.0f * 3.1415926f) / segments;
+  double theta = (2.0f * 3.1415926f) / mSegments;
   float tanFactor = (float)tan(theta);
   float radFactor = (float)cos(theta);
 
-  for(unsigned int i = 0; i < segments; i++) {
+  for(unsigned int i = 0; i < count; i++) {
 
     // NOTE! We cast floats to doubles.
     tempVerts[i * 2] = x;
     tempVerts[(i * 2) + 1] = y;
 
-    double tx = -y;
-    double ty = x;
+    float tx = -y;
+    float ty = x;
 
     x += tx * tanFactor;
     y += ty * tanFactor;
@@ -46,54 +67,52 @@
   return verts;
 }
 
-- (cpVect *) generatePhysicsVerts:(GLfloat *)verts
-                            count:(unsigned int)count {
+- (VertexData2D *) generateVertexData {
 
-  cpVect *physicsVerts = malloc(sizeof(cpVect) * (count));
+  unsigned int count = [AdefyPolygonActor getVertCount:mSegments];
+  VertexData2D *data = malloc(sizeof(VertexData2D) * count);
+  GLfloat *raw = [self generateRawVertices];
 
+  // Cast floats to GLshorts and setup UVs
   for(unsigned int i = 0; i < count; i++) {
-    physicsVerts[i] = cpv(verts[i * 2], verts[(i * 2) + 1]);
-    physicsVerts[i] = [AdefyRenderer screenToWorld:physicsVerts[i]];
+
+    data[i].vertex.x = (GLshort)round(raw[i * 2]);
+    data[i].vertex.y = (GLshort)round(raw[(i * 2) + 1]);
+
+    float u = ((data[i].vertex.x / mRadius) / 2.0f) + 0.5f;
+    float v = ((data[i].vertex.y / mRadius) / 2.0f) + 0.5f;
+
+    data[i].texture.u = TEX_COORD_F(u);
+    data[i].texture.v = TEX_COORD_F(v);
   }
 
-  return physicsVerts;
+  free(raw);
+
+  return data;
 }
 
-+ (GLfloat *) generateUVCoords:(GLfloat* )vertices
-                         count:(unsigned int)count
-                        radius:(float)radius {
-
-  GLfloat *coords = malloc(sizeof(GLfloat) * count * 2);
-
-  for(unsigned int i = 0; i < count * 2; i++) {
-    coords[i] = ((vertices[i] / radius) / 2.0f) + 0.5f;
-  }
-
-  return coords;
-}
-
-+ (unsigned int)getVertCount:(unsigned int)segments {
+// Get
++ (GLuint)getVertCount:(GLuint)segments {
   return segments;
 }
 
+- (GLuint) getVertexCount {
+  return [AdefyPolygonActor getVertCount:mSegments];
+}
+
 - (AdefyPolygonActor *)init:(int)id
-                withRadius:(float)radius
-              withSegments:(unsigned int)segments {
+                 withRadius:(float)radius
+               withSegments:(unsigned int)segments {
 
-  unsigned int vertCount = [AdefyPolygonActor getVertCount:segments];
+  mSegments = segments;
+  mRadius = radius;
 
-  GLfloat *verts = [AdefyPolygonActor generateVertices:radius
-                                          withSegments:segments];
-
-  GLfloat *texCoords = [AdefyPolygonActor generateUVCoords:verts
-                                                     count:vertCount
-                                                    radius:radius];
+  GLuint vertCount = [self getVertexCount];
+  VertexData2D *data = [self generateVertexData];
 
   self = [super init:id
-            vertices:verts
-           vertCount:vertCount
-           texCoords:texCoords
-            texCount:vertCount];
+          vertexData:data
+         vertexCount:vertCount];
 
   [self setRenderMode:GL_TRIANGLE_FAN];
 

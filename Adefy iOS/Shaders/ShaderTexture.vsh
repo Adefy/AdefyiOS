@@ -8,6 +8,6 @@ uniform mat4 ModelView;
 varying highp vec2 vTexCoord;
 
 void main() {
-  gl_Position = Projection * ModelView * vec4(Position.xyz, 1);
+  gl_Position = Projection * ModelView * vec4(Position.xy, 1, 1);
   vTexCoord = aTexCoord * aUVScale;
 }

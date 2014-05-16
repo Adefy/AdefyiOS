@@ -6,8 +6,9 @@ uniform sampler2D uTexture;
 void main() {
   vec4 baseColor = texture2D(uTexture, vTexCoord);
 
-  if(baseColor.rgb == vec3(1.0, 0.0, 1.0))
-    discard;
+  // This slows things down dramatically!
+  // if(baseColor.rgb == vec3(1.0, 0.0, 1.0))
+  //   discard;
 
   gl_FragColor = baseColor;
 }

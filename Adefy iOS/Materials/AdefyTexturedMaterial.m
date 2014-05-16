@@ -2,9 +2,7 @@
 #import "AdefyTexturedMaterial.h"
 #import "AdefyShader.h"
 #import "AdefySingleColorMaterial.h"
-
-static const int STATIC_VERT_STRIDE = 3 * sizeof(GLfloat);
-static const int STATIC_TEX_VERT_STRIDE = 2 * sizeof(GLfloat);
+#import "AdefyRenderer.h"
 
 static GLuint STATIC_SHADER;
 
@@ -86,12 +84,10 @@ static GLuint PREV_TEXTURE_HANDLE;
 - (void)setUScale:(GLfloat)U { mTextureU = U; mNeedsValueRefresh = YES; }
 - (void)setVScale:(GLfloat)V { mTextureV = V; mNeedsValueRefresh = YES; }
 
-- (void)draw:(GLKMatrix4)projection
+- (void) draw:(GLKMatrix4)projection
    withModelV:(GLKMatrix4)modelView
-    withVerts:(GLuint *)vertBuffer
-withVertCount:(int)vertCount
-withTexCoords:(GLuint *)texCoordBuffer
-withTexCCount:(int)texCount
+withIndiceBuffer:(GLuint)indiceBuffer
+withVertCount:(GLuint)vertCount
      withMode:(GLenum)mode {
 
 #ifdef DEBUG
@@ -117,19 +113,26 @@ withTexCCount:(int)texCount
     [AdefySingleColorMaterial postFinalDraw];
     [AdefySingleColorMaterial setJustUsed:false];
 
+    // Alpha blending
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
 
+    // Texture! TODO: Create a texture atlas manager, that can stitch textures together
     glActiveTexture(GL_TEXTURE0);
 
+    // Setup pointers into bound VBO
     glEnableVertexAttribArray(STATIC_POSITION_HANDLE);
     glEnableVertexAttribArray(STATIC_TEX_COORD_HANDLE);
+
+    glVertexAttribPointer(STATIC_POSITION_HANDLE, 2, GL_SHORT, GL_FALSE, sizeof(VertexData2D), 0);
+    glVertexAttribPointer(STATIC_TEX_COORD_HANDLE, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(VertexData2D), BUFFER_OFFSET(sizeof(GLshort) * 2));
 
 #ifdef DEBUG
     [self glErrorCheck:@"<TextureMaterial> Finished justUsed()"];
 #endif
   }
 
+  // Setup actor state
   glUniformMatrix4fv(STATIC_PROJECTION_HANDLE, 1, GL_FALSE, projection.m);
   glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, GL_FALSE, modelView.m);
 
@@ -137,29 +140,17 @@ withTexCCount:(int)texCount
   [self glErrorCheck:@"<TextureMaterial> Set uniforms"];
 #endif
 
-  //
-  // Bind buffers
-  glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);
-  glVertexAttribPointer(STATIC_POSITION_HANDLE, 3, GL_FLOAT, GL_FALSE, STATIC_VERT_STRIDE, 0);
+  // Bind actor indices
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiceBuffer);
 
 #ifdef DEBUG
-  [self glErrorCheck:@"<TextureMaterial> Bound vertex buffer"];
+  [self glErrorCheck:@"<TextureMaterial> Bound indice buffer"];
 #endif
 
-  glBindBuffer(GL_ARRAY_BUFFER, *texCoordBuffer);
-  glVertexAttribPointer(STATIC_TEX_COORD_HANDLE, 2, GL_FLOAT, GL_FALSE, STATIC_TEX_VERT_STRIDE, 0);
+  glDrawElements(mode, vertCount, GL_UNSIGNED_SHORT, 0);
 
 #ifdef DEBUG
-  [self glErrorCheck:@"<TextureMaterial> Bound tex coord buffer"];
-#endif
-
-  //
-  //
-
-  glDrawArrays(mode, 0, vertCount);
-
-#ifdef DEBUG
-  [self glErrorCheck:@"<TextureMaterial> Post drawArrays()"];
+  [self glErrorCheck:@"<TextureMaterial> Post glDrawElements()"];
 #endif
 }
 

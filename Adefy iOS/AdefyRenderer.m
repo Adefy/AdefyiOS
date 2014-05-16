@@ -21,9 +21,7 @@ NSUInteger nearestPowerOfTwo(NSUInteger v) {
 }
 
 @interface  AdefyRenderer ()
-
 -(GLKMatrix4) generateProjection:(CGRect)rect;
-
 @end
 
 @implementation AdefyRenderer {
@@ -35,6 +33,8 @@ NSUInteger nearestPowerOfTwo(NSUInteger v) {
 
   NSMutableArray *mActors;
   NSMutableArray *mTextures;
+
+  GLuint mVBO;
 }
 
 static float PPM;
@@ -56,6 +56,7 @@ static float PPM;
   mActors = [[NSMutableArray alloc] init];
   mTextures = [[NSMutableArray alloc] init];
 
+  mVBO = 0;
   mCameraPosition = cpv(0.0f, 0.0f);
   mActiveMaterial = [[NSMutableString alloc] init];
 
@@ -87,8 +88,11 @@ static float PPM;
 }
 
 - (void) addActor:(AdefyActor *)actor {
+
   [mActors addObject:actor];
+
   [self resortActorsByLayer];
+  [self regenerateVBO];
 }
 
 - (void) removeActor:(AdefyActor *)actor {
@@ -104,6 +108,71 @@ static float PPM;
 
     return [aL compare:bL];
   }];
+}
+
+- (void) regenerateVBO {
+
+  if(mVBO == 0) {
+    glDeleteBuffers(1, &mVBO);
+  }
+
+  // Get total actor vert count for the malloc call
+  unsigned int vertCount = 0;
+
+  for(AdefyActor *actor in mActors)
+    vertCount += [actor getVertexCount];
+
+  // Build raw VB data for upload
+  VertexData2D *data = malloc(sizeof(VertexData2D) * vertCount);
+  unsigned int actorCount = [mActors count];
+
+  AdefyActor *actor;
+  VertexData2D *actorData;
+  GLushort *indices, currentOffset = 0;
+  unsigned int actorVertCount, i, j;
+
+  for(i = 0; i < actorCount; i++) {
+    actor = [mActors objectAtIndex:i];
+    actorVertCount = [actor getVertexCount];
+    actorData = [actor getVertexData];
+
+    // Store indices to send back to actor
+    indices = malloc(sizeof(GLushort) * actorVertCount);
+
+    for(j = 0; j < actorVertCount; j++) {
+
+      data[currentOffset].vertex.x = actorData[j].vertex.x;
+      data[currentOffset].vertex.y = actorData[j].vertex.y;
+
+      data[currentOffset].texture.u = actorData[j].texture.u;
+      data[currentOffset].texture.v = actorData[j].texture.v;
+
+      data[currentOffset].color.r = actorData[j].color.r;
+      data[currentOffset].color.g = actorData[j].color.g;
+      data[currentOffset].color.b = actorData[j].color.b;
+      data[currentOffset].color.a = actorData[j].color.a;
+
+      indices[j] = currentOffset;
+      currentOffset++;
+    }
+
+    // Give new indices to actor
+    [actor setVertexIndices:indices];
+  }
+
+  // Generate buffer and upload data
+  glGenBuffers(1, &mVBO);
+  glBindBuffer(GL_ARRAY_BUFFER, mVBO);
+  glBufferData(GL_ARRAY_BUFFER, vertCount * sizeof(VertexData2D), data, GL_STATIC_DRAW);
+
+  // NOTE: The array buffer stays bound for rendering!
+
+  // Free giant array
+  free(data);
+}
+
+- (GLuint) getVBO {
+  return mVBO;
 }
 
 - (void) addTexture:(AdefyTexture *)texture {
@@ -164,6 +233,8 @@ static float PPM;
   CGContextDrawImage(imageContext, CGRectMake(0, POTHeight - height, width, height), image);
   CGContextRelease(imageContext);
 
+  // TODO: Drop pink color here! (255, 0, 255)
+
   // Load into GL ES
   GLuint texHandle;
   glGenTextures(1, &texHandle);
@@ -185,6 +256,9 @@ static float PPM;
       GL_UNSIGNED_BYTE, // Type of texel data
       textureData       // Texel data
   );
+
+  // This increases load time significantly, and is uncecessary for our needs
+  // glGenerateMipmap(GL_TEXTURE_2D);
 
   free(textureData);
 

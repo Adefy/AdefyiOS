@@ -2,10 +2,10 @@
 
 @implementation AdefyColor3 {
 
-  int mR;
-  int mG;
-  int mB;
-  int mA;
+  GLubyte mR;
+  GLubyte mG;
+  GLubyte mB;
+  GLubyte mA;
 
   float mRFloat;
   float mGFloat;
@@ -33,37 +33,40 @@
 }
 
 
-- (void)setR:(int)r {
+- (void)setR:(GLubyte)r {
   mR = r;
   mRFloat = (float)r / 255.0f;
 }
 
-- (void)setG:(int)g {
+- (void)setG:(GLubyte)g {
   mG = g;
   mGFloat = (float)g / 255.0f;
 }
 
-- (void)setB:(int)b {
+- (void)setB:(GLubyte)b {
   mB = b;
   mBFloat = (float)b / 255.0f;
 }
 
-- (int)getR {
+- (void)setA:(GLubyte)a {
+  mA = a;
+  mAFloat = (float)a / 255.0f;
+}
+
+- (GLubyte)getR {
   return mR;
 }
 
-- (int)getG {
+- (GLubyte)getG {
   return mG;
 }
 
-- (int)getB {
+- (GLubyte)getB {
   return mB;
 }
 
-
-- (void)setA:(int)a {
-  mA = a;
-  mAFloat = (float)a / 255.0f;
+- (GLubyte)getA {
+  return mA;
 }
 
 -(AdefyColor3 *)init {
@@ -77,7 +80,9 @@
   return self;
 }
 
--(AdefyColor3 *)init:(int)r withG:(int)g withB:(int)b {
+-(AdefyColor3 *)init:(GLubyte)r
+               withG:(GLubyte)g
+               withB:(GLubyte)b {
   self = [super init];
 
   mR = r;
@@ -93,7 +98,9 @@
   return self;
 }
 
--(AdefyColor3 *)init:(float)r withGF:(float)g withBF:(float)b {
+-(AdefyColor3 *)init:(float)r
+              withGF:(float)g
+              withBF:(float)b {
   self = [super init];
 
   mRFloat = r;
@@ -101,9 +108,9 @@
   mBFloat = b;
   mAFloat = 1.0f;
 
-  mR = (int)(r * 255.0f);
-  mG = (int)(g * 255.0f);
-  mB = (int)(b * 255.0f);
+  mR = (GLubyte)(r * 255.0f);
+  mG = (GLubyte)(g * 255.0f);
+  mB = (GLubyte)(b * 255.0f);
   mA = 255;
 
   return self;

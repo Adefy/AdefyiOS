@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 #import "chipmunk.h"
+#import "AdefyRenderer.h"
 
 @class AdefyMaterial;
 @class AdefyRenderer;
@@ -9,10 +10,8 @@
 @interface AdefyActor : NSObject
 
 - (AdefyActor *)init:(int)id
-            vertices:(GLfloat *)vertices
-           vertCount:(unsigned int)vCount
-           texCoords:(GLfloat *)coords
-            texCount:(unsigned int)tCount;
+          vertexData:(VertexData2D *)vertexData
+         vertexCount:(GLuint)vertexCount;
 
 - (void) draw:(GLKMatrix4)projection;
 - (void) update;
@@ -27,9 +26,10 @@
                        offsetY:(float)offy
                          angle:(float)angle;
 
-- (cpVect *)generatePhysicsVerts:(GLfloat *)verts count:(unsigned int)count;
+- (cpVect *)generatePhysicsVerts;
 
-- (void)setPhysicsVerts:(cpVect *)verts count:(unsigned int)count;
+- (void)setPhysicsVerts:(cpVect *)verts
+                  count:(unsigned int)count;
 
 - (void) createPhysicsBody:(float)mass
                   friction:(float)friction
@@ -53,28 +53,27 @@
 - (float)  getRenderOffsetRotation;
 - (GLuint) getRenderMode;
 - (AdefyColor3 *) getColor;
-- (GLfloat *) getVertices;
+
+- (VertexData2D *)getVertexData;
 - (GLuint) getVertexCount;
-- (GLfloat *)getTexCoords;
-- (GLuint)getTexCoordCount;
+
 - (AdefyActor *) getAttachment;
 - (BOOL) hasAttachment;
 - (NSString *) getTextureName;
 
 - (void)setLayer:(int)layer;
 
-- (void)setPhysicsLayer:(unsigned int)layer;
+- (void)setPhysicsLayer:(GLubyte)layer;
 
 ////
 //// Setters
 ////
-- (void) setVertices:(GLfloat *)vertices
-              count:(unsigned int)count;
-- (void) setTexCoords:(GLfloat *)coords
-                count:(unsigned int)count;
+- (void) updateVerticesWith:(Vertex2D *)vertices;
+- (void) updateTexCoordsWith:(TextureCoord *)coords;
+
+- (void) setVertexIndices:(GLushort *)indices;
 
 - (void) setTexture:(NSString *)name;
-
 - (void) setVisible:(BOOL)isVisible;
 - (void) setPosition:(cpVect)position;
 - (void) setRenderOffset:(cpVect)offset;
@@ -83,6 +82,9 @@
 - (void) setRotation:(float)angle;
 - (void) setRotation:(float)angle inDegrees:(BOOL)degrees;
 - (void) setRenderOffsetRotation:(float)angle;
+
+- (void) setVertexData:(VertexData2D *)vertices count:(GLuint)count;
+
 - (void) setColor:(AdefyColor3 *)color;
 - (void) setAttachmentVisiblity:(BOOL)visible;
 

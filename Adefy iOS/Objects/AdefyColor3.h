@@ -5,15 +5,22 @@
 -(float *)toFloatArray;
 -(void)copyToFloatArray:(float *)array;
 
--(void)setR:(int)r;
--(void)setG:(int)g;
--(void)setB:(int)b;
+-(void)setR:(GLubyte)r;
+-(void)setG:(GLubyte)g;
+-(void)setB:(GLubyte)b;
+-(void)setA:(GLubyte)a;
 
--(int)getR;
--(int)getG;
--(int)getB;
+-(GLubyte)getR;
+-(GLubyte)getG;
+-(GLubyte)getB;
+-(GLubyte)getA;
 
--(AdefyColor3 *)init:(int)r withG:(int)g withB:(int)b;
--(AdefyColor3 *)init:(float)r withGF:(float)g withBF:(float)b;
+-(AdefyColor3 *)init:(GLubyte)r
+               withG:(GLubyte)g
+               withB:(GLubyte)b;
+
+-(AdefyColor3 *)init:(float)r
+              withGF:(float)g
+              withBF:(float)b;
 
 @end

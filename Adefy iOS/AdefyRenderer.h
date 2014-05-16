@@ -5,6 +5,32 @@
 @class AdefyActor;
 @class AdefyTexture;
 
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+#define TEX_COORD_F(f) (GLushort)(65535.0f * f)
+
+typedef struct {
+  GLshort x;
+  GLshort y;
+} Vertex2D;
+
+typedef struct {
+  GLushort u;
+  GLushort v;
+} TextureCoord;
+
+typedef struct {
+  GLubyte r;
+  GLubyte g;
+  GLubyte b;
+  GLubyte a;
+} Color4Data;
+
+typedef struct {
+  Vertex2D vertex;
+  TextureCoord texture;
+  Color4Data color;
+} VertexData2D;
+
 @interface AdefyRenderer : NSObject
 
 + (float) getPPM;
@@ -36,6 +62,10 @@
 - (void) removeActor:(AdefyActor *)actor;
 
 - (void)resortActorsByLayer;
+
+- (void)regenerateVBO;
+
+- (GLuint)getVBO;
 
 - (AdefyTexture *)getTexture:(NSString *)name;
 

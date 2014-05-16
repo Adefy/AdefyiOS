@@ -44,7 +44,7 @@ JSExportAs(setRenderMode, - (BOOL) setRenderMode:(unsigned int)mode id:(int)id);
 JSExportAs(updateVertices, - (BOOL) updateVertices:(NSString *)verts id:(int)id);
 JSExportAs(setActorPosition, - (BOOL) setActorPosition:(float)x y:(float)y id:(int)id);
 JSExportAs(setActorRotation, - (BOOL) setActorRotation:(float)angle id:(int)id radians:(BOOL)radians);
-JSExportAs(setActorColor, - (BOOL) setActorColor:(int)r g:(int)g b:(int)b id:(int)id);
+JSExportAs(setActorColor, - (BOOL) setActorColor:(GLubyte)r g:(GLubyte)g b:(GLubyte)b id:(int)id);
 JSExportAs(setActorTexture, - (BOOL) setActorTexture:(NSString *)name id:(int)id);
 
 JSExportAs(getVertices, - (NSString *) getVertices:(int)id);

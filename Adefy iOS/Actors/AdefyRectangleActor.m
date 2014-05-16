@@ -1,11 +1,7 @@
 #import "AdefyRectangleActor.h"
-#import "AdefyRenderer.h"
 
 @interface AdefyRectangleActor ()
-
-- (GLfloat *) generateVertices;
 - (void) refreshVertices;
-
 @end
 
 @implementation AdefyRectangleActor {
@@ -22,16 +18,43 @@
   mWidth = width;
   mHeight = height;
 
-  GLfloat *vertices = [self generateVertices];
-  GLfloat *texCoords = [self generateUVCoords];
+  VertexData2D *rawVerts = [self generateVertexData];
 
   self = [super init:id
-            vertices:vertices
-           vertCount:4
-           texCoords:texCoords
-            texCount:4];
+          vertexData:rawVerts
+         vertexCount:4];
 
   return self;
+}
+
+- (VertexData2D *) generateVertexData {
+
+  GLshort hW = (GLshort)(mWidth / 2.0f);
+  GLshort hH = (GLshort)(mHeight / 2.0f);
+
+  VertexData2D *data = malloc(sizeof(VertexData2D) * 4);
+
+  data[0].vertex.x = -hW;
+  data[0].vertex.y = -hH;
+  data[0].texture.u = TEX_COORD_F(0.0f);
+  data[0].texture.v = TEX_COORD_F(1.0f);
+
+  data[1].vertex.x = -hW;
+  data[1].vertex.y =  hH;
+  data[1].texture.u = TEX_COORD_F(0.0f);
+  data[1].texture.v = TEX_COORD_F(0.0f);
+
+  data[2].vertex.x =  hW;
+  data[2].vertex.y =  hH;
+  data[2].texture.u = TEX_COORD_F(1.0f);
+  data[2].texture.v = TEX_COORD_F(0.0f);
+
+  data[3].vertex.x =  hW;
+  data[3].vertex.y = -hH;
+  data[3].texture.u = TEX_COORD_F(1.0f);
+  data[3].texture.v = TEX_COORD_F(1.0f);
+
+  return data;
 }
 
 - (void)setWidth:(float)width {
@@ -48,44 +71,9 @@
 
 - (void) refreshVertices {
 
-  GLfloat *vertices = [self generateVertices];
-  [self setVertices:vertices count:4];
-  free(vertices);
-}
-
-- (GLfloat *) generateVertices {
-
-  float hW = mWidth / 2.0f;
-  float hH = mHeight / 2.0f;
-
-  GLfloat *vertices = malloc(sizeof(GLfloat) * 8);
-
-  vertices[0] = -hW;
-  vertices[1] = -hH;
-  vertices[2] = -hW;
-  vertices[3] =  hH;
-  vertices[4] =  hW;
-  vertices[5] =  hH;
-  vertices[6] =  hW;
-  vertices[7] = -hH;
-
-  return vertices;
-}
-
-- (GLfloat *) generateUVCoords {
-
-  GLfloat *coords = malloc(sizeof(GLfloat) * 8);
-
-  coords[0] = 0.0f;
-  coords[1] = 1.0f;
-  coords[2] = 0.0f;
-  coords[3] = 0.0f;
-  coords[4] = 1.0f;
-  coords[5] = 0.0f;
-  coords[6] = 1.0f;
-  coords[7] = 1.0f;
-
-  return coords;
+  VertexData2D *data = [self generateVertexData];
+  [self setVertexData:data
+                count:4];
 }
 
 - (float)getWidth  { return mWidth; }

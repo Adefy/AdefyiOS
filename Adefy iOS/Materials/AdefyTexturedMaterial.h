@@ -12,12 +12,10 @@
 - (void)setUScale:(GLfloat)U;
 - (void)setVScale:(GLfloat)V;
 
-- (void)draw:(GLKMatrix4)projection
-  withModelV:(GLKMatrix4)modelView
-    withVerts:(GLuint *)vertBuffer
-withVertCount:(int)vertCount
-withTexCoords:(GLuint *)texCoordBuffer
-withTexCCount:(int)texCount
+- (void) draw:(GLKMatrix4)projection
+   withModelV:(GLKMatrix4)modelView
+withIndiceBuffer:(GLuint)indiceBuffer
+withVertCount:(GLuint)vertCount
      withMode:(GLenum)mode;
 
 @end
