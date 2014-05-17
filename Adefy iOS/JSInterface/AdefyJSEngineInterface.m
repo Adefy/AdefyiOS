@@ -1,6 +1,5 @@
 #import "AdefyJSEngineInterface.h"
 #import "AdefyRenderer.h"
-#import <objc/message.h>
 
 @implementation AdefyJSEngineInterface {
 
@@ -46,7 +45,9 @@
   clearColor[2] = b / 255.0f;
   clearColor[3] = 1.0f;
 
-  [mRenderer setClearColor:clearColor];
+  [mRenderer updateClearColorWith:clearColor];
+
+  free(clearColor);
 }
 
 // STUB

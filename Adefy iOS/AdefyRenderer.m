@@ -329,7 +329,7 @@ static float PPM;
   mCameraPosition.y = v.y;
 }
 
-- (void) setClearColor:(GLfloat [4])color {
+- (void) updateClearColorWith:(GLfloat [4])color {
 
   mClearColor[0] = color[0];
   mClearColor[1] = color[1];

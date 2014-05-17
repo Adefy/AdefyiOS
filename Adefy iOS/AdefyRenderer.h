@@ -51,7 +51,7 @@ typedef struct {
 
 - (void)setCameraPosition:(cpVect)v;
 
-- (void) setClearColor:(GLfloat[4])color;
+- (void) updateClearColorWith:(GLfloat[4])color;
 - (void) addActor:(AdefyActor *)actor;
 - (void) removeActor:(AdefyActor *)actor;
 
