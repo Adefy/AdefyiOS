@@ -13,11 +13,13 @@ static AdefyPhysics *GLOBAL_INSTANCE;
 @protected
   ChipmunkSpace *mSpace;
 
+#if MULTI_THREADED_PHYSICS
   dispatch_queue_t mPhysicsQueue;
   dispatch_source_t mUpdateTimer;
 
   float mDt;
   BOOL mRunning;
+#endif
 }
 
 - (AdefyPhysics *)init {
@@ -26,6 +28,7 @@ static AdefyPhysics *GLOBAL_INSTANCE;
   mSpace = [[ChipmunkSpace alloc] init];
   mSpace.gravity = cpv(0.0f, -4.4f);
 
+#if MULTI_THREADED_PHYSICS
   mRunning = NO;
   mDt = 1.0f / 120.0f; // 120 FPS
 
@@ -34,6 +37,7 @@ static AdefyPhysics *GLOBAL_INSTANCE;
   mPhysicsQueue = dispatch_queue_create("com.sit.adefy.physicsqueue", nil);
 
   [self startUpdateLoop];
+#endif
 
   return self;
 }
@@ -46,6 +50,7 @@ static AdefyPhysics *GLOBAL_INSTANCE;
   return GLOBAL_INSTANCE;
 }
 
+#if MULTI_THREADED_PHYSICS
 - (void) startUpdateLoop {
 
   if(mRunning) {
@@ -77,33 +82,64 @@ static AdefyPhysics *GLOBAL_INSTANCE;
   dispatch_suspend(mUpdateTimer);
   mRunning = NO;
 }
+#endif
 
 - (ChipmunkBody *)getStaticBody {
   return mSpace.staticBody;
 }
 
 - (void)registerShape:(ChipmunkShape *)shape {
+#if MULTI_THREADED_PHYSICS
   dispatch_async(mPhysicsQueue, ^{
+#endif
+
     [mSpace addShape:shape];
+
+#if MULTI_THREADED_PHYSICS
   });
+#endif
 }
 
 - (void)registerBody:(ChipmunkBody *)body {
+#if MULTI_THREADED_PHYSICS
   dispatch_async(mPhysicsQueue, ^{
+#endif
+
     [mSpace addBody:body];
+
+#if MULTI_THREADED_PHYSICS
   });
+#endif
 }
 
 - (void)removeShape:(ChipmunkShape *)shape {
+#if MULTI_THREADED_PHYSICS
   dispatch_async(mPhysicsQueue, ^{
+#endif
+
     [mSpace removeShape:shape];
+
+#if MULTI_THREADED_PHYSICS
   });
+#endif
 }
 
 - (void)removeBody:(ChipmunkBody *)body {
+#if MULTI_THREADED_PHYSICS
   dispatch_async(mPhysicsQueue, ^{
+#endif
+
     [mSpace removeBody:body];
+
+#if MULTI_THREADED_PHYSICS
   });
+#endif
 }
+
+#if !MULTI_THREADED_PHYSICS
+- (void)update:(float)dt {
+  [mSpace step:dt];
+}
+#endif
 
 @end

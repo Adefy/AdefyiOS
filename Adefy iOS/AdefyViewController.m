@@ -141,6 +141,15 @@
 
 - (void)update {
 
+#if !MULTI_THREADED_PHYSICS
+
+  // Update physics in three steps, to minimise tunnelling
+  float dt = (float)[self timeSinceLastUpdate] / 3.0f;
+  [mPhysics update:dt];
+  [mPhysics update:dt];
+  [mPhysics update:dt];
+#endif
+
   [mAnimations update];
   [mRenderer update];
 }

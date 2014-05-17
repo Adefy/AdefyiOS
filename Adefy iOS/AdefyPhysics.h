@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+#define MULTI_THREADED_PHYSICS 0
+
 @class ChipmunkShape;
 @class ChipmunkBody;
 
@@ -13,5 +15,9 @@
 - (void)registerBody:(ChipmunkBody *)body;
 - (void)removeShape:(ChipmunkShape *)shape;
 - (void)removeBody:(ChipmunkBody *)body;
+
+#if !MULTI_THREADED_PHYSICS
+- (void)update:(float)dt;
+#endif
 
 @end
