@@ -3,6 +3,8 @@
 #import "AdefyMaterial.h"
 #import "AdefyTexture.h"
 
+#define THROTTLE_VBO_UPDATES 0
+
 static AdefyRenderer *GLOBAL_INSTANCE;
 static int LAST_ACTOR_ID;
 
@@ -35,6 +37,9 @@ NSUInteger nearestPowerOfTwo(NSUInteger v) {
   NSMutableArray *mTextures;
 
   GLuint mVBO;
+  GLuint mVBOUpdatesScheduled;
+  GLuint mVBOUpdateCount;
+  NSMutableArray *mVBOUpdateCancellations;
 }
 
 static float PPM;
@@ -66,10 +71,17 @@ static float PPM;
   mClearColor[2] = 0.0f;
   mClearColor[3] = 1.0f;
 
+  mVBOUpdatesScheduled = 0;
+  mVBOUpdateCount = 0;
+  mVBOUpdateCancellations = [[NSMutableArray alloc] init];
+
   glViewport(0, 0, width, height);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
+
+  // NOTE: We never bind another array buffer!
   glGenBuffers(1, &mVBO);
+  glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
   // TODO: Delete VBO on cleanup
 
@@ -90,29 +102,64 @@ static float PPM;
 }
 
 - (void) addActor:(AdefyActor *)actor {
-
   [mActors addObject:actor];
 
-  [self resortActorsByLayer];
+  [self resortActors];
   [self regenerateVBO];
+}
+
+- (void) resortActors {
+
+
 }
 
 - (void) removeActor:(AdefyActor *)actor {
   [mActors removeObject:actor];
 }
 
-- (void) resortActorsByLayer {
-
-  [mActors sortUsingComparator:^NSComparisonResult(id a, id b) {
-
-    NSNumber *aL = [[NSNumber alloc] initWithInt:[(AdefyActor *)a getLayer]];
-    NSNumber *bL = [[NSNumber alloc] initWithInt:[(AdefyActor *)b getLayer]];
-
-    return [aL compare:bL];
-  }];
-}
-
+/**
+* All actor vertices are stored in one central VBO, as we don't have a large range of actor types (we can draw
+* everything with the same shader).
+*
+* As a result, VBO re-generation is expensive with high actor counts, or in rapid succession! To compensate for this,
+* VBO re-generation is paced.
+*
+* Calling this method schedules a re-gen 20ms in the future. If it is called again before that re-gen occurs,
+* it is cancelled and a new one is scheduled.
+*
+* As such, it is best to create all of a scene's actors in BULK at the start of execution,
+* and simply make them visible when they are actually needed!
+*
+* VBO data construction happens on a background thread, which then signals back into the main thread for a GL upload.
+*
+* TODO: Add helpers to AJS to make this easier
+*/
 - (void) regenerateVBO {
+
+#if THROTTLE_VBO_UPDATES
+  dispatch_queue_t mainQ = dispatch_get_main_queue();
+  dispatch_time_t startTime = dispatch_time(DISPATCH_TIME_NOW, 20 * NSEC_PER_MSEC);
+
+  unsigned int updateID = [mVBOUpdateCancellations count];
+  [mVBOUpdateCancellations addObject:[[NSNumber alloc] initWithBool:NO]];
+
+  // Cancel all other updates
+  for(unsigned int i = 0; i < updateID; i++) {
+    [mVBOUpdateCancellations replaceObjectAtIndex:i withObject:[[NSNumber alloc] initWithBool:YES]];
+  }
+
+  // Perform generation
+  dispatch_after(startTime, mainQ, ^ {
+
+    // Check if we've been cancelled
+    if([[mVBOUpdateCancellations objectAtIndex:updateID] boolValue]) {
+      return;
+    } else {
+      [mVBOUpdateCancellations removeAllObjects];
+    }
+
+    mVBOUpdateCount++;
+#endif
 
   // Get total actor vert count for the malloc call
   unsigned int vertCount = 0;
@@ -131,41 +178,44 @@ static float PPM;
 
   for(i = 0; i < actorCount; i++) {
     actor = [mActors objectAtIndex:i];
-    actorVertCount = [actor getVertexCount];
-    actorData = [actor getVertexData];
 
-    // Store indices to send back to actor
-    indices = malloc(sizeof(GLushort) * actorVertCount);
+    // We include only actors requiring their own indices,
+    // and therefore providing their own vertices, in our VBO
+    if([actor hasOwnIndices]) {
+      actorVertCount = [actor getVertexCount];
+      actorData = [actor getVertexData];
 
-    for(j = 0; j < actorVertCount; j++) {
+      // Store indices to send back to actor
+      indices = malloc(sizeof(GLushort) * actorVertCount);
 
-      data[currentOffset].vertex.x = actorData[j].vertex.x;
-      data[currentOffset].vertex.y = actorData[j].vertex.y;
+      for(j = 0; j < actorVertCount; j++) {
 
-      data[currentOffset].texture.u = actorData[j].texture.u;
-      data[currentOffset].texture.v = actorData[j].texture.v;
+        data[currentOffset].vertex.x = actorData[j].vertex.x;
+        data[currentOffset].vertex.y = actorData[j].vertex.y;
 
-      data[currentOffset].color.r = actorData[j].color.r;
-      data[currentOffset].color.g = actorData[j].color.g;
-      data[currentOffset].color.b = actorData[j].color.b;
-      data[currentOffset].color.a = actorData[j].color.a;
+        data[currentOffset].texture.u = actorData[j].texture.u;
+        data[currentOffset].texture.v = actorData[j].texture.v;
 
-      indices[j] = currentOffset;
-      currentOffset++;
+        data[currentOffset].color.r = actorData[j].color.r;
+        data[currentOffset].color.g = actorData[j].color.g;
+        data[currentOffset].color.b = actorData[j].color.b;
+        data[currentOffset].color.a = actorData[j].color.a;
+
+        indices[j] = currentOffset;
+        currentOffset++;
+      }
+
+      // Give new indices to actor
+      [actor setVertexIndices:indices];
     }
-
-    // Give new indices to actor
-    [actor setVertexIndices:indices];
   }
 
-  // Upload data
-  glBindBuffer(GL_ARRAY_BUFFER, mVBO);
   glBufferData(GL_ARRAY_BUFFER, vertCount * sizeof(VertexData2D), data, GL_STATIC_DRAW);
-
-  // NOTE: The array buffer stays bound for rendering!
-
-  // Free giant array
   free(data);
+
+#if THROTTLE_VBO_UPDATES
+  });
+#endif
 }
 
 - (GLuint) getVBO {
@@ -352,7 +402,7 @@ static float PPM;
 }
 
 - (GLKMatrix4) generateProjection:(CGRect)rect {
-  return GLKMatrix4MakeOrtho(0, rect.size.width, 0, rect.size.height, -10, 10);
+  return GLKMatrix4MakeOrtho(0, rect.size.width, 0, rect.size.height, -100, 100);
 }
 
 - (AdefyActor *)getActorById:(int)id {

@@ -13,6 +13,8 @@
           vertexData:(VertexData2D *)vertexData
          vertexCount:(GLuint)vertexCount;
 
+- (AdefyActor *)init:(int)id1 vertexData:(VertexData2D *)vertexData vertexCount:(GLuint)vertexCount addToRenderer:(BOOL)addToRenderer;
+
 - (void) draw:(GLKMatrix4)projection;
 - (void) update;
 - (BOOL) hasPhysicsBody;
@@ -41,6 +43,12 @@
 - (NSString *)      getMaterialName;
 - (AdefyMaterial *) getMaterial;
 
+- (GLuint)getIndiceBuffer;
+
+- (GLuint *)getIndiceBufferPointer;
+
+- (void)addToOwnRenderer;
+
 - (int)getLayer;
 
 - (int)getPhysicsLayer;
@@ -59,6 +67,11 @@
 
 - (AdefyActor *) getAttachment;
 - (BOOL) hasAttachment;
+
+- (BOOL)hasOwnIndices;
+
+- (void)setHostIndiceBuffer:(GLuint *)buffer;
+
 - (NSString *) getTextureName;
 
 - (void)setLayer:(int)layer;

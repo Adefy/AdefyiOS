@@ -16,6 +16,7 @@ static GLuint STATIC_PROJECTION_HANDLE;
 static GLuint STATIC_UV_SCALE_HANDLE;
 static GLuint STATIC_TEX_COORD_HANDLE;
 static GLuint STATIC_TEX_SAMPLER_HANDLE;
+static GLuint STATIC_LAYER_HANDLE;
 
 static GLuint PREV_TEXTURE_HANDLE;
 
@@ -52,6 +53,7 @@ static GLuint PREV_TEXTURE_HANDLE;
 
   STATIC_UV_SCALE_HANDLE = (GLuint)glGetAttribLocation(STATIC_SHADER, "aUVScale");
   STATIC_TEX_COORD_HANDLE = (GLuint)glGetAttribLocation(STATIC_SHADER, "aTexCoord");
+  STATIC_LAYER_HANDLE = (GLuint) glGetUniformLocation(STATIC_SHADER, "Layer");
   STATIC_TEX_SAMPLER_HANDLE = (GLuint)glGetUniformLocation(STATIC_SHADER, "uTexture");
 
   NSLog(@"<Texture Material> Built shader");
@@ -88,6 +90,7 @@ static GLuint PREV_TEXTURE_HANDLE;
    withModelV:(GLKMatrix4)modelView
 withIndiceBuffer:(GLuint)indiceBuffer
 withVertCount:(GLuint)vertCount
+    withLayer:(GLint)layer
      withMode:(GLenum)mode {
 
 #ifdef DEBUG
@@ -114,8 +117,8 @@ withVertCount:(GLuint)vertCount
     [AdefySingleColorMaterial setJustUsed:false];
 
     // Alpha blending
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Texture! TODO: Create a texture atlas manager, that can stitch textures together
     glActiveTexture(GL_TEXTURE0);
@@ -135,6 +138,7 @@ withVertCount:(GLuint)vertCount
   // Setup actor state
   glUniformMatrix4fv(STATIC_PROJECTION_HANDLE, 1, GL_FALSE, projection.m);
   glUniformMatrix4fv(STATIC_MODEL_HANDLE, 1, GL_FALSE, modelView.m);
+  glUniform1i(STATIC_LAYER_HANDLE, layer);
 
 #ifdef DEBUG
   [self glErrorCheck:@"<TextureMaterial> Set uniforms"];

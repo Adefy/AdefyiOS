@@ -55,8 +55,6 @@ typedef struct {
 - (void) addActor:(AdefyActor *)actor;
 - (void) removeActor:(AdefyActor *)actor;
 
-- (void)resortActorsByLayer;
-
 - (void)regenerateVBO;
 
 - (GLuint)getVBO;

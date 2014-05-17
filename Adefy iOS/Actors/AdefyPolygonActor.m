@@ -1,11 +1,30 @@
 #import "AdefyPolygonActor.h"
-#import "AdefyRenderer.h"
+
+/**
+* We keep track of generated polygon actors, so that redundant radius/segment pairs can use
+* the same vertex entries in the renderer VBO. (They share indices).
+*
+* NOTE: Vertex data is still generated for every single actor!
+*       This is done in case actor verts/texture coords are ever updated, so our indices can be used.
+*/
+static NSMutableDictionary *POLY_ACTOR_IDS;
+
+/**
+* We also re-use raw vertices, since they are copied into vertex data anyways. This dictionary holds
+* pointers to raw vertices!
+*/
+static NSMutableDictionary *POLY_ACTOR_RAW_VERTS;
 
 @implementation AdefyPolygonActor {
 
 @protected
   float mRadius;
   unsigned int mSegments;
+}
+
++ (void) initialize {
+  POLY_ACTOR_IDS = [[NSMutableDictionary alloc] init];
+  POLY_ACTOR_RAW_VERTS = [[NSMutableDictionary alloc] init];
 }
 
 - (cpVect *) generatePhysicsVerts {
@@ -18,16 +37,25 @@
     physicsVerts[i] = [AdefyRenderer screenToWorld:cpv(raw[i * 2], raw[(i * 2) + 1])];
   }
 
-  free(raw);
-
   return physicsVerts;
 }
 
 /**
 * Generate high-precision float vertices, to be either used for physics, or converted to GLshorts for rendering
+* NOTE: The results of this method are cached! They should NOT be freed!
 */
 - (GLfloat *) generateRawVertices {
 
+  // Check if we've already performed this generation
+  NSString *genDefLookup = [[NSString alloc] initWithFormat:@"%f.%i", mRadius, mSegments];
+  NSValue *genDef = [POLY_ACTOR_RAW_VERTS valueForKey:genDefLookup];
+
+  // If so, return the cached pointer
+  if(genDef) {
+    return (GLfloat *)[genDef pointerValue];
+  }
+
+  // Else , continue onwards!
   unsigned int count = [self getVertexCount];
   GLfloat *verts = calloc(count * 2, sizeof(GLfloat));
   GLfloat *tempVerts = calloc(count * 2, sizeof(GLfloat));
@@ -64,6 +92,9 @@
 
   free(tempVerts);
 
+  // Cache verts
+  [POLY_ACTOR_RAW_VERTS setValue:[NSValue valueWithPointer:verts] forKey:genDefLookup];
+
   return verts;
 }
 
@@ -86,8 +117,6 @@
     data[i].texture.v = TEX_COORD_F(v);
   }
 
-  free(raw);
-
   return data;
 }
 
@@ -107,12 +136,42 @@
   mSegments = segments;
   mRadius = radius;
 
+  // Check if any poly actor has been created with the same parameters
+  NSString *polyDefLookup = [[NSString alloc] initWithFormat:@"%f.%i", radius, segments];
+  NSNumber *polyDef = [POLY_ACTOR_IDS objectForKey:polyDefLookup];
+
+  GLuint *indiceBuffer = nil;
+
+  // Poly already exists, grab indice buffer
+  if(polyDef) {
+    int defId = [polyDef intValue];
+
+    AdefyActor *actor = [[AdefyRenderer getGlobalInstance] getActorById:defId];
+
+    if(actor) {
+      indiceBuffer = [actor getIndiceBufferPointer];
+    }
+  } else {
+
+    // Add our def to the dictionary for future actors
+    polyDef = [[NSNumber alloc] initWithInt:id];
+    [POLY_ACTOR_IDS setObject:polyDef forKey:polyDefLookup];
+  }
+
   GLuint vertCount = [self getVertexCount];
   VertexData2D *data = [self generateVertexData];
 
+  // We only add ourselves to the renderer if no indice buffer was found
   self = [super init:id
           vertexData:data
-         vertexCount:vertCount];
+         vertexCount:vertCount
+       addToRenderer:indiceBuffer == nil];
+
+  // If we have a target host actor, set our indices up and register with the renderer
+  if(indiceBuffer != nil) {
+    [self setHostIndiceBuffer:indiceBuffer];
+    [self addToOwnRenderer];
+  }
 
   [self setRenderMode:GL_TRIANGLE_FAN];
 

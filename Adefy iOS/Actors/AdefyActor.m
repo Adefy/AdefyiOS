@@ -29,6 +29,9 @@
   GLuint mVertexIndiceBuffer;
   GLuint mVertexCount;
 
+  BOOL mUsesIndicesFromActor;
+  GLuint *mHostIndiceBuffer;
+
   GLenum mRenderMode;
 
   float mRotationRadians;
@@ -60,9 +63,27 @@
   AdefyActor* mAttachment;
 }
 
+/**
+* Default constructor, initialises us and registers ourselves with the renderer.
+*/
 - (AdefyActor *)init:(int)id
           vertexData:(VertexData2D *)vertexData
          vertexCount:(GLuint)vertexCount {
+
+  return [self init:id
+         vertexData:vertexData
+        vertexCount:vertexCount
+      addToRenderer:YES];
+}
+
+/**
+* Specialised internal constructor, allowing the caller to prevent our registration with the renderer (for the time
+* being).
+*/
+- (AdefyActor *)init:(int)id
+          vertexData:(VertexData2D *)vertexData
+         vertexCount:(GLuint)vertexCount
+       addToRenderer:(BOOL)addToRenderer {
 
   self = [super init];
 
@@ -83,7 +104,11 @@
   // Default is single color material
   mActiveMaterial = mColorMaterial;
 
-  mVertexIndiceBuffer = 0;
+  // Setup vertex indice buffer
+  glGenBuffers(1, &mVertexIndiceBuffer);
+  mUsesIndicesFromActor = NO;
+  mHostIndiceBuffer = nil;
+
   mVertexData = vertexData;
   mVertexCount = vertexCount;
 
@@ -97,9 +122,17 @@
   mPhysicsVertCount = mVertexCount;
   mPhysicsVertices = [self generatePhysicsVerts];
 
-  [self addToRenderer:mRenderer];
+  if(addToRenderer)
+    [self addToRenderer:mRenderer];
 
   return self;
+}
+
+/**
+* Useful helper, note that calls to this are not monitored! This should only be called once!
+*/
+- (void) addToOwnRenderer {
+  [self addToRenderer:mRenderer];
 }
 
 /**
@@ -121,11 +154,21 @@
 - (NSString *)      getTextureName          { return mTextureName; }
 - (NSString *)      getMaterialName         { return [mActiveMaterial getName]; }
 - (AdefyMaterial *) getMaterial             { return mActiveMaterial; }
+- (GLuint)          getIndiceBuffer         { return mVertexIndiceBuffer; }
+- (GLuint *)        getIndiceBufferPointer  { return &mVertexIndiceBuffer; }
 - (BOOL)            hasAttachment           { return mAttachment == nil; }
-
+- (BOOL)            hasOwnIndices           { return !mUsesIndicesFromActor; }
 
 /**
-* Set layer, also sets attachment layer (if we have one). Triggers a renderer actor resort!
+* Set a pointer to a "host" actor's indice buffer. This allows us to share vertex data, keeping VBO size down.
+*/
+- (void) setHostIndiceBuffer:(GLuint *)buffer {
+  mHostIndiceBuffer = buffer;
+  mUsesIndicesFromActor = YES;
+}
+
+/**
+* Set layer, also sets attachment layer (if we have one).
 */
 - (void) setLayer:(int)layer {
   mLayer = layer;
@@ -133,8 +176,6 @@
   if(mAttachment) {
     [mAttachment setLayer:mLayer];
   }
-
-  [mRenderer resortActorsByLayer];
 }
 
 /**
@@ -179,6 +220,12 @@
 - (void) setVertexData:(VertexData2D *)vertices
                  count:(GLuint)count {
 
+  // Make sure we use our own indices at this point
+  if(mUsesIndicesFromActor) {
+    mUsesIndicesFromActor = NO;
+    mHostIndiceBuffer = nil;
+  }
+
   if(mVertexData)
     free(mVertexData);
 
@@ -195,6 +242,12 @@
 */
 - (void) updateVerticesWith:(Vertex2D *)vertices {
 
+  // Make sure we use our own indices at this point
+  if(mUsesIndicesFromActor) {
+    mUsesIndicesFromActor = NO;
+    mHostIndiceBuffer = nil;
+  }
+
   for(GLuint i = 0; i < mVertexCount; i++) {
     mVertexData[i].vertex.x = vertices[i].x;
     mVertexData[i].vertex.y = vertices[i].y;
@@ -208,6 +261,12 @@
 * and triggers a renderer VBO regeneration!
 */
 - (void) updateTexCoordsWith:(TextureCoord *)coords {
+
+  // Make sure we use our own indices at this point
+  if(mUsesIndicesFromActor) {
+    mUsesIndicesFromActor = NO;
+    mHostIndiceBuffer = nil;
+  }
 
   for(GLuint i = 0; i < mVertexCount; i++) {
     mVertexData[i].texture.u = coords[i].u;
@@ -225,11 +284,7 @@
 */
 - (void) setVertexIndices:(GLushort *)indices {
 
-  if(mVertexIndiceBuffer)
-    glDeleteBuffers(1, &mVertexIndiceBuffer);
-
   // Setup indice buffer
-  glGenBuffers(1, &mVertexIndiceBuffer);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVertexIndiceBuffer);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * mVertexCount, indices, GL_STATIC_DRAW);
 
@@ -402,7 +457,11 @@
 * If we have an attachment, its state is updated to match ours and it is drawn instead.
 */
 - (void) draw:(GLKMatrix4)projection {
-  if(!mVisible) { return; }
+
+  // Notice that we don't attempt to draw ourselves if we haven't been assigned indices by the renderer!
+  // Renderer VBO re-generation is paced, so if we are in the middle of a rapid succession of actor creations,
+  // we won't get our indices untill it finishes.
+  if(!mVisible || mVertexIndiceBuffer == 0) { return; }
 
   // If we have an attachment, render that and return prematurely
   if(mAttachment != nil) {
@@ -415,6 +474,11 @@
   }
 
   [self setupRenderMatrix];
+
+  // Copy over indice buffer ID from our host, if we have one
+  if(mUsesIndicesFromActor && mHostIndiceBuffer != nil) {
+    mVertexIndiceBuffer = *mHostIndiceBuffer;
+  }
 
   if(mActiveMaterial == mColorMaterial) {
 
@@ -431,6 +495,7 @@
                 withModelV:mModelViewMatrix
           withIndiceBuffer:mVertexIndiceBuffer
              withVertCount:mVertexCount
+                 withLayer:mLayer
                   withMode:mRenderMode];
 
   }

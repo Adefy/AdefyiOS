@@ -136,7 +136,7 @@
   context[@"__iface_schedule_time_fn"] = ^(NSString *id, int ms) {
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, ms * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-      [__iface_run_time_fn callWithArguments:@[id]];
+        [__iface_run_time_fn callWithArguments:@[id]];
     });
   };
 

@@ -1,5 +1,14 @@
 #import "AdefyRectangleActor.h"
 
+/**
+* We keep track of generated rectangle actors, so that redundant radius/segment pairs can use
+* the same vertex entries in the renderer VBO. (They share indices).
+*
+* NOTE: Vertex data is still generated for every single actor!
+*       This is done in case actor verts/texture coords are ever updated, so our indices can be used.
+*/
+static NSMutableDictionary *RECT_ACTOR_IDS;
+
 @interface AdefyRectangleActor ()
 - (void) refreshVertices;
 @end
@@ -11,6 +20,10 @@
   float mHeight;
 }
 
++ (void) initialize {
+  RECT_ACTOR_IDS = [[NSMutableDictionary alloc] init];
+}
+
 - (AdefyRectangleActor *)init:(int)id
                         width:(float)width
                        height:(float)height {
@@ -18,11 +31,41 @@
   mWidth = width;
   mHeight = height;
 
+  // Check if any rect actor has been created with the same parameters
+  NSString *rectDefLookup = [[NSString alloc] initWithFormat:@"%f.%f", width, height];
+  NSNumber *rectDef = [RECT_ACTOR_IDS objectForKey:rectDefLookup];
+
+  GLuint *indiceBuffer = nil;
+
+  // Rectangle already exists, grab indice buffer
+  if(rectDef) {
+    int defId = [rectDef intValue];
+
+    AdefyActor *actor = [[AdefyRenderer getGlobalInstance] getActorById:defId];
+
+    if(actor) {
+      indiceBuffer = [actor getIndiceBufferPointer];
+    }
+  } else {
+
+    // Add our def to the dictionary for future actors
+    rectDef = [[NSNumber alloc] initWithInt:id];
+    [RECT_ACTOR_IDS setObject:rectDef forKey:rectDefLookup];
+  }
+
   VertexData2D *rawVerts = [self generateVertexData];
 
+  // We only add ourselves to the renderer if no indice buffer was found
   self = [super init:id
           vertexData:rawVerts
-         vertexCount:4];
+         vertexCount:4
+       addToRenderer:indiceBuffer == nil];
+
+  // If we have a target host actor, set our indices up and register with the renderer
+  if(indiceBuffer != nil) {
+    [self setHostIndiceBuffer:indiceBuffer];
+    [self addToOwnRenderer];
+  }
 
   return self;
 }

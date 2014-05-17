@@ -16,6 +16,7 @@
    withModelV:(GLKMatrix4)modelView
 withIndiceBuffer:(GLuint)indiceBuffer
 withVertCount:(GLuint)vertCount
+    withLayer:(GLint)layer
      withMode:(GLenum)mode;
 
 @end
