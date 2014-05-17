@@ -53,6 +53,11 @@ typedef struct {
 
 - (void) updateClearColorWith:(GLfloat[4])color;
 - (void) addActor:(AdefyActor *)actor;
+
+- (void)scheduleLayerSort;
+
+- (void)resortActorsByLayer;
+
 - (void) removeActor:(AdefyActor *)actor;
 
 - (void)regenerateVBO;

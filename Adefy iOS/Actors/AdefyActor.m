@@ -176,6 +176,8 @@
   if(mAttachment) {
     [mAttachment setLayer:mLayer];
   }
+
+  [mRenderer scheduleLayerSort];
 }
 
 /**

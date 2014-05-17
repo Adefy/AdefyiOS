@@ -40,6 +40,8 @@ NSUInteger nearestPowerOfTwo(NSUInteger v) {
   GLuint mVBOUpdatesScheduled;
   GLuint mVBOUpdateCount;
   NSMutableArray *mVBOUpdateCancellations;
+
+  BOOL mLayerSortScheduled;
 }
 
 static float PPM;
@@ -75,6 +77,8 @@ static float PPM;
   mVBOUpdateCount = 0;
   mVBOUpdateCancellations = [[NSMutableArray alloc] init];
 
+  mLayerSortScheduled = NO;
+
   glViewport(0, 0, width, height);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
@@ -104,13 +108,23 @@ static float PPM;
 - (void) addActor:(AdefyActor *)actor {
   [mActors addObject:actor];
 
-  [self resortActors];
+  mLayerSortScheduled = YES;
   [self regenerateVBO];
 }
 
-- (void) resortActors {
+- (void) scheduleLayerSort {
+  mLayerSortScheduled = YES;
+}
 
+- (void) resortActorsByLayer {
 
+  [mActors sortUsingComparator:^NSComparisonResult(id a, id b) {
+
+    return [[NSNumber numberWithInt:[(AdefyActor *)a getLayer]] compare:
+        [NSNumber numberWithInt:[(AdefyActor *)b getLayer]]];
+  }];
+
+  mLayerSortScheduled = NO;
 }
 
 - (void) removeActor:(AdefyActor *)actor {
@@ -417,6 +431,10 @@ static float PPM;
 }
 
 - (void)update {
+  if(mLayerSortScheduled) {
+    [self resortActorsByLayer];
+  }
+
   for(AdefyActor *actor in mActors) {
     [actor update];
   }
