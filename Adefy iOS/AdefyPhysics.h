@@ -13,6 +13,5 @@
 - (void)registerBody:(ChipmunkBody *)body;
 - (void)removeShape:(ChipmunkShape *)shape;
 - (void)removeBody:(ChipmunkBody *)body;
-- (void)update:(float)dt;
 
 @end

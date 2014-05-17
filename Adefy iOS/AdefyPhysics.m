@@ -11,14 +11,29 @@ static AdefyPhysics *GLOBAL_INSTANCE;
 @implementation AdefyPhysics {
 
 @protected
-  ChipmunkSpace *space;
+  ChipmunkSpace *mSpace;
+
+  dispatch_queue_t mPhysicsQueue;
+  dispatch_source_t mUpdateTimer;
+
+  float mDt;
+  BOOL mRunning;
 }
 
 - (AdefyPhysics *)init {
   self = [super init];
 
-  space = [[ChipmunkSpace alloc] init];
-  space.gravity = cpv(0.0f, -4.4f);
+  mSpace = [[ChipmunkSpace alloc] init];
+  mSpace.gravity = cpv(0.0f, -4.4f);
+
+  mRunning = NO;
+  mDt = 1.0f / 120.0f; // 120 FPS
+
+  // Setup queue and timer source
+  mUpdateTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, mPhysicsQueue);
+  mPhysicsQueue = dispatch_queue_create("com.sit.adefy.physicsqueue", nil);
+
+  [self startUpdateLoop];
 
   return self;
 }
@@ -31,28 +46,64 @@ static AdefyPhysics *GLOBAL_INSTANCE;
   return GLOBAL_INSTANCE;
 }
 
+- (void) startUpdateLoop {
+
+  if(mRunning) {
+    return;
+  }
+
+  // Setup timer
+  dispatch_time_t startTime = dispatch_time(DISPATCH_TIME_NOW, 0);
+  uint64_t intervalTime = (uint64_t)(mDt * NSEC_PER_SEC);
+  dispatch_source_set_timer(mUpdateTimer, startTime, intervalTime, 0);
+
+  // Register block
+  dispatch_source_set_event_handler(mUpdateTimer, ^{
+    dispatch_async(mPhysicsQueue, ^{
+      [mSpace step:mDt];
+    });
+  });
+
+  // GOGO!
+  dispatch_resume(mUpdateTimer);
+  mRunning = YES;
+}
+
+- (void) stopUpdateLoop {
+  if(!mRunning) {
+    return;
+  }
+
+  dispatch_suspend(mUpdateTimer);
+  mRunning = NO;
+}
+
 - (ChipmunkBody *)getStaticBody {
-  return space.staticBody;
+  return mSpace.staticBody;
 }
 
 - (void)registerShape:(ChipmunkShape *)shape {
-  [space addShape:shape];
+  dispatch_async(mPhysicsQueue, ^{
+    [mSpace addShape:shape];
+  });
 }
 
 - (void)registerBody:(ChipmunkBody *)body {
-  [space addBody:body];
+  dispatch_async(mPhysicsQueue, ^{
+    [mSpace addBody:body];
+  });
 }
 
 - (void)removeShape:(ChipmunkShape *)shape {
-  [space removeShape:shape];
+  dispatch_async(mPhysicsQueue, ^{
+    [mSpace removeShape:shape];
+  });
 }
 
 - (void)removeBody:(ChipmunkBody *)body {
-  [space removeBody:body];
-}
-
-- (void)update:(float)dt {
-  [space step:dt];
+  dispatch_async(mPhysicsQueue, ^{
+    [mSpace removeBody:body];
+  });
 }
 
 @end

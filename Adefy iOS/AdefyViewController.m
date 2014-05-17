@@ -143,7 +143,6 @@
 
   [mAnimations update];
   [mRenderer update];
-  [mPhysics update:(float)[self timeSinceLastUpdate]];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
