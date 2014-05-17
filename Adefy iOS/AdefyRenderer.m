@@ -56,7 +56,6 @@ static float PPM;
   mActors = [[NSMutableArray alloc] init];
   mTextures = [[NSMutableArray alloc] init];
 
-  mVBO = 0;
   mCameraPosition = cpv(0.0f, 0.0f);
   mActiveMaterial = [[NSMutableString alloc] init];
 
@@ -70,6 +69,9 @@ static float PPM;
   glViewport(0, 0, width, height);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
+  glGenBuffers(1, &mVBO);
+
+  // TODO: Delete VBO on cleanup
 
   NSLog(@"Initialized renderer %ix%i", width, height);
 
@@ -111,10 +113,6 @@ static float PPM;
 }
 
 - (void) regenerateVBO {
-
-  if(mVBO == 0) {
-    glDeleteBuffers(1, &mVBO);
-  }
 
   // Get total actor vert count for the malloc call
   unsigned int vertCount = 0;
@@ -160,8 +158,7 @@ static float PPM;
     [actor setVertexIndices:indices];
   }
 
-  // Generate buffer and upload data
-  glGenBuffers(1, &mVBO);
+  // Upload data
   glBindBuffer(GL_ARRAY_BUFFER, mVBO);
   glBufferData(GL_ARRAY_BUFFER, vertCount * sizeof(VertexData2D), data, GL_STATIC_DRAW);
 
@@ -352,18 +349,6 @@ static float PPM;
 
 + (AdefyRenderer *)getGlobalInstance {
   return GLOBAL_INSTANCE;
-}
-
-+ (void)createVertexBuffer:(GLuint *)buffer
-                 vertices:(GLfloat *)vertices
-                    count:(int)count
-               components:(unsigned int)components
-                   useage:(GLenum)useage {
-
-  glGenBuffers(1, buffer);
-  glBindBuffer(GL_ARRAY_BUFFER, *buffer);
-
-  glBufferData(GL_ARRAY_BUFFER, count * components * sizeof(GL_FLOAT), vertices, useage);
 }
 
 - (GLKMatrix4) generateProjection:(CGRect)rect {
