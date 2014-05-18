@@ -37,6 +37,14 @@
                BlueprintName = "Adefy iOSTests"
                ReferencedContainer = "container:Adefy iOS.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "Adefy_iOSTests">
+               </Test>
+               <Test
+                  Identifier = "Adefy_iOSTests/testExample">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

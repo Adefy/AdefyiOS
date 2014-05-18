@@ -24,8 +24,8 @@
 		09655CDC18F47CE9002D4C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB018F47CE9002D4C92 /* Foundation.framework */; };
 		09655CDD18F47CE9002D4C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB418F47CE9002D4C92 /* UIKit.framework */; };
 		09655CE518F47CE9002D4C92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09655CE318F47CE9002D4C92 /* InfoPlist.strings */; };
-		09655CE718F47CE9002D4C92 /* Adefy_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */; };
 		096598261917FE1F001FAE2D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096598251917FE1E001FAE2D /* AdSupport.framework */; };
+		09B377641928A1DA00BB3CD1 /* AdefyColor3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B377631928A1DA00BB3CD1 /* AdefyColor3Tests.m */; };
 		09F58E9319194BE700B41613 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F58E9219194BE700B41613 /* libz.dylib */; };
 		09F58EA119194C6400B41613 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F58E9719194C6400B41613 /* ioapi.c */; };
 		09F58EA219194C6400B41613 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F58E9919194C6400B41613 /* mztools.c */; };
@@ -137,8 +137,8 @@
 		09655CDA18F47CE9002D4C92 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		09655CE218F47CE9002D4C92 /* Adefy iOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Adefy iOSTests-Info.plist"; sourceTree = "<group>"; };
 		09655CE418F47CE9002D4C92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Adefy_iOSTests.m; sourceTree = "<group>"; };
 		096598251917FE1E001FAE2D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		09B377631928A1DA00BB3CD1 /* AdefyColor3Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyColor3Tests.m; sourceTree = "<group>"; };
 		09F58E9219194BE700B41613 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		09F58E9619194C6400B41613 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		09F58E9719194C6400B41613 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
@@ -370,7 +370,7 @@
 		09655CE018F47CE9002D4C92 /* Adefy iOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				09655CE618F47CE9002D4C92 /* Adefy_iOSTests.m */,
+				09B377631928A1DA00BB3CD1 /* AdefyColor3Tests.m */,
 				09655CE118F47CE9002D4C92 /* Supporting Files */,
 			);
 			path = "Adefy iOSTests";
@@ -649,7 +649,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09655CE718F47CE9002D4C92 /* Adefy_iOSTests.m in Sources */,
+				09B377641928A1DA00BB3CD1 /* AdefyColor3Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

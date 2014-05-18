@@ -32,7 +32,6 @@
   array[3] = mAFloat;
 }
 
-
 - (void)setR:(GLubyte)r {
   mR = r;
   mRFloat = (float)r / 255.0f;
@@ -108,9 +107,9 @@
   mBFloat = b;
   mAFloat = 1.0f;
 
-  mR = (GLubyte)(r * 255.0f);
-  mG = (GLubyte)(g * 255.0f);
-  mB = (GLubyte)(b * 255.0f);
+  mR = (GLubyte)round((r * 255.0f));
+  mG = (GLubyte)round((g * 255.0f));
+  mB = (GLubyte)round((b * 255.0f));
   mA = 255;
 
   return self;
