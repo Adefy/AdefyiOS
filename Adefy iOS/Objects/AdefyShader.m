@@ -8,7 +8,6 @@
 @end
 
 @implementation AdefyShader {
-
 }
 
 + (BOOL)buildProgram:(GLuint *)prog

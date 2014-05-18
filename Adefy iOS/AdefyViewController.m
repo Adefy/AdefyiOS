@@ -6,6 +6,7 @@
 #import "AdefyJSInterface.h"
 #import "AdefyDownloader.h"
 #import "AdefyAnimationManager.h"
+#import "AdefyTexturedMaterial.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -15,57 +16,69 @@
 
 @interface AdefyViewController () {
 
+  EAGLContext *mContext;
+
   GLKMatrix4 mProjectionMatrix;
   AdefyRenderer *mRenderer;
   AdefyPhysics *mPhysics;
   AdefyAnimationManager *mAnimations;
 
-  JSVirtualMachine *jsVM;
-  JSContext *jsContext;
-  AdefyJSInterface *jsInterface;
-  AdefyDownloader *downloader;
+  JSVirtualMachine *mJSVM;
+  JSContext *mJSContext;
+  AdefyJSInterface *mJSInterface;
+  AdefyDownloader *mDownloader;
 }
-
-- (void)initTest;
-
-@property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) GLKBaseEffect *effect;
 
 @end
 
 @implementation AdefyViewController
 
+/**
+* Called when we are first loaded, sets up all core Adefy classes and begins downloading an ad
+*/
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+  mJSVM = nil;
+  mJSContext = nil;
+  mJSInterface = nil;
 
-  if (!self.context) {
+  // Setup GL context
+  mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+  if (!mContext) {
     NSLog(@"Failed to create ES context");
   }
 
   GLKView *view = (GLKView *)self.view;
-  view.context = self.context;
+  view.context = mContext;
   view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 
-  [EAGLContext setCurrentContext:self.context];
-
+  [EAGLContext setCurrentContext:mContext];
   [self setPreferredFramesPerSecond:30];
 
-  downloader = [[AdefyDownloader alloc] init:@"FAKE_APIKEY"];
-  [downloader fetchAd:@"skittles" withDurationMS:1000 withTemplate:@"skittle_template" withCB:^{
-    [self initTest];
-  }];
-
-  mPhysics = [[AdefyPhysics alloc] init];
+  // Initialise core Adefy engines
   mRenderer = [[AdefyRenderer alloc] init:(GLsizei)self.view.bounds.size.width
                                    height:(GLsizei)self.view.bounds.size.height];
+  mPhysics = [[AdefyPhysics alloc] init];
   mAnimations = [[AdefyAnimationManager alloc] init:mRenderer];
 
+  // TODO: Remove the need for global instances
   [AdefyRenderer setGlobalInstance:mRenderer];
   [AdefyPhysics setGlobalInstance:mPhysics];
+
+  // TODO: Move ad download outside of the controller!
+  mDownloader = [[AdefyDownloader alloc] init:@"FAKE_APIKEY"];
+  [mDownloader fetchAd:@"skittles" withDurationMS:1000 withTemplate:@"skittle_template" withCB:^{
+    [self displayGLAd:@"skittles"];
+  }];
 }
 
+/**
+* This does a whole bunch of fun stuff. Initialises our JS VM/context/interface, and loads up the provided AJS
+* library and ad logic in the context.
+*
+* Note that the JS VM/Context/Interface is only ever created once!
+*/
 - (void)executeAdLogic:(NSString *)basePath
              withLogic:(NSString *)logicPath
                withAJS:(NSString *)AJSPath {
@@ -95,26 +108,24 @@
   }
 
   // Prepare context and interface
-  jsVM = [[JSVirtualMachine alloc] init];
-  jsContext = [[JSContext alloc] initWithVirtualMachine:jsVM];
-  jsInterface = [[AdefyJSInterface alloc] init:jsContext
-                                  withRenderer:mRenderer
-                          withAnimationManager:mAnimations];
+  if(mJSVM == nil) { mJSVM = [[JSVirtualMachine alloc] init]; }
+  if(mJSContext == nil) { mJSContext = [[JSContext alloc] initWithVirtualMachine:mJSVM]; }
+  if(mJSInterface == nil) {
+    mJSInterface = [[AdefyJSInterface alloc] init:mJSContext
+                                     withRenderer:mRenderer
+                             withAnimationManager:mAnimations];
+  }
 
-  [jsContext evaluateScript:AJS];
+  [mJSContext evaluateScript:AJS];
 
   // We have to map param manually (no actual window, we partially fake it)
-  [jsContext evaluateScript:@"var param = window.param;"];
+  [mJSContext evaluateScript:@"var param = window.param;"];
 
-  [jsContext evaluateScript:adLogic];
-}
-
-- (void)initTest {
-  [self displayGLAd:@"skittles"];
+  [mJSContext evaluateScript:adLogic];
 }
 
 - (void)dealloc {
-  if ([EAGLContext currentContext] == self.context) {
+  if ([EAGLContext currentContext] == mContext) {
     [EAGLContext setCurrentContext:nil];
   }
 }
@@ -125,15 +136,16 @@
   if ([self isViewLoaded] && ([[self view] window] == nil)) {
     self.view = nil;
 
-    if ([EAGLContext currentContext] == self.context) {
+    if ([EAGLContext currentContext] == mContext) {
       [EAGLContext setCurrentContext:nil];
     }
 
-    self.context = nil;
+    mContext = nil;
   }
 
   // Dispose of any resources that can be recreated.
   [AdefySingleColorMaterial destroyShader];
+  [AdefyTexturedMaterial destroyShader];
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
@@ -143,6 +155,7 @@
 #if !MULTI_THREADED_PHYSICS
 
   // Update physics in three steps, to minimise tunnelling
+  // If it's possible to unroll loops with a C pp #define, please let me know :)
   float dt = (float)[self timeSinceLastUpdate] / 3.0f;
   [mPhysics update:dt];
   [mPhysics update:dt];
@@ -157,9 +170,12 @@
   [mRenderer drawFrame:rect];
 }
 
+/**
+* Does everything necessary to get an ad on-screen by name. This does nothing if the ad isn't found!
+*/
 - (void)displayGLAd:(NSString *)name {
 
-  NSString *path = [downloader getPathForGLAd:name];
+  NSString *path = [mDownloader getPathForGLAd:name];
 
   // Ensure path exists
   BOOL isDir;
@@ -228,6 +244,7 @@
     }
   }
 
+  // BOOOOOOOM
   [self executeAdLogic:path
              withLogic:adFile
                withAJS:AJSFile];

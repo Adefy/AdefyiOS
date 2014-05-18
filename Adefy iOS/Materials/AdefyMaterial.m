@@ -16,6 +16,7 @@ static NSDictionary *GL_ERROR_NAMES;
   STATIC_VERT_SHADER_SRC = [[NSString alloc] init];
   STATIC_FRAG_SHADER_SRC = [[NSString alloc] init];
 
+  // Used by our sexy glErrorCheck()
   GL_ERROR_NAMES = @{
       @(GL_INVALID_ENUM): @"GL_INVALID_ENUM",
       @(GL_INVALID_VALUE): @"GL_INVALID_VALUE",

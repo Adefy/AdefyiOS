@@ -197,11 +197,11 @@
     AdefyColor3 *color = [mActor getColor];
 
     if([mPropComponent isEqualToString:@"r"]) {
-      [color setR:(int)value];
+      [color setR:(GLubyte)value];
     } else if([mPropComponent isEqualToString:@"g"]) {
-      [color setG:(int)value];
+      [color setG:(GLubyte)value];
     } else if([mPropComponent isEqualToString:@"b"]) {
-      [color setB:(int)value];
+      [color setB:(GLubyte)value];
     } else {
       NSLog(@"Component of color needs to be 'r','g', or 'b'! Got %@", mPropComponent);
       return;
