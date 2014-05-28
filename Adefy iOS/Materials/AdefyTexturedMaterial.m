@@ -18,6 +18,7 @@ static GLuint STATIC_TEX_COORD_HANDLE;
 static GLuint STATIC_TEX_SAMPLER_HANDLE;
 static GLuint STATIC_LAYER_HANDLE;
 
+static BOOL STATIC_SHADER_BUILT;
 static GLuint PREV_TEXTURE_HANDLE;
 
 @implementation AdefyTexturedMaterial {
@@ -33,6 +34,10 @@ static GLuint PREV_TEXTURE_HANDLE;
 + (void)initialize {
   STATIC_NAME = @"textured";
   STATIC_JUST_USED = NO;
+  STATIC_SHADER_BUILT = NO;
+}
+
++ (void)initShader {
 
   [self setVertSource:@"ShaderTexture"];
   [self setFragSource:@"ShaderTexture"];
@@ -44,6 +49,8 @@ static GLuint PREV_TEXTURE_HANDLE;
 
   NSString *vertSource = [self getVertSource];
   NSString *fragSource = [self getFragSource];
+
+  NSLog(@"Building with %@", vertSource);
 
   [AdefyShader buildProgram:&STATIC_SHADER withVert:vertSource withFrag:fragSource];
 
@@ -57,9 +64,16 @@ static GLuint PREV_TEXTURE_HANDLE;
   STATIC_TEX_SAMPLER_HANDLE = (GLuint)glGetUniformLocation(STATIC_SHADER, "uTexture");
 
   NSLog(@"<Texture Material> Built shader");
+
+  STATIC_SHADER_BUILT = YES;
+  STATIC_JUST_USED = NO;
 }
 
-+ (void)destroyShader { glDeleteProgram(STATIC_SHADER); }
++ (void)destroyShader {
+  glDeleteProgram(STATIC_SHADER);
+  STATIC_SHADER = 0;
+  STATIC_SHADER_BUILT = NO;
+}
 
 + (BOOL)wasJustUsed { return STATIC_JUST_USED; }
 + (void)setJustUsed:(BOOL)used { STATIC_JUST_USED = used; }
@@ -69,16 +83,8 @@ static GLuint PREV_TEXTURE_HANDLE;
 
 - (GLuint)getShader { return STATIC_SHADER; }
 
-- (AdefyTexturedMaterial *)init:(GLuint)handle
-                          withU:(GLfloat)U
-                          withV:(GLfloat)V {
+- (AdefyTexturedMaterial *)init {
   self = [super init];
-
-  mTextureHandle = handle;
-  mTextureU = U;
-  mTextureV = V;
-  mNeedsValueRefresh = NO;
-
   return self;
 }
 

@@ -16,4 +16,5 @@
 
 - (NSString *)getPathForGLAd:(NSString *)name;
 
+- (BOOL)adDownloaded:(NSString *)name;
 @end

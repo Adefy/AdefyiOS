@@ -27,6 +27,11 @@
   JSContext *mJSContext;
   AdefyJSInterface *mJSInterface;
   AdefyDownloader *mDownloader;
+
+  NSString *mTargetAdName;
+  NSString *mTargetAdTemplate;
+  NSNumber *mTargetAdDuration;
+  NSString *mAPIKey;
 }
 
 @end
@@ -66,11 +71,45 @@
   [AdefyRenderer setGlobalInstance:mRenderer];
   [AdefyPhysics setGlobalInstance:mPhysics];
 
-  // TODO: Move ad download outside of the controller!
-  mDownloader = [[AdefyDownloader alloc] init:@"FAKE_APIKEY"];
-  [mDownloader fetchAd:@"skittles" withDurationMS:1000 withTemplate:@"skittle_template" withCB:^{
-    [self displayGLAd:@"skittles"];
-  }];
+  if(!mAPIKey) {
+    mAPIKey = @"IOS_SDK_DEFAULT_KEY";
+    NSLog(@"Warning! No API key provided. Going with %@", mAPIKey);
+  }
+
+  if(!mTargetAdName) {
+    mTargetAdName = @"adefy_ios_sdk_default_ad";
+    mTargetAdTemplate = @"test";
+    NSLog(@"Warning! No target ad name provided. Going with %@ (template %@)", mTargetAdName, mTargetAdTemplate);
+  }
+
+  if(!mTargetAdDuration) {
+    mTargetAdDuration = [NSNumber numberWithInt:5000];
+    NSLog(@"Warning! No target ad duration specified, going with %ldms", (long)[mTargetAdDuration integerValue]);
+  }
+
+  mDownloader = [[AdefyDownloader alloc] init:mAPIKey];
+
+  // Download ad if needed, and show immediately
+  if(![mDownloader adDownloaded:mTargetAdName]) {
+
+    [mDownloader fetchAd:mTargetAdName
+          withDurationMS:[mTargetAdDuration integerValue]
+            withTemplate:mTargetAdTemplate withCB:^{
+        [self displayGLAd:mTargetAdName];
+    }];
+
+  } else {
+    [self displayGLAd:mTargetAdName];
+  }
+}
+
+- (void) launchForAd:(NSString *)name
+      withDurationMS:(NSNumber *)duration
+        withTemplate:(NSString *)template {
+
+  mTargetAdName = name;
+  mTargetAdDuration = duration;
+  mTargetAdTemplate = template;
 }
 
 /**
@@ -120,11 +159,14 @@
 
   // We have to map param manually (no actual window, we partially fake it)
   [mJSContext evaluateScript:@"var param = window.param;"];
-
   [mJSContext evaluateScript:adLogic];
 }
 
 - (void)dealloc {
+
+  [AdefySingleColorMaterial destroyShader];
+  [AdefyTexturedMaterial destroyShader];
+
   if ([EAGLContext currentContext] == mContext) {
     [EAGLContext setCurrentContext:nil];
   }

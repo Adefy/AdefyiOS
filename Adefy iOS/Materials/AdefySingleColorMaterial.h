@@ -1,10 +1,11 @@
-#import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 #import "AdefyMaterial.h"
 
 @class AdefyColor3;
 
 @interface AdefySingleColorMaterial : AdefyMaterial
+
++ (void)initShader;
 
 + (NSString *)getName;
 
@@ -14,9 +15,10 @@
 - (AdefyColor3 *)getColor;
 
 - (void)draw:(GLKMatrix4)projection
-   modelView:(GLKMatrix4)modelView
-       verts:(GLuint *)vertBuffer
-   vertCount:(int)vertCount
-        mode:(GLenum)mode;
+  withModelV:(GLKMatrix4)modelView
+    withIndiceBuffer:(GLuint)indiceBuffer
+    withVertCount:(GLuint)vertCount
+    withLayer:(GLint)layer
+    withMode:(GLenum)mode;
 
 @end

@@ -484,12 +484,12 @@
 
   if(mActiveMaterial == mColorMaterial) {
 
-    /* TODO: Fix color material to use new VBO system
     [mColorMaterial draw:projection
               withModelV:mModelViewMatrix
-                 indices:mVertexIndices
-               vertCount:mVertexCount
-                    mode:mRenderMode]; */
+        withIndiceBuffer:mVertexIndiceBuffer
+           withVertCount:mVertexCount
+               withLayer:mLayer
+                withMode:mRenderMode];
 
   } else if(mActiveMaterial == mTextureMaterial) {
 

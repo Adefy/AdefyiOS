@@ -3,4 +3,5 @@
 
 @interface AdefyViewController : GLKViewController
 
+- (void)launchForAd:(NSString *)name withDurationMS:(NSNumber *)duration withTemplate:(NSString *)template;
 @end

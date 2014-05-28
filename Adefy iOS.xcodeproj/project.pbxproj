@@ -17,15 +17,17 @@
 		09655CC118F47CE9002D4C92 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09655CC018F47CE9002D4C92 /* main.m */; };
 		09655CC518F47CE9002D4C92 /* AdefyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09655CC418F47CE9002D4C92 /* AdefyAppDelegate.m */; };
 		09655CC818F47CE9002D4C92 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09655CC618F47CE9002D4C92 /* Main_iPhone.storyboard */; };
-		09655CCB18F47CE9002D4C92 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09655CC918F47CE9002D4C92 /* Main_iPad.storyboard */; };
 		09655CD218F47CE9002D4C92 /* AdefyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09655CD118F47CE9002D4C92 /* AdefyViewController.m */; };
 		09655CD418F47CE9002D4C92 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09655CD318F47CE9002D4C92 /* Images.xcassets */; };
 		09655CDB18F47CE9002D4C92 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CDA18F47CE9002D4C92 /* XCTest.framework */; };
 		09655CDC18F47CE9002D4C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB018F47CE9002D4C92 /* Foundation.framework */; };
 		09655CDD18F47CE9002D4C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09655CB418F47CE9002D4C92 /* UIKit.framework */; };
 		09655CE518F47CE9002D4C92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09655CE318F47CE9002D4C92 /* InfoPlist.strings */; };
-		096598261917FE1F001FAE2D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096598251917FE1E001FAE2D /* AdSupport.framework */; };
 		09B377641928A1DA00BB3CD1 /* AdefyColor3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B377631928A1DA00BB3CD1 /* AdefyColor3Tests.m */; };
+		09F1E73B1935FD1900970426 /* AdefyMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F1E73A1935FD1900970426 /* AdefyMainViewController.m */; };
+		09F1E73E19364B3400970426 /* AdefyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F1E73D19364B3400970426 /* AdefyNavigationController.m */; };
+		09F1E741193666B800970426 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F1E73F193666B800970426 /* Default-568h@2x.png */; };
+		09F1E742193666B800970426 /* Default-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F1E740193666B800970426 /* Default-568h.png */; };
 		09F58E9319194BE700B41613 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F58E9219194BE700B41613 /* libz.dylib */; };
 		09F58EA119194C6400B41613 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F58E9719194C6400B41613 /* ioapi.c */; };
 		09F58EA219194C6400B41613 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 09F58E9919194C6400B41613 /* mztools.c */; };
@@ -35,10 +37,19 @@
 		2EB9D0B60FF259E6E12DEBE4 /* AdefyPhysics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D442F57E26D423A9D0C5 /* AdefyPhysics.m */; };
 		2EB9D15D7B882DF9CE0381A9 /* AdefyJSAnimationInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D7B5606033B6C9DC5240 /* AdefyJSAnimationInterface.m */; };
 		2EB9D189C913E10A0B3D9B33 /* AdefySingleColorMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DB7258BF83202B9C832B /* AdefySingleColorMaterial.m */; };
+		2EB9D27E316EAD76C050E27C /* oleoscript-regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9D8B8CF29D23FFFBC827A /* oleoscript-regular-webfont.ttf */; };
+		2EB9D308EF770DB531BD05E5 /* AdefyDemoMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D0F24A05999E535A555C /* AdefyDemoMenuController.m */; };
 		2EB9D3215F94785CF9F6CB75 /* AdefyTexturedMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D6385AC69BE5FEC78A95 /* AdefyTexturedMaterial.m */; };
+		2EB9D404AC6F2CD6855FEE55 /* car_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9DCEB70987346F9F1B3EE /* car_button.png */; };
+		2EB9D4FD4054150CD2DB4141 /* skittle_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9DE4B180F509728317E43 /* skittle_button.png */; };
 		2EB9D529E121C755076ACF04 /* ShaderSingleColor.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9DE2602A2819433076D1A /* ShaderSingleColor.vsh */; };
+		2EB9D53509CAA3A48615578D /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9DAC1CCDF66C38422CED6 /* ProximaNova-Regular.otf */; };
 		2EB9D5B3F3593746A1D7E3F0 /* AdefyRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D7E8655263BEF3D3663A /* AdefyRenderer.m */; };
 		2EB9D5B9F7A69389E1C05409 /* AdefyAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D56A87A5E08579F0D7FC /* AdefyAnimationManager.m */; };
+		2EB9D608FCAF903AEEFE6E93 /* car_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9DF85726D81F522155E7C /* car_button@2x.png */; };
+		2EB9D6104D6CF60C95216834 /* test_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9DF617AF33F220B3F93A7 /* test_button@2x.png */; };
+		2EB9D636A40CA9F45C594E7F /* watch_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9D8C2202BD59E0E4F15E3 /* watch_button@2x.png */; };
+		2EB9D656A9579F9D286F0A02 /* watch_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9D049B253B752ACE2EC81 /* watch_button.png */; };
 		2EB9D724B19EF6EBBB78EA63 /* AdefyShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D5AE7D1269607D4CA9AE /* AdefyShader.m */; };
 		2EB9D78A3A9FBA95E4E4BAE7 /* AdefyJSInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DD258F0BA49CDCEBBE6C /* AdefyJSInterface.m */; };
 		2EB9D7B09D64AEB4A182172C /* AdefyActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DD26FC09AEA5C7BB84DB /* AdefyActor.m */; };
@@ -52,7 +63,9 @@
 		2EB9DC52E05347D39AF8B0EE /* AdefyMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DF263ADCA010FDE055AA /* AdefyMaterial.m */; };
 		2EB9DC84500A13C3E2E9206C /* AdefyRectangleActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D720C130100B16B6F8C6 /* AdefyRectangleActor.m */; };
 		2EB9DCDED4E59136DB4B9F4D /* AdefyBezAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D5ECE829E1BE83AD9B80 /* AdefyBezAnimation.m */; };
+		2EB9DD0905B2C1CDA794B084 /* test_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9DDA2977AD825F7B33032 /* test_button.png */; };
 		2EB9DD317222AC528DBE9F07 /* AdefyTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9D7093A86FF89655CFE97 /* AdefyTexture.m */; };
+		2EB9DE70613FE5370969E6E5 /* skittle_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9DAE7CE86D0A12E9FD49F /* skittle_button@2x.png */; };
 		2EB9DE96DDCC1AF1523E37AB /* ShaderTexture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 2EB9D3ADBCDBE722D20E60E7 /* ShaderTexture.vsh */; };
 		2EB9DEE5411EDC0B0DD18663 /* AdefyJSActorInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DF7BF67D528EBB45BD59 /* AdefyJSActorInterface.m */; };
 		2EB9DEF650A9620F543F157F /* AdefyDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB9DE00DEEF354C39F3C918 /* AdefyDownloader.m */; };
@@ -129,7 +142,6 @@
 		09655CC318F47CE9002D4C92 /* AdefyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdefyAppDelegate.h; sourceTree = "<group>"; };
 		09655CC418F47CE9002D4C92 /* AdefyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdefyAppDelegate.m; sourceTree = "<group>"; };
 		09655CC718F47CE9002D4C92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		09655CCA18F47CE9002D4C92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		09655CD018F47CE9002D4C92 /* AdefyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdefyViewController.h; sourceTree = "<group>"; };
 		09655CD118F47CE9002D4C92 /* AdefyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdefyViewController.m; sourceTree = "<group>"; };
 		09655CD318F47CE9002D4C92 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -139,6 +151,12 @@
 		09655CE418F47CE9002D4C92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		096598251917FE1E001FAE2D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		09B377631928A1DA00BB3CD1 /* AdefyColor3Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyColor3Tests.m; sourceTree = "<group>"; };
+		09F1E7391935FD1900970426 /* AdefyMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyMainViewController.h; sourceTree = "<group>"; };
+		09F1E73A1935FD1900970426 /* AdefyMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyMainViewController.m; sourceTree = "<group>"; };
+		09F1E73C19364B3400970426 /* AdefyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyNavigationController.h; sourceTree = "<group>"; };
+		09F1E73D19364B3400970426 /* AdefyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyNavigationController.m; sourceTree = "<group>"; };
+		09F1E73F193666B800970426 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Assets/Default-568h@2x.png"; sourceTree = "<group>"; };
+		09F1E740193666B800970426 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h.png"; path = "Assets/Default-568h.png"; sourceTree = "<group>"; };
 		09F58E9219194BE700B41613 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		09F58E9619194C6400B41613 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		09F58E9719194C6400B41613 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
@@ -151,8 +169,10 @@
 		09F58E9E19194C6400B41613 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		09F58E9F19194C6400B41613 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
 		09F58EA019194C6400B41613 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		2EB9D049B253B752ACE2EC81 /* watch_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watch_button.png; path = Assets/watch_button.png; sourceTree = "<group>"; };
 		2EB9D078C217A58F17C0BFED /* AdefyJSEngineInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSEngineInterface.h; sourceTree = "<group>"; };
 		2EB9D0C265BB7A0A171EB7D5 /* AdefyJSAnimationInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSAnimationInterface.h; sourceTree = "<group>"; };
+		2EB9D0F24A05999E535A555C /* AdefyDemoMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyDemoMenuController.m; sourceTree = "<group>"; };
 		2EB9D118EFDDD17C14879BA7 /* AdefySingleColorMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefySingleColorMaterial.h; sourceTree = "<group>"; };
 		2EB9D1520645E8E457089BBA /* AdefyShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyShader.h; sourceTree = "<group>"; };
 		2EB9D1C401E46177C26C3DBE /* AdefyAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyAnimation.h; sourceTree = "<group>"; };
@@ -165,6 +185,7 @@
 		2EB9D3D464CE444AFBDDBC09 /* ShaderSingleColor.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderSingleColor.fsh; sourceTree = "<group>"; };
 		2EB9D3D91035EEACF4467FCC /* AdefyColor3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyColor3.m; sourceTree = "<group>"; };
 		2EB9D3E153BC5D1B7A953CB2 /* AdefyTexturedMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyTexturedMaterial.h; sourceTree = "<group>"; };
+		2EB9D3FDF20E25CE72095320 /* AdefyViewStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyViewStyles.h; sourceTree = "<group>"; };
 		2EB9D442F57E26D423A9D0C5 /* AdefyPhysics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyPhysics.m; sourceTree = "<group>"; };
 		2EB9D52B7ECC448E95F818C5 /* AdefyMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyMaterial.h; sourceTree = "<group>"; };
 		2EB9D56A87A5E08579F0D7FC /* AdefyAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyAnimationManager.m; sourceTree = "<group>"; };
@@ -176,24 +197,34 @@
 		2EB9D7382BEE1535295687F4 /* AdefyPhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyPhysics.h; sourceTree = "<group>"; };
 		2EB9D7B5606033B6C9DC5240 /* AdefyJSAnimationInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyJSAnimationInterface.m; sourceTree = "<group>"; };
 		2EB9D7E8655263BEF3D3663A /* AdefyRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyRenderer.m; sourceTree = "<group>"; };
+		2EB9D8B8CF29D23FFFBC827A /* oleoscript-regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; name = "oleoscript-regular-webfont.ttf"; path = "Assets/oleoscript-regular-webfont.ttf"; sourceTree = "<group>"; };
+		2EB9D8C2202BD59E0E4F15E3 /* watch_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watch_button@2x.png"; path = "Assets/watch_button@2x.png"; sourceTree = "<group>"; };
 		2EB9D909C2465C0BE4AE25B9 /* AdefyRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyRenderer.h; sourceTree = "<group>"; };
 		2EB9D961131F4EE491D24713 /* AdefyJSInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSInterface.h; sourceTree = "<group>"; };
 		2EB9D9A5A52C81531517CD90 /* AdefyVertAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyVertAnimation.h; sourceTree = "<group>"; };
+		2EB9D9AB44B4933A1D933F6B /* AdefyDemoMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyDemoMenuController.h; sourceTree = "<group>"; };
+		2EB9DAC1CCDF66C38422CED6 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file.otf; name = "ProximaNova-Regular.otf"; path = "Assets/ProximaNova-Regular.otf"; sourceTree = "<group>"; };
+		2EB9DAE7CE86D0A12E9FD49F /* skittle_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skittle_button@2x.png"; path = "Assets/skittle_button@2x.png"; sourceTree = "<group>"; };
 		2EB9DB3CEC6CD699ACC02D3E /* AdefyTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyTexture.h; sourceTree = "<group>"; };
 		2EB9DB7258BF83202B9C832B /* AdefySingleColorMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefySingleColorMaterial.m; sourceTree = "<group>"; };
 		2EB9DC802A2C9E34108F063D /* AdefyPolygonActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyPolygonActor.m; sourceTree = "<group>"; };
 		2EB9DC9B3F4AF72D120A28A5 /* AdefyJSActorInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyJSActorInterface.h; sourceTree = "<group>"; };
 		2EB9DCC44CF9B463B9DE59C4 /* AdefyAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyAnimation.m; sourceTree = "<group>"; };
 		2EB9DCE1DC2F105FF103C163 /* AdefyVertAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyVertAnimation.m; sourceTree = "<group>"; };
+		2EB9DCEB70987346F9F1B3EE /* car_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car_button.png; path = Assets/car_button.png; sourceTree = "<group>"; };
 		2EB9DD258F0BA49CDCEBBE6C /* AdefyJSInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyJSInterface.m; sourceTree = "<group>"; };
 		2EB9DD26FC09AEA5C7BB84DB /* AdefyActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyActor.m; sourceTree = "<group>"; };
 		2EB9DD4B02C86A8CAD1F9948 /* AdefyJSEngineInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyJSEngineInterface.m; sourceTree = "<group>"; };
+		2EB9DDA2977AD825F7B33032 /* test_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test_button.png; path = Assets/test_button.png; sourceTree = "<group>"; };
 		2EB9DE00DEEF354C39F3C918 /* AdefyDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyDownloader.m; sourceTree = "<group>"; };
 		2EB9DE2602A2819433076D1A /* ShaderSingleColor.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderSingleColor.vsh; sourceTree = "<group>"; };
+		2EB9DE4B180F509728317E43 /* skittle_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skittle_button.png; path = Assets/skittle_button.png; sourceTree = "<group>"; };
 		2EB9DEBBB626CA0774C659D1 /* AdefyAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyAnimationManager.h; sourceTree = "<group>"; };
 		2EB9DF263ADCA010FDE055AA /* AdefyMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyMaterial.m; sourceTree = "<group>"; };
 		2EB9DF402EEBC69253F3D9CF /* AdefyDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyDownloader.h; sourceTree = "<group>"; };
+		2EB9DF617AF33F220B3F93A7 /* test_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "test_button@2x.png"; path = "Assets/test_button@2x.png"; sourceTree = "<group>"; };
 		2EB9DF7BF67D528EBB45BD59 /* AdefyJSActorInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdefyJSActorInterface.m; sourceTree = "<group>"; };
+		2EB9DF85726D81F522155E7C /* car_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "car_button@2x.png"; path = "Assets/car_button@2x.png"; sourceTree = "<group>"; };
 		2EB9DFEA0DFD5B0D0171408D /* AdefyColor3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdefyColor3.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,7 +234,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				09F58E9319194BE700B41613 /* libz.dylib in Frameworks */,
-				096598261917FE1F001FAE2D /* AdSupport.framework in Frameworks */,
 				093082BA18FA9443005D8336 /* JavaScriptCore.framework in Frameworks */,
 				09655CB918F47CE9002D4C92 /* OpenGLES.framework in Frameworks */,
 				09655CB318F47CE9002D4C92 /* CoreGraphics.framework in Frameworks */,
@@ -335,12 +365,15 @@
 		09655CBA18F47CE9002D4C92 /* Adefy iOS */ = {
 			isa = PBXGroup;
 			children = (
+				09F1E73F193666B800970426 /* Default-568h@2x.png */,
+				09F1E740193666B800970426 /* Default-568h.png */,
 				09F58E9419194C6400B41613 /* SSZipArchive */,
 				09BDCD11191572C900675212 /* Resources */,
 				09655CC318F47CE9002D4C92 /* AdefyAppDelegate.h */,
 				09655CC418F47CE9002D4C92 /* AdefyAppDelegate.m */,
 				09655CC618F47CE9002D4C92 /* Main_iPhone.storyboard */,
-				09655CC918F47CE9002D4C92 /* Main_iPad.storyboard */,
+				09F1E7391935FD1900970426 /* AdefyMainViewController.h */,
+				09F1E73A1935FD1900970426 /* AdefyMainViewController.m */,
 				09655CD018F47CE9002D4C92 /* AdefyViewController.h */,
 				09655CD118F47CE9002D4C92 /* AdefyViewController.m */,
 				09655CD318F47CE9002D4C92 /* Images.xcassets */,
@@ -352,6 +385,21 @@
 				2EB9D38DFECAD732341FA1B3 /* Shaders */,
 				2EB9DF5375BDF865ABD5CF1C /* Animations */,
 				2EB9D26DE644D33F55002BB4 /* Core */,
+				2EB9D8B8CF29D23FFFBC827A /* oleoscript-regular-webfont.ttf */,
+				2EB9DAC1CCDF66C38422CED6 /* ProximaNova-Regular.otf */,
+				2EB9D049B253B752ACE2EC81 /* watch_button.png */,
+				2EB9D0F24A05999E535A555C /* AdefyDemoMenuController.m */,
+				2EB9D9AB44B4933A1D933F6B /* AdefyDemoMenuController.h */,
+				2EB9D3FDF20E25CE72095320 /* AdefyViewStyles.h */,
+				2EB9DCEB70987346F9F1B3EE /* car_button.png */,
+				2EB9DF85726D81F522155E7C /* car_button@2x.png */,
+				2EB9DE4B180F509728317E43 /* skittle_button.png */,
+				2EB9DAE7CE86D0A12E9FD49F /* skittle_button@2x.png */,
+				2EB9DDA2977AD825F7B33032 /* test_button.png */,
+				2EB9DF617AF33F220B3F93A7 /* test_button@2x.png */,
+				2EB9D8C2202BD59E0E4F15E3 /* watch_button@2x.png */,
+				09F1E73C19364B3400970426 /* AdefyNavigationController.h */,
+				09F1E73D19364B3400970426 /* AdefyNavigationController.m */,
 			);
 			path = "Adefy iOS";
 			sourceTree = "<group>";
@@ -557,7 +605,7 @@
 			attributes = {
 				CLASSPREFIX = Adefy;
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = Adefy;
+				ORGANIZATIONNAME = "Spectrum IT Solutions GmbH";
 				TargetAttributes = {
 					09655CD818F47CE9002D4C92 = {
 						TestTargetID = 09655CAC18F47CE9002D4C92;
@@ -588,7 +636,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09655CCB18F47CE9002D4C92 /* Main_iPad.storyboard in Resources */,
 				09655CC818F47CE9002D4C92 /* Main_iPhone.storyboard in Resources */,
 				09655CD418F47CE9002D4C92 /* Images.xcassets in Resources */,
 				09655CBF18F47CE9002D4C92 /* InfoPlist.strings in Resources */,
@@ -596,6 +643,18 @@
 				2EB9D529E121C755076ACF04 /* ShaderSingleColor.vsh in Resources */,
 				2EB9DB81318AF545C9796350 /* ShaderTexture.fsh in Resources */,
 				2EB9DE96DDCC1AF1523E37AB /* ShaderTexture.vsh in Resources */,
+				2EB9D27E316EAD76C050E27C /* oleoscript-regular-webfont.ttf in Resources */,
+				2EB9D53509CAA3A48615578D /* ProximaNova-Regular.otf in Resources */,
+				2EB9D656A9579F9D286F0A02 /* watch_button.png in Resources */,
+				2EB9D404AC6F2CD6855FEE55 /* car_button.png in Resources */,
+				09F1E741193666B800970426 /* Default-568h@2x.png in Resources */,
+				2EB9D608FCAF903AEEFE6E93 /* car_button@2x.png in Resources */,
+				2EB9D4FD4054150CD2DB4141 /* skittle_button.png in Resources */,
+				09F1E742193666B800970426 /* Default-568h.png in Resources */,
+				2EB9DE70613FE5370969E6E5 /* skittle_button@2x.png in Resources */,
+				2EB9DD0905B2C1CDA794B084 /* test_button.png in Resources */,
+				2EB9D6104D6CF60C95216834 /* test_button@2x.png in Resources */,
+				2EB9D636A40CA9F45C594E7F /* watch_button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +673,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F1E73E19364B3400970426 /* AdefyNavigationController.m in Sources */,
 				09655CC518F47CE9002D4C92 /* AdefyAppDelegate.m in Sources */,
 				09655CD218F47CE9002D4C92 /* AdefyViewController.m in Sources */,
 				09F58EA219194C6400B41613 /* mztools.c in Sources */,
@@ -627,6 +687,7 @@
 				2EB9DA4789DF71BD2A0142DE /* AdefyColor3.m in Sources */,
 				2EB9D724B19EF6EBBB78EA63 /* AdefyShader.m in Sources */,
 				2EB9DC84500A13C3E2E9206C /* AdefyRectangleActor.m in Sources */,
+				09F1E73B1935FD1900970426 /* AdefyMainViewController.m in Sources */,
 				2EB9D78A3A9FBA95E4E4BAE7 /* AdefyJSInterface.m in Sources */,
 				2EB9DEE5411EDC0B0DD18663 /* AdefyJSActorInterface.m in Sources */,
 				2EB9D15D7B882DF9CE0381A9 /* AdefyJSAnimationInterface.m in Sources */,
@@ -642,6 +703,7 @@
 				2EB9DEF650A9620F543F157F /* AdefyDownloader.m in Sources */,
 				2EB9D0B60FF259E6E12DEBE4 /* AdefyPhysics.m in Sources */,
 				2EB9D5B3F3593746A1D7E3F0 /* AdefyRenderer.m in Sources */,
+				2EB9D308EF770DB531BD05E5 /* AdefyDemoMenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,14 +740,6 @@
 				09655CC718F47CE9002D4C92 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		09655CC918F47CE9002D4C92 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				09655CCA18F47CE9002D4C92 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		09655CE318F47CE9002D4C92 /* InfoPlist.strings */ = {
@@ -733,8 +787,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "B97B19E2-EE1E-42E3-9825-210B16FDE8E9";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -754,7 +809,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Spectrum IT Solutions GmbH (8KK6B6Y67A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -766,8 +822,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "B97B19E2-EE1E-42E3-9825-210B16FDE8E9";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -810,7 +867,8 @@
 					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "4BF4BCD1-FC48-4492-AA85-04B94587AB27";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -849,7 +907,8 @@
 					"\"$(SRCROOT)/ChipmunkPro-6.2.1/build/Release-iphoneos/libObjectiveChipmunk.a\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "4BF4BCD1-FC48-4492-AA85-04B94587AB27";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

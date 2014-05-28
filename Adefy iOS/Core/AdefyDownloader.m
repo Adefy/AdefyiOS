@@ -214,7 +214,6 @@ NSMutableString *CACHE_DIR;
       NSString *finalFilename = [NSString stringWithFormat:@"%@.ttx", downloadPath];
       NSString *extractPath = [NSString stringWithFormat:@"%@_extracted/", downloadPath];
 
-
       // Perform download (blocks!)
       [data writeToFile:finalFilename atomically:YES];
 
@@ -237,6 +236,18 @@ NSMutableString *CACHE_DIR;
 
 - (NSString *)getPathForGLAd:(NSString *)name {
   return [NSString stringWithFormat:@"%@%@_extracted/", CACHE_DIR, name];
+}
+
+- (BOOL)adDownloaded:(NSString *)name {
+  NSString *path = [self getPathForGLAd:name];
+
+  // Ensure path exists
+  BOOL isDir;
+  BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path
+                                                         isDirectory:&isDir];
+
+  return !(!fileExists || !isDir);
+
 }
 
 @end

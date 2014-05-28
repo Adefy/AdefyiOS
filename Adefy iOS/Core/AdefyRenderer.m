@@ -2,6 +2,8 @@
 #import "AdefyActor.h"
 #import "AdefyMaterial.h"
 #import "AdefyTexture.h"
+#import "AdefyTexturedMaterial.h"
+#import "AdefySingleColorMaterial.h"
 
 #define THROTTLE_VBO_UPDATES 0
 
@@ -91,6 +93,11 @@ static float PPM;
 
   NSLog(@"Initialized renderer %ix%i", width, height);
 
+  [AdefyTexturedMaterial initShader];
+  [AdefySingleColorMaterial initShader];
+
+  NSLog(@"Initialised shaders");
+
   return self;
 }
 
@@ -178,8 +185,11 @@ static float PPM;
   // Get total actor vert count for the malloc call
   unsigned int vertCount = 0;
 
-  for(AdefyActor *actor in mActors)
-    vertCount += [actor getVertexCount];
+  for(AdefyActor *actor in mActors) {
+    if([actor hasOwnIndices]) {
+      vertCount += [actor getVertexCount];
+    }
+  }
 
   // Build raw VB data for upload
   VertexData2D *data = malloc(sizeof(VertexData2D) * vertCount);
@@ -448,14 +458,17 @@ static float PPM;
 
   for(AdefyActor *actor in mActors) {
 
-    // Switch material if needed
-    if(![mActiveMaterial isEqualToString:[actor getMaterialName]]) {
+    if([[actor getMaterial] getShader] != 0) {
 
-      glUseProgram([[actor getMaterial] getShader]);
-      [mActiveMaterial setString:[actor getMaterialName]];
+      // Switch material if needed
+      if (![mActiveMaterial isEqualToString:[actor getMaterialName]]) {
+
+        glUseProgram([[actor getMaterial] getShader]);
+        [mActiveMaterial setString:[actor getMaterialName]];
+      }
+
+      [actor draw:projection];
     }
-
-    [actor draw:projection];
   }
 }
 
